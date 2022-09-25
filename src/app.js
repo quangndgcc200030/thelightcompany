@@ -6,6 +6,14 @@ const exphbs = require('express-handlebars')
 const route = require('./routes')
 const db = require('./config/db')
 
+//Connect to DB
+try {
+    db.connect();
+    console.log('Connect database successfully!')
+} catch (error) {
+    console.log('Connect database fail!')
+}
+
 const hbs = require('handlebars')
 hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
 const app = express()
@@ -28,15 +36,6 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 //Routes init
 route(app)
 
-let port = process.env.PORT
-app.listen(port, function () {
+app.listen(process.env.PORT, function () {
     console.log("Access at http://localhost:%d in %s mode", this.address().port, app.settings.env);
 });
-
-//Connect to DB
-try {
-    db.connect();
-    console.log('connect successfully!')
-} catch (error) {
-    console.log('connect fail!')
-}
