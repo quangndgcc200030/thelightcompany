@@ -23,7 +23,7 @@ class LoginController {
             // } else {
             //     res.status(500).json({ mgs: "Fail!" })
             // }
-            res.json(user[0].password)
+            res.json(user)
         } catch (err) {
             res.status(500).json(err)
         }
