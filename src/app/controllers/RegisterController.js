@@ -15,7 +15,7 @@ class RegisterController {
             const hashed = await bcrypt.hash(req.body.password, salt)
 
             User.create(req.body.username, hashed, req.body.firstname, req.body.lastname, req.body.gender, req.body.birthdate, req.body.telephone, req.body.email, req.body.address, false)
-                .then(data => res.status(200).json({ success: true, user: req.body }))
+                .then(data => res.status(200).json({ status: "Register account successfully!", user: req.body }))
                 .catch(err => res.status(400).json(err));
             // res.json(hashed)
         } catch (err) {

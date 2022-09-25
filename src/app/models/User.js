@@ -16,10 +16,15 @@ User.get = () => {
 };
 
 // UPDATE AN USER
-User.update = (username, password, firstname, lastname, gender, birthdate, telephone, email, address, role) => {
-    return db.none(`UPDATE users SET password = $2, firstname = $3, lastname = $4, gender = $5, birthdate = $6, telephone = $7, email = $8, address = $9, role = $10 WHERE username = $1`, [
-        username, password, firstname, lastname, gender, birthdate, telephone, email, address, role
+User.updateprofile = (username, firstname, lastname, gender, birthdate, telephone, email, address) => {
+    return db.query(`UPDATE users SET firstname = $2, lastname = $3, gender = $4, birthdate = $5, telephone = $6, email = $7, address = $8 WHERE username = $1`, [
+        username, firstname, lastname, gender, birthdate, telephone, email, address
     ]);
+};
+
+// CHANGE A PASSWORD
+User.changepassword = (username, password) => {
+    return db.query(`UPDATE users SET password = $2 WHERE username = $1`, [username, password]);
 };
 
 // DELETE AN USER

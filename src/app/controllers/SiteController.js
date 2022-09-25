@@ -1,6 +1,6 @@
 class SiteController {
     index(req, res) {
-        res.json("Hello Univer");
+        res.render('home')
     }
 }
 module.exports = new SiteController
