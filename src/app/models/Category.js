@@ -31,7 +31,7 @@ Category.updateWithoutImage = (id, name, description) => {
 
 // DELETE AN CATEGORY
 Category.delete = id => {
-    return db.query(`DELETE from categories WHERE id = $1`, [id]);
+    return db.query(`DELETE FROM categories WHERE id = $1`, [id]);
 };
 
 //GET A CATEGORY

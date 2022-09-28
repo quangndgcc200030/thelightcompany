@@ -1,7 +1,6 @@
 const express = require("express")
 const router = express.Router()
 const categoryController = require('../app/controllers/CategoryController')
-const path = require('path')
 const multer = require('multer')
 
 const storage = multer.diskStorage({

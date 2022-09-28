@@ -29,7 +29,7 @@ User.changepassword = (username, password) => {
 
 // DELETE AN USER
 User.delete = username => {
-    return db.none(`DELETE from users WHERE username = $1`, [username]);
+    return db.none(`DELETE FROM users WHERE username = $1`, [username]);
 };
 
 // FIND USER
