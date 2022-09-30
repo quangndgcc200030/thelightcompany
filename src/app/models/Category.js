@@ -6,7 +6,7 @@ const Category = {};
 
 // CREATE CATEGORY
 Category.create = (name, description, image) => {
-    return db.query(`INSERT INTO categories ("name", description, image) VALUES ($1, $2, $3)`,
+    return db.query(`INSERT INTO categories ("name", description, image, updated_date) VALUES ($1, $2, $3, CURRENT_TIMESTAMP)`,
         [name, description, image]);
 };
 
@@ -17,7 +17,7 @@ Category.get = () => {
 
 // UPDATE AN CATEGORY HAVE IMAGE
 Category.updateHaveImage = (id, name, description, image) => {
-    return db.query(`UPDATE categories SET "name" = $2, description = $3, image = $4 WHERE id = $1`, [
+    return db.query(`UPDATE categories SET "name" = $2, description = $3, image = $4, updated_date = CURRENT_TIMESTAMP WHERE id = $1`, [
         id, name, description, image
     ]);
 };

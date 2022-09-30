@@ -1,0 +1,45 @@
+<section class="row shopname">
+    <div class="col-lg-2 col-md-3 ps-0 content-left">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-md bg-light navbar-light bg-white">
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarMenu"><span
+                    class="navbar-toggler-icon"></span></button>
+
+            <!-- Brand -->
+            <a class="text-info" style="text-decoration: none;" href="/home">
+                <h3 class="font-weight-bold">The Light Toy</h3>
+            </a>
+        </nav>
+        <!-- Navbar -->
+
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-md-block bg-white">
+            <h5 class="ml-3 mt-4 font-weight-bold text-info">Category</h5>
+            <div class="position-sticky">
+                <div class="list-group list-group-flush">
+                    <a href="/shop" class="list-group-item list-group-item-action py-2">All</a>
+                    {{#each categories }}
+                    <a href="#" class="list-group-item list-group-item-action py-2">{{ this.name }}</a>
+                    {{/each }}
+                </div>
+            </div>
+            <h5 class="ml-3 mt-4 font-weight-bold text-info">Supplier</h5>
+            <div class="position-sticky">
+                <div class="list-group list-group-flush">
+                    <a href="/shop" class="list-group-item list-group-item-action py-2">All</a>
+                    {{#each suppliers }}
+                    <a href="" class="list-group-item list-group-item-action py-2">{{ this.name }}</a>
+                    {{/each }}
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+    </div>
+    <div class="col-lg-10 col-md-9 col-12 pe-0">
+
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>

@@ -7,9 +7,9 @@ const supplierRouter = require('./supplier')
 const productRouter = require('./product')
 
 function route(app) {
-    app.use('/product', productRouter)
-    app.use('/supplier', supplierRouter)
-    app.use('/category', categoryRouter)
+    app.use('/manage/product', productRouter)
+    app.use('/manage/supplier', supplierRouter)
+    app.use('/manage/category', categoryRouter)
     app.use('/profile', profileRouter)
     app.use('/login', loginRouter)
     app.use('/register', registerRouter)
