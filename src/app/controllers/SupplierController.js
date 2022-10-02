@@ -3,7 +3,7 @@ const { Supplier } = require("../models/Supplier");
 class SupplierController {
     index(req, res) {
         Supplier.get()
-            .then(suppliers => res.status(200).json({ status: "Successfully!", suppliers: suppliers }))
+            .then(suppliers => res.status(200).json({ status: "Successfully!", suppliers: suppliers.rows }))
             .catch(err => res.status(400).json({ err }));
     }
 

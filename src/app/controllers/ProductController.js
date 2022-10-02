@@ -16,7 +16,7 @@ class ProductController {
     }
 
     add(req, res, next) {
-        Product.create(req.body.name, req.body.price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id)
+        Product.create(req.body.name, req.body.price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
             .then(data => res.status(200).json({ msg: "Add product successfully!", product: req.body, file: req.file }))
             .catch(err => res.status(400).json(err));
     }
@@ -28,14 +28,14 @@ class ProductController {
                 .then(product => {
                     fs.unlink('src/public/products/' + product.rows[0].image, function (err) {
                         if (err) throw err;
-                        Product.updateHaveImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id)
+                        Product.updateHaveImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
                             .then(data => res.status(200).json({ msg: `Product #${id} updated successfully!` }))
                             .catch(err => res.status(400).json(err));
                     });
                 })
                 .catch(err => res.status(400).json({ err }));
         } else {
-            Product.updateWithoutImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.body.cat_id, req.body.sup_id)
+            Product.updateWithoutImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.body.cat_id, req.body.sup_id, req.body.shop_id)
                 .then(data => res.status(200).json({ msg: `Product #${id} updated successfully!` }))
                 .catch(err => res.status(400).json(err));
         }
