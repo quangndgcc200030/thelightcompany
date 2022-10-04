@@ -11,7 +11,9 @@ class CategoryController {
     show(req, res) {
         let id = req.params.id
         Category.show(id)
-            .then(category => res.status(200).json({ status: "Successfully!", category: category.rows }))
+            .then(category => res.status(200).render('category/update', {
+                category: category.rows[0]
+            }))
             .catch(err => res.status(400).json({ err }));
     }
 
@@ -21,7 +23,7 @@ class CategoryController {
 
     add(req, res, next) {
         Category.create(req.body.name, req.body.description, req.file.filename)
-            .then(data => res.status(200).redirect('/category'))
+            .then(data => res.status(200).redirect('/manage/category'))
             .catch(err => res.status(400).json(err));
     }
 
@@ -33,14 +35,14 @@ class CategoryController {
                     fs.unlink('src/public/categories/' + category.rows[0].image, function (err) {
                         if (err) throw err;
                         Category.updateHaveImage(id, req.body.name, req.body.description, req.file.filename)
-                            .then(data => res.status(200).json({ msg: `Category #${id} updated successfully!` }))
+                            .then(data => res.status(200).redirect('/manage/category'))
                             .catch(err => res.status(400).json(err));
                     });
                 })
                 .catch(err => res.status(400).json({ err }));
         } else {
             Category.updateWithoutImage(id, req.body.name, req.body.description)
-                .then(data => res.status(200).json({ msg: `Category #${id} updated successfully!` }))
+                .then(data => res.status(200).redirect('/manage/category'))
                 .catch(err => res.status(400).json(err));
         }
     }
@@ -52,7 +54,7 @@ class CategoryController {
                 fs.unlink('src/public/categories/' + category.rows[0].image, function (err) {
                     if (err) throw err;
                     Category.delete(id)
-                        .then(data => res.status(200).json())
+                        .then(data => res.status(200).redirect('/manage/category'))
                         .catch(err => res.status(400).json(err));
                 });
             })

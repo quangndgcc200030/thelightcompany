@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/css/login.css">
+{{#if error }}
+<div class="alert alert-danger text-center mt-2">{{ error }}</div>
+{{/if}}
+<div class="wrap-login100">
+    <form class="login100-form" method="POST" action="login/auth">
+        <span class="login100-form-title p-b-43 pb-5 font-weight-bold">
+            Login to continue
+        </span>
+        <div class="form-group">
+            <label for="exampleInputEmail1" class="font-weight-bold mb-2">Username or Email</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="username">
+            <small id="emailHelp" class="form-text text-muted">We&rsquo;ll never share your username with anyone
+                else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1" class="font-weight-bold mb-2">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+        </div>
+        <div class="d-flex justify-content-around align-items-center mb-3">
+            <div class="contact100-form-checkbox">
+                <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                <label class="label-checkbox100" for="ckb1">
+                    Remember me
+                </label>
+            </div>
+            <div class="align-content-end">
+                <a href="#" class="txt1">
+                    Forgot Password?
+                </a>
+            </div>
+        </div>
+        <div class="container-login100-form-btn">
+            <button type="submit" class="login100-form-btn">
+                Login
+            </button>
+        </div>
+        <div class="text-center mt-3">
+            <p>Don’t have an account? <a href="/register"> Sign up </a> </p>
+        </div>
+    </form>
+    <div class="login100-more" style="background-image: url('img/signin.jpg');">
+    </div>
+</div>

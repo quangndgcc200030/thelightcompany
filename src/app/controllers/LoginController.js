@@ -13,18 +13,22 @@ class LoginController {
     async auth(req, res) {
         try {
             var user = await User.findUser(req.body.username)
-            const validPass = await bcrypt.compare(
-                req.body.password,
-                user.rows[0].password
-            )
 
-            if (user && validPass) {
-                res.status(200).json({ status: "Login successfully", user: user.rows })
+            if (user.rowCount == 1) {
+                const validPass = await bcrypt.compare(
+                    req.body.password,
+                    user.rows[0].password
+                )
+                if (validPass) {
+                    res.status(200).redirect('/')
+                } else {
+                    res.render('login/login', { error: "Password is not correct!" })
+                }
             } else {
-                res.status(500).json({ status: "Fail!" })
+                res.render('login/login', { error: "Username is not found!" })
             }
         } catch (err) {
-            res.status(500).json(err)
+            res.redirect('/login')
         }
     }
 }

@@ -4,7 +4,7 @@ const { User } = require('../models/User')
 class RegisterController {
     index(req, res) {
         User.get()
-            .then(data => res.status(200).json({ success: true, users: data }))
+            .then(data => res.status(200).render('register/register'))
             .catch(err => res.status(400).json({ err }));
         // res.render('register/register');
     }

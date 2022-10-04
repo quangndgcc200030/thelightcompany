@@ -34,7 +34,7 @@ User.delete = username => {
 
 // FIND USER
 User.findUser = username => {
-    return db.query(`SELECT * FROM users WHERE username = $1`, [username]);
+    return db.query(`SELECT * FROM users WHERE username = $1 OR email = $1`, [username]);
 };
 
 module.exports = { User };

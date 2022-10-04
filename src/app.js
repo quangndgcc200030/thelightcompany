@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
 
 const route = require('./routes')
 const db = require('./config/db')
@@ -42,12 +43,20 @@ hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
             return options.inverse(this);
     }
 });
+hbs.registerHelper('times', function(from, to, block) {
+    var accum = '';
+    for(var i = from; i <= to; i++)
+        accum += block.fn(i);
+    return accum;
+});
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(methodOverride('_method'))
 
 // HTTP logger
 app.use(morgan('combined'))
