@@ -88,7 +88,7 @@
           {{#each categories }}
           <tr>
             <td class="text-center align-middle" id="category{{ this.id }}">
-              <a href="" style="text-decoration: none;">{{ @index }}</a>
+              <a href="/view-detail/{{ this.id }}" style="text-decoration: none;">{{ sum @index 1 }}</a>
             </td>
             <td class="text-center align-middle">{{ this.name }}</td>
             <td class="align-middle">{{ this.description }}</td>
@@ -99,7 +99,7 @@
               <a href="/manage/category/show/{{ this.id }}"><i class="bi bi-pen-fill" style="color: black;"></i></a>
             </td>
             <td class="text-center align-middle">
-              <form method="POST" action="/manage/category/delete/{{ this.id }}?_method=DELETE" onsubmit="return deleteConfirm()">
+              <form method="POST" action="/manage/supplier/delete/{{ this.id }}?_method=DELETE" onsubmit="return deleteConfirm()">
                 <button type="submit" style="border: none; cursor: pointer;"><i class="bi bi-trash-fill" style="color: red;"></i></button>
               </form>
               {{!-- <a href="#" class="trash" id=""><i class="bi bi-trash-fill" style="color: red;"></i></a> --}}

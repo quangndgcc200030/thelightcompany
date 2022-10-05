@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
+const session = require('express-session');
 
 const route = require('./routes')
 const db = require('./config/db')
@@ -43,13 +44,26 @@ hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
             return options.inverse(this);
     }
 });
-hbs.registerHelper('times', function(from, to, block) {
+hbs.registerHelper('times', function (from, to, block) {
     var accum = '';
-    for(var i = from; i <= to; i++)
+    for (var i = from; i <= to; i++)
         accum += block.fn(i);
     return accum;
 });
 const app = express()
+
+//use session
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 5 * 60 * 1000
+    }
+}))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -63,7 +77,10 @@ app.use(morgan('combined'))
 
 // Templete engine
 app.engine('hbs', exphbs.engine({
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: {
+        sum: (a, b) => a + b,
+    }
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));

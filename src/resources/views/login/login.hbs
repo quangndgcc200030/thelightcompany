@@ -7,6 +7,9 @@
         <span class="login100-form-title p-b-43 pb-5 font-weight-bold">
             Login to continue
         </span>
+        {{#if session }}
+        <div class="alert alert-info text-center mt-2">You are logged in as {{ session.username }}, click <a href='/logout'>here</a> to logout</div>
+        {{/if}}
         <div class="form-group">
             <label for="exampleInputEmail1" class="font-weight-bold mb-2">Username or Email</label>
             <input type="text" class="form-control" id="exampleInputEmail1" name="username">

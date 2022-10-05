@@ -1,7 +1,6 @@
 const { Product } = require("../models/Product")
 const { Category } = require("../models/Category")
 const { Supplier } = require("../models/Supplier")
-
 class SiteController {
     index(req, res) {
         Category.get()
@@ -25,6 +24,11 @@ class SiteController {
 
     admin(req, res) {
         res.render('site/administration')
+    }
+
+    logout(req, res) {
+        req.session.destroy();
+        res.redirect('/');
     }
 }
 

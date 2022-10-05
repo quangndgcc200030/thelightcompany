@@ -1,9 +1,13 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 const { User } = require("../models/User");
 
 class LoginController {
     index(req, res) {
-        res.render('login/login');
+        if (req.session.user) {
+            res.render('login/login', { session: req.session.user });
+        } else {
+            res.render('login/login');
+        }
     }
 
     forgot(req, res) {
@@ -20,6 +24,9 @@ class LoginController {
                     user.rows[0].password
                 )
                 if (validPass) {
+                    req.session.user = user.rows[0]
+                    req.session.save();
+                    console.log(req.session)
                     res.status(200).redirect('/')
                 } else {
                     res.render('login/login', { error: "Password is not correct!" })
