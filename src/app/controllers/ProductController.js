@@ -14,7 +14,17 @@ class ProductController {
     show(req, res) {
         let id = req.params.id
         Product.show(id)
-            .then(product => res.status(200).json({ status: "Successfully!", product: product.rows }))
+            .then(async product => {
+                const categories = await Category.get()
+                const suppliers = await Supplier.get()
+                const shops = await Shop.get()
+                res.status(200).render('product/update', {
+                    product: product.rows[0],
+                    categories: categories.rows,
+                    suppliers: suppliers.rows,
+                    shops: shops.rows
+                })
+            })
             .catch(err => res.status(400).json({ err }));
     }
 
@@ -46,14 +56,14 @@ class ProductController {
                     fs.unlink('src/public/products/' + product.rows[0].image, function (err) {
                         if (err) throw err;
                         Product.updateHaveImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
-                            .then(data => res.status(200).json({ msg: `Product #${id} updated successfully!` }))
+                            .then(data => res.status(200).redirect('/manage/product'))
                             .catch(err => res.status(400).json(err));
                     });
                 })
                 .catch(err => res.status(400).json({ err }));
         } else {
             Product.updateWithoutImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.body.cat_id, req.body.sup_id, req.body.shop_id)
-                .then(data => res.status(200).json({ msg: `Product #${id} updated successfully!` }))
+                .then(data => res.status(200).redirect('/manage/product'))
                 .catch(err => res.status(400).json(err));
         }
     }
@@ -65,7 +75,7 @@ class ProductController {
                 fs.unlink('src/public/products/' + product.rows[0].image, function (err) {
                     if (err) throw err;
                     Product.delete(id)
-                        .then(data => res.status(200).json({ msg: `Product #${id} deleted successfully!` }))
+                        .then(data => res.status(200).redirect('/manage/product'))
                         .catch(err => res.status(400).json(err));
                 });
             })

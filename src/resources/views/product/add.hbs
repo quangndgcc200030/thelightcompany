@@ -2,18 +2,29 @@
     function formValid() {
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         f = document.formAddproduct
-        if (f.name.value == "" || f.description.value == "") {
+        //general
+        if (f.name.value == "" || f.price.value == "" || f.small_desc.value == "" || f.detail_desc.value == "" || f.quantity.value == 0) {
             alert("Enter fileds with marks(*), please");
             return false;
         }
-        if (format.test(f.name.value)) {
-            alert("Category name can't contain special character, please enter again");
-            f.name.focus();
+        if (f.cat_id.value == 0) {
+            alert("Please choose category");
             return false;
         }
-        if (format.test(f.description.value)) {
-            alert("Category description can't contain special character, please enter again");
-            f.txtCatDesc.focus();
+        if (f.sup_id.value == 0) {
+            alert("Please choose supplier");
+            return false;
+        }
+        if (f.shop_id.value == 0) {
+            alert("Please choose shop");
+            return false;
+        }
+        if (f.for_gender.value == 0) {
+            alert("Please choose gender");
+            return false;
+        }
+        if (f.for_age.value == 0) {
+            alert("Please choose age");
             return false;
         }
         if (f.image.value == "") {
@@ -63,7 +74,7 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label font-weight-bold" for="ChooseShop">Choose Supplier (*)</label>
+                <label class="form-label font-weight-bold" for="ChooseShop">Choose Shop (*)</label>
                 <div name="slshop" id="ChooseShop">
                     <select name='shop_id' class='form-control'>
                         <option value='0'>Please choose shop</option>
@@ -91,7 +102,7 @@
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="Detail_desc">Detail Description (*)</label>
-                <input type="text" name="detail_desc" id="Detail_desc" class="form-control" placeholder="" />
+                <textarea name="detail_desc" id="Detail_desc" class="form-control" placeholder="" rows="10"></textarea>
             </div>
 
             <div class="d-md-flex justify-content-start align-items-center mb-3">

@@ -2,7 +2,7 @@
   <div class="col-lg-2 col-md-3 content-left pr-0">
     {{> navmanage }}
   </div>
-    
+
   <script>
     function deleteConfirm() {
       if (confirm("Are you sure to delete!")) {
@@ -73,18 +73,27 @@
             </td>
             <td class="text-center align-middle">{{ this.name }}</td>
             <td class="text-center align-middle">{{ this.price }}</td>
-            <td class="text-center align-middle">{{ this.gender }}</td>
-            <td class="text-center align-middle">{{ this.age }}</td>
+            <td class="text-center align-middle">{{ this.for_gender }}</td>
+            {{#ifCond this.for_age '==' 1315}}
+            <td class="text-center align-middle">13 - 15</td>
+            {{/ifCond}}
+            {{#ifCond this.for_age '==' 1619}}
+            <td class="text-center align-middle">16 - 19</td>
+            {{/ifCond}}
+            {{#ifCond this.for_age '==' '1319'}}
+            <td class="text-center align-middle">all</td>
+            {{/ifCond}}
             <td class="text-center align-middle">{{ this.quantity }}</td>
             <td class="text-center align-middle">
-              <a href=""><img src="/products/{{ this.image }}" alt="{{ this.name }}" width="70" height="100" /></a>
+              <a href=""><img src="/products/{{ this.image }}" alt="{{ this.name }}" width="50" height="50" /></a>
             </td>
             <td class="text-center align-middle">
               <a href="/manage/product/show/{{ this.id }}"><i class="bi bi-pen-fill" style="color: black;"></i></a>
             </td>
             <td class="text-center align-middle">
               <form method="POST" action="delete/{{ this.id }}?_method=DELETE" onsubmit="return deleteConfirm()">
-                <button type="submit" style="border: none; cursor: pointer;"><i class="bi bi-trash-fill" style="color: red;"></i></button>
+                <button type="submit" style="border: none; cursor: pointer;"><i class="bi bi-trash-fill"
+                    style="color: red;"></i></button>
               </form>
               {{!-- <a href="#" class="trash" id=""><i class="bi bi-trash-fill" style="color: red;"></i></a> --}}
             </td>
