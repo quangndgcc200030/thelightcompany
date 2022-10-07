@@ -88,6 +88,6 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 //Routes init
 route(app)
 
-app.listen(process.env.PORT, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Access at http://localhost:%d in %s mode", this.address().port, app.settings.env);
 });

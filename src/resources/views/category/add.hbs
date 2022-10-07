@@ -24,10 +24,14 @@
     }
 </script>
 
-<div class="m-5">
-    <h1 class="text-center mb-4">Adding Category</h2>
-        <form id="formAddcategory" name="formAddcategory" method="POST" action="/manage/category/add/store"
-            enctype="multipart/form-data" onsubmit="return formValid()">
+<section class="row">
+    <div class="col-lg-2 col-md-3 content-left pr-0">
+        {{> navmanage }}
+    </div>
+    <div class="pt-3 col-lg-10 col-md-9 col-12">
+        <h1 class="text-center pb-4">Adding Category</h1>
+        <form id="formAddcategory" name="formAddcategory" method="POST" action="add/store" enctype="multipart/form-data"
+            onsubmit="return formValid()">
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="txtCatName">Category Name (*)</label>
@@ -47,7 +51,8 @@
             <div class="form-group text-center">
                 <input type="submit" class="btn btn-info" name="btnAdd" value="Add new" />
                 <input type="button" class="btn btn-info" name="btnIgnore" value="Ignore"
-                    onclick="window.location='/manage/category/add'" />
+                    onclick="window.location='category/add'" />
             </div>
         </form>
-</div>
+    </div>
+</section>

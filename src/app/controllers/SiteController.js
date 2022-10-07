@@ -22,6 +22,22 @@ class SiteController {
         }
     }
 
+    async viewdetail(req, res) {
+        try {
+            // let id = req.params.id
+            // const products = await Product.show(id)
+            // const categories = await Category.show(products.rows[0].cat_id)
+            // const suppliers = await Supplier.get(products.rows[0].sup_id)
+
+            // res.status(200).render('site/viewdetail', {
+            //     products: products.rows, categories: categories.rows, suppliers: suppliers.rows
+            // })
+            res.status(200).render('site/viewdetail')
+        } catch (error) {
+
+        }
+    }
+
     admin(req, res) {
         res.render('site/administration')
     }

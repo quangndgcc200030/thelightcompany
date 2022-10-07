@@ -1,6 +1,6 @@
 <script>
     function formValid() {
-        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        var format = /[!@#$%^&*()_+\-=\[\]{ };':"\\|,.<>\/?]+/;
         f = document.formUpdatecategory
         if (f.name.value == "" || f.description.value == "") {
             alert("Enter fileds with marks(*), please");
@@ -20,10 +20,15 @@
     }
 </script>
 
-<div class="m-5">
-    <h1 class="text-center mb-4">Updating Category</h2>
-        <form id="formUpdatecategory" name="formUpdatecategory" method="POST" action="/manage/category/update/{{ category.id }}?_method=PUT"
-            enctype="multipart/form-data" onsubmit="return formValid()">
+<section class="row">
+    <div class="col-lg-2 col-md-3 content-left pr-0">
+        {{> navmanage }}
+    </div>
+    <div class="pt-3 col-lg-10 col-md-9 col-12">
+        <h1 class="text-center pb-4">Adding Category</h1>
+        <form id="formUpdatecategory" name="formUpdatecategory" method="POST"
+            action="/manage/category/update/{{ category.id }}?_method=PUT" enctype="multipart/form-data"
+            onsubmit="return formValid()">
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="txtCatName">Category Name (*)</label>
@@ -32,7 +37,8 @@
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="txtCatDesc">Category Description (*)</label>
-                <input type="text" name="description" id="txtCatDesc" class="form-control" value="{{ category.description }}" />
+                <input type="text" name="description" id="txtCatDesc" class="form-control"
+                    value="{{ category.description }}" />
             </div>
 
             <div class="form-group">
@@ -47,4 +53,5 @@
                     onclick="window.location='/manage/category/show/{{ category.id }}'" />
             </div>
         </form>
-</div>
+    </div>
+</section>

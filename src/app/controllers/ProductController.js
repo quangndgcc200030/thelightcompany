@@ -4,7 +4,7 @@ const { Product } = require('../models/Product');
 class ProductController {
     index(req, res) {
         Product.get()
-            .then(products => res.status(200).json({ status: "Successfully!", products: products.rows }))
+            .then(products => res.status(200).render('product/list', { products: products.rows }))
             .catch(err => res.status(400).json({ err }));
     }
 

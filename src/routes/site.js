@@ -4,6 +4,7 @@ const siteController = require('../app/controllers/SiteController')
 
 router.get('/logout', siteController.logout)
 router.get('/manage', siteController.admin)
+router.get('/view-detail', siteController.viewdetail)
 router.get('/shop', siteController.shop)
 router.get('/', siteController.index)
 

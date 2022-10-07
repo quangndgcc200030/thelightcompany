@@ -35,34 +35,41 @@
     }
 </script>
 
-<div class="m-5">
-    <h1 class="text-center mb-4">Adding Supplier</h2>
-        <form id="formAddSupplier" name="formAddSupplier" method="POST" action="/manage/supplier/add/store" onsubmit="return formValid()">
+<section class="row">
+    <div class="col-lg-2 col-md-3 content-left pr-0">
+        {{> navmanage }}
+    </div>
 
-            <div class="form-group">
-                <label class="form-label font-weight-bold" for="Name">Supplier Name (*)</label>
-                <input type="text" name="name" id="Name" class="form-control" placeholder="" />
-            </div>
+    <div class="pt-3 col-lg-10 col-md-9 col-12">
+        <h1 class="text-center mb-4">Adding Supplier</h2>
+            <form id="formAddSupplier" name="formAddSupplier" method="POST" action="add/store"
+                onsubmit="return formValid()">
 
-            <div class="form-group">
-                <label class="form-label font-weight-bold" for="Telephone">Telephone (*)</label>
-                <input type="text" name="telephone" id="Telephone" class="form-control" placeholder="" />
-            </div>
+                <div class="form-group">
+                    <label class="form-label font-weight-bold" for="Name">Supplier Name (*)</label>
+                    <input type="text" name="name" id="Name" class="form-control" placeholder="" />
+                </div>
 
-            <div class="form-group">
+                <div class="form-group">
+                    <label class="form-label font-weight-bold" for="Telephone">Telephone (*)</label>
+                    <input type="text" name="telephone" id="Telephone" class="form-control" placeholder="" />
+                </div>
+
+                <div class="form-group">
                     <label for="Email" class="font-weight-bold">Email (*)</label>
                     <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp">
                 </div>
 
-            <div class="form-group">
-                <label class="form-label font-weight-bold" for="Address">Address (*)</label>
-                <input type="text" name="address" id="Address" class="form-control" placeholder="" />
-            </div>
+                <div class="form-group">
+                    <label class="form-label font-weight-bold" for="Address">Address (*)</label>
+                    <input type="text" name="address" id="Address" class="form-control" placeholder="" />
+                </div>
 
-            <div class="form-group text-center">
-                <input type="submit" class="btn btn-info" name="btnAdd" value="Add new" />
-                <input type="button" class="btn btn-info" name="btnIgnore" value="Ignore"
-                    onclick="window.location='/manage/supplier/add'" />
-            </div>
-        </form>
-</div>
+                <div class="form-group text-center">
+                    <input type="submit" class="btn btn-info" name="btnAdd" value="Add new" />
+                    <input type="button" class="btn btn-info" name="btnIgnore" value="Ignore"
+                        onclick="window.location='/manage/supplier/add'" />
+                </div>
+            </form>
+    </div>
+</section>

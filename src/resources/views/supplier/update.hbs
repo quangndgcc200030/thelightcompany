@@ -35,10 +35,15 @@
     }
 </script>
 
-<div class="m-5">
-    <h1 class="text-center mb-4">Adding Supplier</h2>
-        <form id="formUpdateSupplier" name="formUpdateSupplier" method="POST" action="/manage/supplier/update/{{ supplier.id }}?_method=PUT"
-            onsubmit="return formValid()">
+<section class="row">
+    <div class="col-lg-2 col-md-3 content-left pr-0">
+        {{> navmanage }}
+    </div>
+
+    <div class="pt-3 col-lg-10 col-md-9 col-12">
+        <h1 class="text-center mb-4">Adding Supplier</h1>
+        <form id="formUpdateSupplier" name="formUpdateSupplier" method="POST"
+            action="/manage/supplier/update/{{ supplier.id }}?_method=PUT" onsubmit="return formValid()">
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="Name">Supplier Name (*)</label>
@@ -47,12 +52,14 @@
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="Telephone">Telephone (*)</label>
-                <input type="text" name="telephone" id="Telephone" class="form-control" value="{{ supplier.telephone }}" />
+                <input type="text" name="telephone" id="Telephone" class="form-control"
+                    value="{{ supplier.telephone }}" />
             </div>
 
             <div class="form-group">
                 <label for="Email" class="font-weight-bold">Email (*)</label>
-                <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp" value="{{ supplier.email }}">
+                <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp"
+                    value="{{ supplier.email }}">
             </div>
 
             <div class="form-group">
@@ -66,4 +73,5 @@
                     onclick="window.location='/manage/supplier/show/{{ supplier.id }}'" />
             </div>
         </form>
-</div>
+    </div>
+</section>
