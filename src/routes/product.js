@@ -25,6 +25,7 @@ const upload = multer({
 router.delete('/delete/:id', productController.delete)
 router.put('/update/:id', upload.single('image'), productController.update)
 router.post('/add/store', upload.single('image'), productController.add)
+router.get('/add', productController.interfaceadd)
 router.get('/show/:id', productController.show)
 router.get('/', productController.index)
 

@@ -40,7 +40,16 @@
               <strong>Product Name</strong>
             </th>
             <th>
-              <strong>Description</strong>
+              <strong>Price</strong>
+            </th>
+            <th>
+              <strong>Gender</strong>
+            </th>
+            <th>
+              <strong>Age</strong>
+            </th>
+            <th>
+              <strong>Quantity</strong>
             </th>
             <th>
               <strong>Image</strong>
@@ -56,22 +65,25 @@
 
         <tbody
           class="justify-content-md-between justify-content-sm-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
-          {{#if categories }}
-          {{#each categories }}
+          {{#if products }}
+          {{#each products }}
           <tr>
-            <td class="text-center align-middle" id="category{{ this.id }}">
+            <td class="text-center align-middle">
               <a href="/view-detail/{{ this.id }}" style="text-decoration: none;">{{ sum @index 1 }}</a>
             </td>
             <td class="text-center align-middle">{{ this.name }}</td>
-            <td class="align-middle">{{ this.description }}</td>
+            <td class="text-center align-middle">{{ this.price }}</td>
+            <td class="text-center align-middle">{{ this.gender }}</td>
+            <td class="text-center align-middle">{{ this.age }}</td>
+            <td class="text-center align-middle">{{ this.quantity }}</td>
             <td class="text-center align-middle">
-              <a href=""><img src="/categories/{{ this.image }}" alt="{{ this.name }}" width="100" height="50" /></a>
+              <a href=""><img src="/products/{{ this.image }}" alt="{{ this.name }}" width="70" height="100" /></a>
             </td>
             <td class="text-center align-middle">
-              <a href="/manage/category/show/{{ this.id }}"><i class="bi bi-pen-fill" style="color: black;"></i></a>
+              <a href="/manage/product/show/{{ this.id }}"><i class="bi bi-pen-fill" style="color: black;"></i></a>
             </td>
             <td class="text-center align-middle">
-              <form method="POST" action="/manage/supplier/delete/{{ this.id }}?_method=DELETE" onsubmit="return deleteConfirm()">
+              <form method="POST" action="delete/{{ this.id }}?_method=DELETE" onsubmit="return deleteConfirm()">
                 <button type="submit" style="border: none; cursor: pointer;"><i class="bi bi-trash-fill" style="color: red;"></i></button>
               </form>
               {{!-- <a href="#" class="trash" id=""><i class="bi bi-trash-fill" style="color: red;"></i></a> --}}
@@ -80,7 +92,7 @@
           {{/each}}
           {{else }}
           <tr>
-            <td colspan="6" class="text-center font-weight-bold">Category is empty</td>
+            <td colspan="9" class="text-center font-weight-bold">Product is empty</td>
           </tr>
           {{/if}}
         </tbody>
