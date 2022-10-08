@@ -27,10 +27,6 @@
             alert("Please choose age");
             return false;
         }
-        if (f.image.value == "") {
-            alert("You must select your picture");
-            return false;
-        }
         return true;
     }
 </script>
@@ -102,6 +98,7 @@
                 <label class="form-label font-weight-bold" for="Price">Price (*)</label>
                 <input type="text" name="price" id="Price" step="0.01" class="form-control"
                     value="{{ product.price }}" />
+                <input type="hidden" name="old_price" value="{{ product.price }}">
             </div>
 
             {{!-- <div class="form-group">
@@ -125,17 +122,30 @@
                 <h6 class="font-weight-bold mb-3 mb-lg-0 mr-5">Gender:</h6>
 
                 <div class="form-check form-check-inline mb-0 mr-5">
+                    {{#ifCond product.for_gender '==' 'male'}}
+                    <input class="form-check-input" type="radio" name="for_gender" id="MaleGender" value="male" checked>
+                    {{else}}
                     <input class="form-check-input" type="radio" name="for_gender" id="MaleGender" value="male">
+                    {{/ifCond}}
                     <label class="form-check-label" for="MaleGender">Male</label>
                 </div>
 
                 <div class="form-check form-check-inline mb-0 ml-5">
+                    {{#ifCond product.for_gender '==' 'female'}}
+                    <input class="form-check-input" type="radio" name="for_gender" id="FemaleGender" value="female"
+                        checked>
+                    {{else}}
                     <input class="form-check-input" type="radio" name="for_gender" id="FemaleGender" value="female">
+                    {{/ifCond}}
                     <label class="form-check-label" for="FemaleGender">Female</label>
                 </div>
 
                 <div class="form-check form-check-inline mb-0 ml-5">
+                    {{#ifCond product.for_gender '==' 'both'}}
+                    <input class="form-check-input" type="radio" name="for_gender" id="BothGender" value="both" checked>
+                    {{else}}
                     <input class="form-check-input" type="radio" name="for_gender" id="BothGender" value="both">
+                    {{/ifCond}}
                     <label class="form-check-label" for="BothGender">Both</label>
                 </div>
             </div>
@@ -144,17 +154,29 @@
                 <h6 class="font-weight-bold mb-3 mb-lg-0 mr-5">Age:</h6>
 
                 <div class="form-check form-check-inline mb-0 ml-4 mr-5">
+                    {{#ifCond product.for_age '==' '1315'}}
+                    <input class="form-check-input" type="radio" name="for_age" id="Age1" value="1315" checked>
+                    {{else}}
                     <input class="form-check-input" type="radio" name="for_age" id="Age1" value="1315">
+                    {{/ifCond}}
                     <label class="form-check-label" for="Age1">13 - 15&nbsp;&nbsp;</label>
                 </div>
 
                 <div class="form-check form-check-inline mb-0 ml-4">
+                    {{#ifCond product.for_age '==' '1619'}}
+                    <input class="form-check-input" type="radio" name="for_age" id="Age2" value="1619" checked>
+                    {{else}}
                     <input class="form-check-input" type="radio" name="for_age" id="Age2" value="1619">
+                    {{/ifCond}}
                     <label class="form-check-label" for="Age2">16 - 19&nbsp;</label>
                 </div>
 
                 <div class="form-check form-check-inline mb-0 ml-5">
+                    {{#ifCond product.for_age '==' '1319'}}
+                    <input class="form-check-input" type="radio" name="for_age" id="Age3" value="1319" checked>
+                    {{else}}
                     <input class="form-check-input" type="radio" name="for_age" id="Age3" value="1319">
+                    {{/ifCond}}
                     <label class="form-check-label" for="Age3">All</label>
                 </div>
             </div>
@@ -172,9 +194,9 @@
             </div>
 
             <div class="form-group text-center">
-                <input type="submit" class="btn btn-info" name="btnAdd" value="Add new" />
-                <input type="button" class="btn btn-info" name="btnIgnore" value="Ignore"
-                    onclick="window.location='/manage/product/add'" />
+                <input type="submit" class="btn btn-info" name="btnAdd" value="Update" />
+                <input type="button" class="btn btn-info" name="btnIgnore" value="Cancel"
+                    onclick="window.location='/manage/product'" />
             </div>
         </form>
     </div>

@@ -239,28 +239,6 @@ section {
   margin-bottom: 0; }
 
 /*--------------------------------------------------------------
-  # Clients
-  --------------------------------------------------------------*/
-.clients {
-  padding: 12px 0;
-  text-align: center; }
-
-.clients img {
-  max-width: 45%;
-  transition: all 0.4s ease-in-out;
-  display: inline-block;
-  padding: 15px 0;
-  filter: grayscale(100); }
-
-.clients img:hover {
-  filter: none;
-  transform: scale(1.1); }
-
-@media (max-width: 768px) {
-  .clients img {
-    max-width: 40%; } }
-
-/*--------------------------------------------------------------
   # About Us
   --------------------------------------------------------------*/
 .about .content h3 {
@@ -346,6 +324,37 @@ section {
 
 .services .icon-box:hover h4 a {
   color: #47b2e4; }
+
+/*--------------------------------------------------------------
+  # Icon
+  --------------------------------------------------------------*/
+.icons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem; }
+
+.icons-container .icons {
+  background: #fff;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  padding: 1.8rem;
+  display: flex;
+  align-items: center;
+  flex: 1 1 22rem; }
+
+.icons-container .icons img {
+  height: 5rem;
+  margin-right: 2rem; }
+
+.icons-container .icons h3 {
+  color: #333;
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem; }
+
+.icons-container .icons span {
+  color: #555;
+  font-size: 1.3rem; }
 
 /*--------------------------------------------------------------
   # Contact

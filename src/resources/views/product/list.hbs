@@ -55,6 +55,15 @@
               <strong>Image</strong>
             </th>
             <th>
+              <strong>Category</strong>
+            </th>
+            <th>
+              <strong>Supplier</strong>
+            </th>
+            <th>
+              <strong>Shop</strong>
+            </th>
+            <th>
               <strong>Edit</strong>
             </th>
             <th>
@@ -87,6 +96,9 @@
             <td class="text-center align-middle">
               <a href=""><img src="/products/{{ this.image }}" alt="{{ this.name }}" width="50" height="50" /></a>
             </td>
+            <td class="text-center align-middle">{{ this.cat_name }}</td>
+            <td class="text-center align-middle">{{ this.sup_name }}</td>
+            <td class="text-center align-middle">{{ this.shop_name }}</td>
             <td class="text-center align-middle">
               <a href="/manage/product/show/{{ this.id }}"><i class="bi bi-pen-fill" style="color: black;"></i></a>
             </td>
@@ -101,7 +113,7 @@
           {{/each}}
           {{else }}
           <tr>
-            <td colspan="9" class="text-center font-weight-bold">Product is empty</td>
+            <td colspan="12" class="text-center font-weight-bold">Product is empty</td>
           </tr>
           {{/if}}
         </tbody>

@@ -12,7 +12,7 @@ Product.create = (name, price, small_desc, detail_desc, for_gender, for_age, qua
 
 // GET ALL PRODUCT
 Product.get = () => {
-    return db.query('SELECT * FROM products');
+    return db.query('SELECT * FROM products ORDER BY updated_date DESC');
 };
 
 // UPDATE AN PRODUCT HAVE IMAGE
@@ -38,5 +38,17 @@ Product.delete = id => {
 Product.show = id => {
     return db.query(`SELECT * FROM products WHERE id = $1`, [id]);
 };
+
+//Show all product
+Product.showAllProduct = () => {
+    return db.query('SELECT p.id, p.name, p.price, p.for_gender, p.for_age, p.quantity, p.image, c.name as cat_name, su.name as sup_name, sh.name as shop_name FROM products as p INNER JOIN categories as c ON c.id = p.cat_id INNER JOIN suppliers as su ON su.id = p.sup_id INNER JOIN shops as sh ON sh.id = p.shop_id ORDER BY p.updated_date DESC');
+};
+
+//Viewdetail
+Product.viewDetail = id => {
+    return db.query('SELECT p.id, p.name, p.price, p.small_desc, p.detail_desc, p.for_gender, p.for_age, p.quantity, p.image, c.name as cat_name, su.name as sup_name, sh.name as shop_name, round((100 - ((p.price*100)/p.old_price))) as sale FROM products as p INNER JOIN categories as c ON c.id = p.cat_id INNER JOIN suppliers as su ON su.id = p.sup_id INNER JOIN shops as sh ON sh.id = p.shop_id WHERE p.id = $1', [
+        id
+    ])
+}
 
 module.exports = { Product };

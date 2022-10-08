@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="/css/about.css">
+<section class="testimonial">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-none d-lg-block">
+                <ol class="carousel-indicators tabs">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                        <figure>
+                            <img src="/img/about-1.jpg"
+                                class="img-fluid" alt="">
+                        </figure>
+                    </li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1">
+                        <figure>
+                            <img src="/img/about-2.jpg"
+                                class="img-fluid" alt="">
+                        </figure>
+                    </li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2">
+                        <figure>
+                            <img src="/img/about-3.jpg"
+                                class="img-fluid" alt="">
+                        </figure>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                <div id="carouselExampleIndicators" data-interval="false" class="carousel slide" data-ride="carousel">
+                    <h1>WHAT OUR PAGE HAVE</h1>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="quote-wrapper">
+                                <p>Coded with WordPress best practices in mind, Modules will give you an amazing looking site easier.</p>
+                                <h3>CAREFUL CRAFTED</h3>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="quote-wrapper">
+                                <p>We’ve put a lot of thought in giving you the best possible experience to make your job easier.</p>
+                                <h3>EASY TO USE</h3>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="quote-wrapper">
+                                <p>Our themes are not just nicely coded, they are built to show your visitors how much you care for beauty and for design.</p>
+                                <h3>SIMPLY BEAUTIFUL</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <ol class="carousel-indicators indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $(".testimonial .indicators li").click(function () {
+            var i = $(this).index();
+            var targetElement = $(".testimonial .tabs li");
+            targetElement.eq(i).addClass('active');
+            targetElement.not(targetElement[i]).removeClass('active');
+        });
+        $(".testimonial .tabs li").click(function () {
+            var targetElement = $(".testimonial .tabs li");
+            targetElement.addClass('active');
+            targetElement.not($(this)).removeClass('active');
+        });
+    });
+    $(document).ready(function () {
+        $(".slider .swiper-pagination span").each(function (i) {
+            $(this).text(i + 1).prepend("0");
+        });
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
