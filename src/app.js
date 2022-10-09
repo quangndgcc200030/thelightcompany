@@ -52,16 +52,18 @@ hbs.registerHelper('times', function (from, to, block) {
 });
 const app = express()
 
+require('dotenv').config()
+
 //use session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: {
         secure: false,
         httpOnly: true,
-        maxAge: 5 * 60 * 1000
+        maxAge: 1000 * 60 * 60 * 24
     }
 }))
 
@@ -71,6 +73,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(methodOverride('_method'))
+
+// app.locals.userSession
 
 // HTTP logger
 app.use(morgan('combined'))

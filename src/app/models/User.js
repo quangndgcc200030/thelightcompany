@@ -37,4 +37,9 @@ User.findUser = username => {
     return db.query(`SELECT * FROM users WHERE username = $1 OR email = $1`, [username]);
 };
 
+// REGISTER USER
+User.register = (username, telephone, email) => {
+    return db.query(`SELECT * FROM users WHERE username = $1 OR telephone = $2 OR email = $3`, [username, telephone, email]);
+};
+
 module.exports = { User };

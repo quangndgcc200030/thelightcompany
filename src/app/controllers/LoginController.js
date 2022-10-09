@@ -1,13 +1,10 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { User } = require("../models/User");
 
 class LoginController {
     index(req, res) {
-        if (req.session.user) {
-            res.render('login/login', { session: req.session.user });
-        } else {
-            res.render('login/login');
-        }
+        res.render('login/login');
     }
 
     forgot(req, res) {
@@ -24,18 +21,21 @@ class LoginController {
                     user.rows[0].password
                 )
                 if (validPass) {
+                    req.session.loggedin = true
                     req.session.user = user.rows[0]
-                    req.session.save();
-                    console.log(req.session)
-                    res.status(200).redirect('/')
+                    // console.log(req.session.user)
+                    res.redirect('/')
                 } else {
-                    res.render('login/login', { error: "Password is not correct!" })
+                    const conflicError = "Password is not correct"
+                    res.render('login/login', { account: req.body.username, error: conflicError })
                 }
             } else {
-                res.render('login/login', { error: "Username is not found!" })
+                const conflicError = "User is not exist"
+                res.render('login/login', { account: req.body.username, error: conflicError })
             }
         } catch (err) {
-            res.redirect('/login')
+            const conflicError = "Something is error"
+            res.render('login/login', { account: req.body.username, error: conflicError })
         }
     }
 }

@@ -6,15 +6,16 @@ const categoryRouter = require('./category')
 const supplierRouter = require('./supplier')
 const productRouter = require('./product')
 const shopRouter = require('./shop')
+const authMiddleware = require('../app/middlewares/AuthMiddleware')
 
 function route(app) {
-    app.use('/manage/shop', shopRouter)
-    app.use('/manage/product', productRouter)
-    app.use('/manage/supplier', supplierRouter)
-    app.use('/manage/category', categoryRouter)
-    app.use('/profile', profileRouter)
-    app.use('/login', loginRouter)
-    app.use('/register', registerRouter)
+    app.use('/manage/shop', authMiddleware.loggedin, shopRouter)
+    app.use('/manage/product', authMiddleware.loggedin, productRouter)
+    app.use('/manage/supplier', authMiddleware.loggedin, supplierRouter)
+    app.use('/manage/category', authMiddleware.loggedin, categoryRouter)
+    app.use('/profile', authMiddleware.loggedin, profileRouter)
+    app.use('/login', authMiddleware.isAuth, loginRouter)
+    app.use('/register', authMiddleware.isAuth, registerRouter)
     app.use('/', siteRouter)
 }
 

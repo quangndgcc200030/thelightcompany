@@ -1,6 +1,10 @@
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
 <header>
     <nav class="navbar-light bg-light d-flex flex-wrap justify-content-between py-4">
-        <div class="col-lg-3 col-md-12 d-flex justify-content-lg-start justify-content-center">
+        <div
+            class="col-lg-3 col-md-12 pl-md-4 d-flex justify-content-center justify-content-lg-start align-items-center">
             <img title="The Light Toy" onclick="location.href='/'" src="/img/TL.png" height="40" width="40" class="mr-2"
                 style="border-radius: 5px" role="button" />
             <form class="d-flex input-group w-auto">
@@ -16,6 +20,47 @@
             </ul>
         </div>
         <div class="col-lg-3 col-md-12 col-12">
+            {{#if user }}
+            <div class="nav navbar navbar-expand-md d-flex justify-content-center ml-lg-5 ml-xl-5">
+                <a class="text-dark" href="">
+                    <span class="badge badge-danger">11</span>
+                    <i class="bi bi-cart-fill"></i>
+                </a>
+                <a class="text-dark mx-4" href=""><i class="bi bi-bell-fill"></i></a>
+                <!-- Avatar -->
+                <div class="dropdown ">
+                    <a class="dropdown-toggle d-flex align-items-center text-dark" href="#"
+                        id="navbarDropdownMenuAvatar" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"><i class="bi bi-person-circle" style="color: black;"
+                            loading="lazy"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                        <li>
+                            <a class="dropdown-item disabled">Hi, {{ user.username }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="">Update profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="">Change password</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="">Order infomation</a>
+                        </li>
+                        {{#if user.role }}
+                        <li>
+                            <a class="dropdown-item" href="/manage">Administration</a>
+                        </li>
+                        {{/if}}
+                        <div class="dropdown-divider"></div>
+                        <li>
+                            <a class="dropdown-item" href="/logout" onclick="return confirm('Are you sure to log out?')">Log
+                                out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {{else}}
+
             <div class="d-flex justify-content-lg-end justify-content-center">
                 <a href="/register" class="btn btn-outline-info mx-2" class="btn btn-outline-primary" role="button">
                     Sign up
@@ -24,6 +69,8 @@
                     Sign in
                 </a>
             </div>
+
+            {{/if}}
         </div>
     </nav>
 </header>

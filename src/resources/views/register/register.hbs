@@ -90,10 +90,16 @@
                 <h3 class="mb-5 text-uppercase" align="center">
                     <strong>Customer registration</strong>
                 </h3>
-
+                {{#if error }}
+                <div class="alert alert-danger text-center">{{ error }}</div>
+                {{/if}}
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtUsername">Username</label>
+                    {{#if username }}
+                    <input type="text" id="txtUsername" class="form-control" name="username" value="{{ username }}">
+                    {{else}}
                     <input type="text" id="txtUsername" class="form-control" name="username">
+                    {{/if}}
                 </div>
 
                 <div class="form-group">
@@ -110,13 +116,23 @@
                     <div class="col-md-6 mb-0">
                         <div class="form-group">
                             <label class="font-weight-bold" for="txtFirstname">First Name</label>
+                            {{#if firstname }}
+                            <input type="text" id="txtFirstname" class="form-control" name="firstname"
+                                value="{{ firstname }}">
+                            {{else}}
                             <input type="text" id="txtFirstname" class="form-control" name="firstname">
+                            {{/if}}
                         </div>
                     </div>
                     <div class="col-md-6 mb-0">
                         <div class="form-group">
                             <label class="font-weight-bold" for="txtLastname">Last Name</label>
+                            {{#if lastname }}
+                            <input type="text" id="txtLastname" class="form-control" name="lastname"
+                                value="{{ lastname }}">
+                            {{else}}
                             <input type="text" id="txtLastname" class="form-control" name="lastname">
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -137,22 +153,40 @@
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtBirthday">Birthdate</label>
+                    {{#if birthdate }}
+                    <input type="date" id="txtBirthday" name="birthdate" class="form-control" value="{{ birthdate }}">
+                    {{else}}
                     <input type="date" id="txtBirthday" name="birthdate" class="form-control">
+                    {{/if}}
+                    
                 </div>
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtTelephone">Telephone</label>
+                    {{#if telephone }}
+                    <input type="text" id="txtTelephone" class="form-control" name="telephone" value="{{ telephone }}">
+                    {{else}}
                     <input type="text" id="txtTelephone" class="form-control" name="telephone">
+                    {{/if}}
                 </div>
 
                 <div class="form-group">
                     <label for="Email" class="font-weight-bold">Email</label>
+                    {{#if email }}
+                    <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp"
+                        value="{{ email }}">
+                    {{else}}
                     <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp">
+                    {{/if}}
                 </div>
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtAddress">Address</label>
+                    {{#if address }}
+                    <input type="text" id="txtAddress" class="form-control" name="address" value="{{ address }}">
+                    {{else}}
                     <input type="text" id="txtAddress" class="form-control" name="address">
+                    {{/if}}
                 </div>
 
                 <div class="d-flex justify-content-end pt-2">
