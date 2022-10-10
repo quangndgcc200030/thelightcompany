@@ -4,14 +4,14 @@ const { Supplier } = require("../models/Supplier")
 
 class SiteController {
     index(req, res) {
-        Category.get()
+        Category.showTop4()
             .then(categories => res.status(200).render('home', { categories: categories.rows }))
             .catch(err => res.status(400).json({ err }));
     }
 
     async shop(req, res) {
         try {
-            const products = await Product.get()
+            const products = await Product.showShop()
             const categories = await Category.get()
             const suppliers = await Supplier.get()
 

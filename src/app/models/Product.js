@@ -51,4 +51,9 @@ Product.viewDetail = id => {
     ])
 }
 
+//Show shop
+Product.showShop = () => {
+    return db.query('SELECT *, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct FROM products as p ORDER BY p.updated_date DESC');
+};
+
 module.exports = { Product };

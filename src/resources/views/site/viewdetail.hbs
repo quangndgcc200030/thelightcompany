@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="/css/viewdetail.css">
+{{#if success }}
+<div class="alert alert-success text-center">{{ success }}</div>
+{{/if}}
+{{#if error }}
+<div class="alert alert-danger text-center">{{ error }}</div>
+{{/if}}
 <div class="card">
     <div class="card-body">
         <h3 class="card-title">{{ product.name }}</h3>
@@ -29,15 +35,15 @@
                         {{/ifCond}}
                     </h2>
                 </div>
-                <form action="" method="POST" class="mb-2">
+                <form action="/cart/add" method="POST" class="mb-2">
                     <div class="row d-flex">
                         <input type="number" name="quantity" class="col-md-2" value="1" min="1"
                             max="{{ product.quantity }}" />
                         <input type="submit" name="addcart"
                             class="btn btn-dark btn-rounded mx-md-2 my-2 my-md-0 col-md-3" value="Add to cart" />
-                        <input type="submit" name="btnBuynow" formaction=""
+                        <input type="submit" name="btnBuynow" formaction="/order/buynow"
                             class="btn btn-primary btn-rounded me-md-2 my-md-0 mb-2 col-md-3" value="Buy Now" />
-                        <input type="hidden" name="proid" value="" />
+                        <input type="hidden" name="proid" value="{{ product.id }}" />
                     </div>
                 </form>
                 {{else}}

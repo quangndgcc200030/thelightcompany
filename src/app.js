@@ -1,22 +1,15 @@
 const path = require('path')
 const express = require('express')
+const app = express()
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
-const session = require('express-session');
-
 const route = require('./routes')
 const db = require('./config/db')
-
-//Connect to DB
-try {
-    db.connect();
-    console.log('Connect database successfully!')
-} catch (error) {
-    console.log('Connect database fail!')
-}
-
 const hbs = require('handlebars')
+require('dotenv').config()
+const session = require('express-session');
+
 hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
 hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
     switch (operator) {
@@ -50,14 +43,12 @@ hbs.registerHelper('times', function (from, to, block) {
         accum += block.fn(i);
     return accum;
 });
-const app = express()
-
-require('dotenv').config()
 
 //use session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     secret: process.env.SECRET_KEY,
+    // store: new RedisStore({ client: redisClient }),
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -72,9 +63,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//Override method send to server
 app.use(methodOverride('_method'))
-
-// app.locals.userSession
 
 // HTTP logger
 app.use(morgan('combined'))
@@ -91,6 +81,14 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 
 //Routes init
 route(app)
+
+//Connect to DB
+try {
+    db.connect();
+    console.log('Connect database successfully!')
+} catch (error) {
+    console.log('Connect database fail!')
+}
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Access at http://localhost:%d in %s mode", this.address().port, app.settings.env);

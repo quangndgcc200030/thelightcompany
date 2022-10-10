@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="/css/cart.css">
+<div class="card">
+    <div class="row">
+        <div class="col-lg-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h4><b>Shopping Cart</b></h4>
+                    </div>
+                </div>
+            </div>
+            {{#if success }}
+            <div class="alert alert-success text-center">{{ success }}</div>
+            {{/if}}
+            {{#if error }}
+            <div class="alert alert-danger text-center">{{ error }}</div>
+            {{/if}}
+            {{#if cart}}
+            <div class="row border-bottom">
+                {{#each cartDetails}}
+                <div class="row main align-items-center border-top">
+                    <div class="col-12 col-lg-3"><img class="img-fluid" src="/products/{{ this.image }}" height="80%"
+                            width="80%"></div>
+                    <div class="col-12 col-lg-4">
+                        <h5 class="row text-muted mb-2">{{ this.name }}</h5>
+                        <div class="row">{{ this.small_desc }}</div>
+                    </div>
+                    <div class="col-12 col-lg-2 my-4 my-lg-0 text-center">
+                        <a href="#">-</a><a href="#" class="border px-2 mx-2">{{ this.quantity }}</a><a href="#">+</a>
+                    </div>
+                    <div class="col-12 col-lg-2 mb-4 mb-lg-0 text-center">${{ this.total_price }}</div>
+                    <div class="col-12 col-lg-1 close p-0 text-center">
+                        <a href="" onclick="return confirm('Are you sure to remove!')">&#10005;</a>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <div class="row">
+                <div class="back-to-shop col-6"><a href="/shop" class="text-muted">&leftarrow; Back to shop</a></div>
+                <div class="back-to-shop col-6" align="end"><a href="#" class="text-muted"
+                        onclick="return confirm('Are you sure to clear!')">Clear cart</a></div>
+            </div>
+            {{else}}
+            <div>
+                <p class="text-center font-weight-bold">Cart is empty</p>
+            </div>
+            {{/if}}
+        </div>
+        <div class="col-lg-4 summary">
+            <div>
+                <h5><b>Summary</b></h5>
+            </div>
+            <hr>
+            {{#if cart }}
+            <div class="row">
+                <div class="col" style="padding-left:0;">ITEMS: {{ cart.count }}</div>
+                <input type="hidden" id="before-shipping" value="{{ cart.total_price }}">
+                <div class="col text-right">${{ cart.total_price }}</div>
+            </div>
+            <form action="/order/checkout" method="POST">
+                <div class="form-cart">
+                    <p>SHIPPING</p>
+                    <select name="shipping" id='shipping' onchange="Shipping(this)">
+                        <option value="0.00" class="text-muted">Choose delivery method</option>
+                        <option value="5.00" class="text-muted">Standard-Delivery-$5.00</option>
+                        <option value="10.00" class="text-muted">Fast-Delivery-$10.00</option>
+                    </select>
+                    <p>GIVE CODE</p>
+                    <input id="code" name="code" placeholder="Enter your code">
+                </div>
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col">TOTAL PRICE</div>
+                    <div class="col text-right" id="total"></div>
+                </div>
+                <button class="btn-cart">CHECKOUT</button>
+            </form>
+            {{else}}
+            <div>
+                <p class="text-center font-weight-bold">Cart is empty</p>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+<script>
+    function Shipping(obj) {
+        var total = document.getElementById("total")
+        var price = parseFloat(document.getElementById("before-shipping").value)
+        var value = parseFloat(obj.value)
+        var sum = price + value
+
+        if (value === 0.00) {
+            total.innerHTML = "Choose shipping method"
+        } else if (value === 5.00) {
+            total.innerHTML = "$" + sum
+        } else if (value === 10.00) {
+            total.innerHTML = "$" + sum
+        }
+    }
+</script>

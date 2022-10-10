@@ -39,4 +39,14 @@ Category.show = id => {
     return db.query(`SELECT * FROM categories WHERE id = $1`, [id]);
 };
 
+//Show all category
+Category.showAllCategory = () => {
+    return db.query('SELECT * FROM categories as c ORDER BY c.updated_date DESC');
+};
+
+//Show top 4 category
+Category.showTop4 = () => {
+    return db.query('SELECT * FROM categories as c ORDER BY c.updated_date DESC LIMIT 4');
+};
+
 module.exports = { Category };
