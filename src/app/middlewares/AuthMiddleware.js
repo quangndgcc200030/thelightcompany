@@ -25,5 +25,14 @@ class AuthMiddleware {
             next()
         }
     }
+
+    admin(req, res, next) {
+        if (req.session.loggedin && req.session.user.role) {
+            res.locals.user = req.session.user
+            next()
+        } else {
+            res.render('home')
+        }
+    }
 }
 module.exports = new AuthMiddleware

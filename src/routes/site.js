@@ -4,7 +4,7 @@ const siteController = require('../app/controllers/SiteController')
 const authMiddleware = require('../app/middlewares/AuthMiddleware')
 
 router.get('/logout', authMiddleware.loggedin, siteController.logout)
-router.get('/manage', authMiddleware.loggedin, siteController.admin)
+router.get('/manage', authMiddleware.admin, siteController.admin)
 router.get('/view-detail/:id', authMiddleware.loggedin, siteController.viewdetail)
 router.get('/about', authMiddleware.freedom, siteController.about)
 router.get('/shop', authMiddleware.freedom, siteController.shop)
