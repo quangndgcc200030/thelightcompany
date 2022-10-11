@@ -34,7 +34,7 @@
         }
         if (f.password.value != f.confirm.value) {
             alert("Password and Confirm Pass do not match, please enter again");
-            f.txtConfirmPass.focus();
+            f.confirm.focus();
             return false;
         }
         // Firstname and Lastname validation
@@ -158,7 +158,6 @@
                     {{else}}
                     <input type="date" id="txtBirthday" name="birthdate" class="form-control">
                     {{/if}}
-                    
                 </div>
 
                 <div class="form-group">
