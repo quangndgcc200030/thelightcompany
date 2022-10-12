@@ -32,4 +32,9 @@ Supplier.show = id => {
     return db.query(`SELECT * FROM suppliers WHERE id = $1`, [id]);
 };
 
+//GET A SUPPLIER
+Supplier.findDuplicate = (telephone, email) => {
+    return db.query(`SELECT * FROM suppliers WHERE telephone = $1 OR email = $2`, [telephone, email]);
+};
+
 module.exports = { Supplier };

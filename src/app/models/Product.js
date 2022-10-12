@@ -56,4 +56,9 @@ Product.showShop = () => {
     return db.query('SELECT *, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct FROM products as p ORDER BY p.updated_date DESC');
 };
 
+// UPDATE AN QUANTITY PRODUCT
+Product.updateQuantity = (id, quantity) => {
+    return db.query(`UPDATE products SET quantity = $2 WHERE id = $1`, [id, quantity]);
+};
+
 module.exports = { Product };

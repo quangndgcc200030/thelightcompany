@@ -18,10 +18,22 @@ class SupplierController {
         res.render('supplier/add')
     }
 
-    add(req, res, next) {
-        Supplier.create(req.body.name, req.body.telephone, req.body.email, req.body.address)
-            .then(data => res.status(200).redirect('/manage/supplier'))
-            .catch(err => res.status(400).json(err));
+    async add(req, res, next) {
+        const supTele = await Supplier.findDuplicate(req.body.telephone, req.body.email)
+        if (supTele.rowCount == 1) {
+            const conflicError = "Duplicate telephone or address"
+            return res.render('supplier/add', {
+                name: req.body.name,
+                telephone: req.body.telephone,
+                email: req.body.email,
+                address: req.body.address,
+                error: conflicError
+            })
+        } else {
+            Supplier.create(req.body.name, req.body.telephone, req.body.email, req.body.address)
+                .then(data => res.status(200).redirect('/manage/supplier'))
+                .catch(err => res.status(200).redirect('/manage/supplier'));
+        }
     }
 
     update(req, res, next) {

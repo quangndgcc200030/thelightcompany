@@ -62,72 +62,33 @@
                         <hr class="my-2">
                     </div>
                     <div class="card-body pt-0">
-                        <div class="row  justify-content-between">
-                            <div class="col-auto col-md-7">
-                                <div class="media flex-column flex-sm-row">
-                                    <img class=" img-fluid" src="https://i.imgur.com/6oHix28.jpg" width="62"
-                                        height="62">
-                                    <div class="media-body  my-auto">
+                        <div class="row justify-content-between">
+                            <div class="col-12 col-lg-6">
+                                <div class="row media">
+                                    <img class="img-fluid col-3" src="https://i.imgur.com/6oHix28.jpg" width="70"
+                                        height="70">
+                                    <div class="media-body col-8">
                                         <div class="row ">
-                                            <div class="col-auto">
-                                                <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">1
-                                                    Week Subscription</small>
-                                            </div>
+                                            <p class="col-12 mb-1">
+                                                <b>EC-GO Bag Standard</b>
+                                            </p>
+                                            <small class="text-muted col-12">
+                                                2 Week Subscription
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class=" pl-0 flex-sm-col col-auto  my-auto">
-                                <p class="boxed-1">2</p>
+                            <div class="col-12 col-lg-2 mt-3">
+                                <p class="text-center text-lg-left"><b>179 SEK</b></p>
                             </div>
-                            <div class=" pl-0 flex-sm-col col-auto  my-auto ">
-                                <p><b>179 SEK</b></p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row  justify-content-between">
-                            <div class="col-auto col-md-7">
-                                <div class="media flex-column flex-sm-row">
-                                    <img class=" img-fluid " src="https://i.imgur.com/9MHvALb.jpg" width="62"
-                                        height="62">
-                                    <div class="media-body  my-auto">
-                                        <div class="row ">
-                                            <div class="col">
-                                                <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2
-                                                    Week Subscription</small>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="col-12 col-lg-1 mt-lg-3">
+                                <div class="text-center">
+                                    <a class="border px-2">2</a>
                                 </div>
                             </div>
-                            <div class="pl-0 flex-sm-col col-auto  my-auto">
-                                <p class="boxed">3</p>
-                            </div>
-                            <div class="pl-0 flex-sm-col col-auto my-auto">
-                                <p><b>179 SEK</b></p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row  justify-content-between">
-                            <div class="col-auto col-md-7">
-                                <div class="media flex-column flex-sm-row">
-                                    <img class=" img-fluid " src="https://i.imgur.com/6oHix28.jpg" width="62"
-                                        height="62">
-                                    <div class="media-body  my-auto">
-                                        <div class="row ">
-                                            <div class="col">
-                                                <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2
-                                                    Week Subscription</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pl-0 flex-sm-col col-auto  my-auto">
-                                <p class="boxed-1">2</p>
-                            </div>
-                            <div class="pl-0 flex-sm-col col-auto my-auto">
-                                <p><b>179 SEK</b></p>
+                            <div class="col-12 col-lg-2 mt-3">
+                                <p class="text-center text-lg-right"><b>179 SEK</b></p>
                             </div>
                         </div>
                         <hr class="my-2">
@@ -156,7 +117,7 @@
                                         <p class="mb-1"><b>Shipping</b></p>
                                     </div>
                                     <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b>0 SEK</b></p>
+                                        <p class="mb-1"><b id="fee_ship"></b></p>
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">
@@ -164,7 +125,7 @@
                                         <p><b>Total</b></p>
                                     </div>
                                     <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b id="total">537 SEK</b></p>
+                                        <p class="mb-1"><b id="total"></b></p>
                                     </div>
                                 </div>
                             </div>
@@ -178,16 +139,20 @@
 <script>
     function Shipping(obj) {
         var total = document.getElementById("total")
+        var fee_ship = document.getElementById("fee_ship")
         var price = parseFloat(document.getElementById("before-shipping").value)
         var value = parseFloat(obj.value)
         var sum = price + value
 
         if (value === 0.00) {
-            total.innerHTML = "Choose shipping method"
+            total.innerHTML = "Choose shipping method";
+            fee_ship.innerHTML = "$" + 0
         } else if (value === 5.00) {
-            total.innerHTML = "$" + sum
+            total.innerHTML = "$" + sum;
+            fee_ship.innerHTML = "$" + value
         } else if (value === 10.00) {
-            total.innerHTML = "$" + sum
+            total.innerHTML = "$" + sum;
+            fee_ship.innerHTML = "$" + value
         }
     }
 </script>

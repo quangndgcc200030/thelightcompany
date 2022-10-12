@@ -26,11 +26,6 @@
             f.address.focus();
             return false;
         }
-        if (format.test(f.address.value)) {
-            alert("Invalid Address, please enter again");
-            f.address.focus();
-            return false;
-        }
         return true;
     }
 </script>
@@ -42,27 +37,49 @@
 
     <div class="pt-3 col-lg-10 col-md-9 col-12">
         <h1 class="text-center mb-4">Adding Supplier</h1>
-        <form id="formAddSupplier" name="formAddSupplier" method="POST" action="add/store"
+        {{#if error }}
+        <div class="alert alert-danger text-center">{{ error }}</div>
+        {{/if}}
+        <form id="formAddSupplier" name="formAddSupplier" method="POST" action="/manage/supplier/add/store"
             onsubmit="return formValid()">
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="Name">Supplier Name (*)</label>
+                {{#if name }}
+                <input type="text" name="name" id="Name" class="form-control" placeholder="" value="{{ name }}">
+                {{else}}
                 <input type="text" name="name" id="Name" class="form-control" placeholder="" />
+                {{/if}}
             </div>
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="Telephone">Telephone (*)</label>
+                {{#if telephone }}
+                <input type="text" name="telephone" id="Telephone" class="form-control" placeholder=""
+                    value="{{ telephone }}">
+                {{else}}
                 <input type="text" name="telephone" id="Telephone" class="form-control" placeholder="" />
+                {{/if}}
             </div>
 
             <div class="form-group">
                 <label for="Email" class="font-weight-bold">Email (*)</label>
+                {{#if email }}
+                <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp"
+                    value="{{ email }}">
+                {{else}}
                 <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp">
+                {{/if}}
             </div>
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="Address">Address (*)</label>
+                {{#if address }}
+                <input type="text" name="address" id="Address" class="form-control" placeholder=""
+                    value="{{ address }}">
+                {{else}}
                 <input type="text" name="address" id="Address" class="form-control" placeholder="" />
+                {{/if}}
             </div>
 
             <div class="form-group text-center">

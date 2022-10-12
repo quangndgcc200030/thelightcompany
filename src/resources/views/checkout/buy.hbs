@@ -1,10 +1,42 @@
+<script>
+    function formValid() {
+        f = document.formBuy
+        var validname = /^[A-Za-z]+|(\s)$/
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|.<>\/?]+/
+        var phone_pattern = /^(\(0\d{1,3}\)\d{7})|(0\d{9,10})$/
+
+        if (f.recip_name.value == '' || format.test(f.recip_name.value) || validname.test(f.recip_name.value) == false) {
+            alert("Recipient's name can't be empty, number, and special character. Please enter again")
+            f.recip_name.focus()
+            return false
+        }
+
+        // Telephone validation
+        if (phone_pattern.test(f.telephone.value) == false) {
+            alert('Invalid phone number, please enter again')
+            f.telephone.focus()
+            return false
+        }
+        // Address validation
+        if (f.address.value == '') {
+            alert("Address can't be empty, please enter again")
+            f.address.focus()
+            return false
+        }
+        // Choose delivery method
+        if (f.shipping.value == 0.00) {
+            alert("Please choose delivery method");
+            return false;
+        }
+        return true
+    }
+</script>
 <link rel="stylesheet" href="/css/checkout.css">
 <div class="justify-content-center">
     <div class="card">
         <div class="p-2 mt-3 justify-content-between">
             <div class="text-center">
-                <img class="irc_mi img-fluid cursor-pointer " src="/img/THELIGHTTOY.png" width="70"
-                    height="70">
+                <img class="irc_mi img-fluid cursor-pointer " src="/img/THELIGHTTOY.png" width="70" height="70">
             </div>
         </div>
         <div class="mx-auto text-center">
@@ -15,9 +47,9 @@
                                 href="/shop"><span class="mr-md-3 mr-1">BACK TO SHOP</span></a><i
                                 class="bi bi-chevron-double-right"></i>
                         </li>
-                        <li class="breadcrumb-item font-weight-bold"><a class="black-text text-uppercase" href="#"><span
-                                    class="mr-md-3 mr-1">SHOPPING BAG</span></a><i
-                                class="bi bi-chevron-double-right"></i>
+                        <li class="breadcrumb-item font-weight-bold"><a class="black-text text-uppercase"
+                                href="/view-detail/{{ product.id }}"><span class="mr-md-3 mr-1">View
+                                    product</span></a><i class="bi bi-chevron-double-right"></i>
                         </li>
                         <li class="breadcrumb-item font-weight-bold"><a class="black-text text-uppercase active-2"
                                 href="#"><span class="mr-md-3 mr-1">CHECKOUT</span></a>
@@ -26,144 +58,115 @@
                 </nav>
             </div>
         </div>
-        <div class="row justify-content-around">
-            <div class="col-lg-5">
-                <div class="card border-0">
-                    <div class="card-header pb-0">
-                        <h2 class="card-title space ">Checkout</h2>
-                        <p class="card-text text-muted mt-4  space">PAYMENT DETAILS</p>
-                        <hr class="my-0">
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="NAME" class="text-muted mb-1">Recipient's name</label>
-                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME">
+        <form action="/checkout/buy/store" id="formBuy" name="formBuy" method="POST" class="cardorder-body"
+            onsubmit="return formValid()">
+            <div class="row justify-content-around">
+                <div class="col-lg-5">
+                    <div class="card border-0">
+                        <div class="card-header pb-0">
+                            <h2 class="card-title space ">Checkout</h2>
+                            <p class="card-text text-muted mt-4  space">PAYMENT DETAILS</p>
+                            <hr class="my-0">
                         </div>
-                        <div class="form-group">
-                            <label for="NAME" class="text-muted mb-1">Telephone</label>
-                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME">
-                        </div>
-                        <div class="form-group">
-                            <label for="NAME" class="text-muted mb-1">Address</label>
-                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME">
-                        </div>
-                        <div class="row mb-md-5">
-                            <div class="col">
-                                <button type="button" name="" id="" class="btn btn-checkout btn-block mt-3">PURCHASE</button>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="Recip_name" class="text-muted mb-1">Recipient's name</label>
+                                <input type="text" class="form-control form-control-sm" name="recip_name"
+                                    id="Recip_name" value="{{ user.firstname }} {{ user.lastname }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Telephone" class="text-muted mb-1">Telephone</label>
+                                <input type="text" class="form-control form-control-sm" name="telephone" id="Telephone"
+                                    value="{{ user.telephone }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Address" class="text-muted mb-1">Address</label>
+                                <input type="text" class="form-control form-control-sm" name="address" id="Address"
+                                    value="{{ user.address }}">
+                            </div>
+                            <div class="row mb-md-5">
+                                <div class="col">
+                                    <input type="hidden" name="proid" value="{{ product.id }}" />
+                                    <input type="hidden" name="quantity" value="{{ quantity }}" />
+                                    <input type="hidden" name="price" value="{{ product.price }}" />
+                                    <input type="hidden" name="totalprice" value="{{ total_price }}" />
+                                    <button type="submit" class="btn btn-checkout btn-block mt-3">PURCHASE</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="card border-0">
-                    <div class="card-header card-2">
-                        <p class="card-text text-muted mt-md-4  mb-2 space">YOUR ORDER</p>
-                        <hr class="my-2">
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="row  justify-content-between">
-                            <div class="col-auto col-md-7">
-                                <div class="media flex-column flex-sm-row">
-                                    <img class=" img-fluid" src="https://i.imgur.com/6oHix28.jpg" width="62"
-                                        height="62">
-                                    <div class="media-body  my-auto">
-                                        <div class="row ">
-                                            <div class="col-auto">
-                                                <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">1
-                                                    Week Subscription</small>
+                <div class="col-lg-5">
+                    <div class="card border-0">
+                        <div class="card-header card-2">
+                            <p class="card-text text-muted mt-md-4  mb-2 space">YOUR ORDER</p>
+                            <hr class="my-2">
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row justify-content-between">
+                                <div class="col-12 col-lg-6">
+                                    <div class="row media">
+                                        <img class="col-3 img-fluid " src="/products/{{ product.image }}" width="70"
+                                            height="70">
+                                        <div class="col-8 media-body">
+                                            <div class="row ">
+                                                <p class="col-12 mb-1">
+                                                    <b>{{ product.name }}</b>
+                                                </p>
+                                                <small class="col-12 text-muted">{{ product.small_desc }}
+                                                </small>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12 col-lg-2 mt-3">
+                                    <p class="text-center text-lg-left"><b>${{ product.price }}</b></p>
+                                </div>
+                                <div class="col-12 col-lg-1 mt-lg-3">
+                                    <div class="text-center">
+                                        <a class="border px-2">{{ quantity }}</a>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-2 mt-3">
+                                    <p class="text-center text-lg-right"><b>${{ total_price }}</b></p>
+                                </div>
                             </div>
-                            <div class=" pl-0 flex-sm-col col-auto  my-auto">
-                                <p class="boxed-1">2</p>
-                            </div>
-                            <div class=" pl-0 flex-sm-col col-auto  my-auto ">
-                                <p><b>179 SEK</b></p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row  justify-content-between">
-                            <div class="col-auto col-md-7">
-                                <div class="media flex-column flex-sm-row">
-                                    <img class=" img-fluid " src="https://i.imgur.com/9MHvALb.jpg" width="62"
-                                        height="62">
-                                    <div class="media-body  my-auto">
-                                        <div class="row ">
-                                            <div class="col">
-                                                <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2
-                                                    Week Subscription</small>
-                                            </div>
+                            <hr class="my-2">
+                            <div class="row ">
+                                <div class="col">
+                                    <div class="form-cart">
+                                        <p class="card-text text-muted space">SHIPPING</p>
+                                        <select name="shipping" id='shipping' onchange="Shipping(this)">
+                                            <option value="0.00" class="text-muted">Choose delivery method</option>
+                                            <option value="5.00" class="text-muted">Standard-Delivery-$5.00</option>
+                                            <option value="10.00" class="text-muted">Fast-Delivery-$10.00</option>
+                                        </select>
+                                    </div>
+                                    <hr class="mt-0">
+                                    <div class="row justify-content-between">
+                                        <div class="col-4">
+                                            <p class="mb-1"><b>Subtotal</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b>${{ total_price }}</b></p>
+                                            <input type="hidden" name="" id="before-shipping" value="{{ total_price }}">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="pl-0 flex-sm-col col-auto  my-auto">
-                                <p class="boxed">3</p>
-                            </div>
-                            <div class="pl-0 flex-sm-col col-auto my-auto">
-                                <p><b>179 SEK</b></p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row  justify-content-between">
-                            <div class="col-auto col-md-7">
-                                <div class="media flex-column flex-sm-row">
-                                    <img class=" img-fluid " src="https://i.imgur.com/6oHix28.jpg" width="62"
-                                        height="62">
-                                    <div class="media-body  my-auto">
-                                        <div class="row ">
-                                            <div class="col">
-                                                <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2
-                                                    Week Subscription</small>
-                                            </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col">
+                                            <p class="mb-1"><b>Shipping</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b id="fee_ship"></b></p>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="pl-0 flex-sm-col col-auto  my-auto">
-                                <p class="boxed-1">2</p>
-                            </div>
-                            <div class="pl-0 flex-sm-col col-auto my-auto">
-                                <p><b>179 SEK</b></p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row ">
-                            <div class="col">
-                                <div class="form-cart">
-                                    <p class="card-text text-muted space">SHIPPING</p>
-                                    <select name="shipping" id='shipping' onchange="Shipping(this)">
-                                        <option value="0.00" class="text-muted">Choose delivery method</option>
-                                        <option value="5.00" class="text-muted">Standard-Delivery-$5.00</option>
-                                        <option value="10.00" class="text-muted">Fast-Delivery-$10.00</option>
-                                    </select>
-                                </div>
-                                <hr class="mt-0">
-                                <div class="row justify-content-between">
-                                    <div class="col-4">
-                                        <p class="mb-1"><b>Subtotal</b></p>
-                                    </div>
-                                    <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b>179 SEK</b></p>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-between">
-                                    <div class="col">
-                                        <p class="mb-1"><b>Shipping</b></p>
-                                    </div>
-                                    <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b>0 SEK</b></p>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-between">
-                                    <div class="col-4">
-                                        <p><b>Total</b></p>
-                                    </div>
-                                    <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b>537 SEK</b></p>
+                                    <div class="row justify-content-between">
+                                        <div class="col-4">
+                                            <p><b>Total</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b id="total"></b></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +174,26 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
+<script>
+    function Shipping(obj) {
+        var total = document.getElementById("total")
+        var fee_ship = document.getElementById("fee_ship")
+        var price = parseFloat(document.getElementById("before-shipping").value)
+        var value = parseFloat(obj.value)
+        var sum = price + value
+
+        if (value === 0.00) {
+            total.innerHTML = "Choose shipping method";
+            fee_ship.innerHTML = "$" + 0
+        } else if (value === 5.00) {
+            total.innerHTML = "$" + sum;
+            fee_ship.innerHTML = "$" + value
+        } else if (value === 10.00) {
+            total.innerHTML = "$" + sum;
+            fee_ship.innerHTML = "$" + value
+        }
+    }
+</script>

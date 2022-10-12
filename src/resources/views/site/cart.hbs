@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="/css/cart.css">
+{{#if success }}
+<div class="alert alert-success text-center my-1">{{ success }}</div>
+{{/if}}
+{{#if error }}
+<div class="alert alert-danger text-center my-1">{{ error }}</div>
+{{/if}}
 <div class="card">
     <div class="row">
         <div class="col-lg-8 cart">

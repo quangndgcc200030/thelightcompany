@@ -41,7 +41,7 @@
                             max="{{ product.quantity }}" />
                         <input type="submit" name="addcart"
                             class="btn btn-dark btn-rounded mx-md-2 my-2 my-md-0 col-md-3" value="Add to cart" />
-                        <input type="submit" name="btnBuynow" formaction="/order/buynow"
+                        <input type="submit" name="btnBuynow" formaction="/checkout/buy?_method=GET"
                             class="btn btn-primary btn-rounded me-md-2 my-md-0 mb-2 col-md-3" value="Buy Now" />
                         <input type="hidden" name="proid" value="{{ product.id }}" />
                     </div>
