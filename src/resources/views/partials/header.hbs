@@ -21,7 +21,9 @@
             class="col-lg-3 col-md-12 pl-md-4 d-flex justify-content-center justify-content-lg-start align-items-center">
             <img title="The Light Toy" onclick="location.href='/'" src="/img/THELIGHTTOY.png" height="40" width="40"
                 class="mr-2" style="border-radius: 5px" role="button" />
-            <form id="formSearch" name="formSearch" class="d-flex input-group w-auto" action="/shop" method="GET" onsubmit="return formValid()">
+            <form id="formSearch" name="formSearch" class="d-flex input-group w-auto" action="/shop" method="GET"
+                onsubmit="return formValid()">
+                <input type="hidden" name="page" value="1">
                 <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-info ml-2" type="submit">Search</button>
             </form>
@@ -29,7 +31,7 @@
         <div class="col-lg-auto col-md-12 d-flex justify-content-center my-2 my-lg-0">
             <ul class="nav">
                 <li><a href="/" class="nav-link text-dark text-uppercase">Home</a></li>
-                <li><a href="/shop" class="nav-link text-dark text-uppercase">Shop</a></li>
+                <li><a href="/shop?page=1" class="nav-link text-dark text-uppercase">Shop</a></li>
                 <li><a href="/about" class="nav-link text-dark text-uppercase">About</a></li>
             </ul>
         </div>

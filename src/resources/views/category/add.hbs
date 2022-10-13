@@ -2,10 +2,6 @@
     function formValid() {
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         f = document.formAddcategory
-        if (f.name.value == "" || f.description.value == "") {
-            alert("Enter fileds with marks(*), please");
-            return false;
-        }
         if (format.test(f.name.value)) {
             alert("Category name can't contain special character, please enter again");
             f.name.focus();
@@ -14,10 +10,6 @@
         if (format.test(f.description.value)) {
             alert("Category description can't contain special character, please enter again");
             f.txtCatDesc.focus();
-            return false;
-        }
-        if (f.image.value == "") {
-            alert("You must select your picture");
             return false;
         }
         return true;
@@ -34,18 +26,18 @@
             onsubmit="return formValid()">
 
             <div class="form-group">
-                <label class="form-label font-weight-bold" for="txtCatName">Category Name (*)</label>
-                <input type="text" name="name" id="txtCatName" class="form-control" placeholder="" />
+                <label class="form-label font-weight-bold" for="txtCatName">Category Name</label>
+                <input type="text" name="name" id="txtCatName" class="form-control" placeholder="" required />
             </div>
 
             <div class="form-group">
-                <label class="form-label font-weight-bold" for="txtCatDesc">Category Description (*)</label>
-                <input type="text" name="description" id="txtCatDesc" class="form-control" placeholder="" />
+                <label class="form-label font-weight-bold" for="txtCatDesc">Category Description</label>
+                <input type="text" name="description" id="txtCatDesc" class="form-control" placeholder="" required />
             </div>
 
             <div class="form-group">
-                <label for="catImage" class="form-label font-weight-bold">Category Image (*)</label>
-                <input type="file" name="image" id="catImage" class="form-control-file" />
+                <label for="catImage" class="form-label font-weight-bold">Category Image</label>
+                <input type="file" name="image" id="catImage" class="form-control-file" required />
             </div>
 
             <div class="form-group text-center">

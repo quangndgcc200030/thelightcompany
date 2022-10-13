@@ -53,12 +53,33 @@ Product.viewDetail = id => {
 
 //Show shop
 Product.showShop = () => {
-    return db.query('SELECT *, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct FROM products as p ORDER BY p.updated_date DESC');
+    return db.query('SELECT p.id, p.name, p.price, p.image, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct, COUNT(p.id), SUM(od.quantity) FROM products as p FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY p.id ORDER BY p.updated_date DESC, SUM(od.quantity) DESC');
 };
 
 // UPDATE AN QUANTITY PRODUCT
 Product.updateQuantity = (id, quantity) => {
     return db.query(`UPDATE products SET quantity = $2 WHERE id = $1`, [id, quantity]);
 };
+
+// FIND BY CATEGORY ID
+Product.findByCategory = id => {
+    return db.query(`SELECT p.id, p.name, p.price, p.image, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct, COUNT(p.id), SUM(od.quantity) FROM products as p FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY p.id HAVING p.cat_id = $1 ORDER BY p.updated_date DESC, SUM(od.quantity) DESC`, [id])
+}
+
+//FIND BY SUPPLIER ID
+Product.findBySupplier = id => {
+    return db.query(`SELECT p.id, p.name, p.price, p.image, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct, COUNT(p.id), SUM(od.quantity) FROM products as p FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY p.id HAVING p.sup_id = $1 ORDER BY p.updated_date DESC, SUM(od.quantity) DESC`, [id])
+}
+
+//FIND BY SHOP ID
+Product.findByShop = id => {
+    return db.query(`SELECT p.id, p.name, p.price, p.image, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct, COUNT(p.id), SUM(od.quantity) FROM products as p FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY p.id HAVING p.shop_id = $1 ORDER BY p.updated_date DESC, SUM(od.quantity) DESC`, [id])
+}
+
+//SEARCH PRODUCTS
+Product.searchByValue = (value) => {
+    const query = 'SELECT p.id, p.name, p.price, p.image, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct, COUNT(p.id), SUM(od.quantity) FROM products as p FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY p.id HAVING ' + value + ' ORDER BY p.updated_date DESC, SUM(od.quantity) DESC'
+    return db.query(query)
+}
 
 module.exports = { Product };

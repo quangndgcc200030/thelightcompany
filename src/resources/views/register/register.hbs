@@ -11,63 +11,32 @@
         var email_pattern = /^[a-zA-Z]\w*(\.\w+)*\@\w+(\.\w{2,3})+$/;
 
         // Username validation
-        if (f.username.value == "" || hasWhiteSpace(f.username.value)) {
-            alert("Username can't be empty and special character, please enter again");
-            f.username.focus();
-            return false;
-        }
-        if (format.test(f.username.value)) {
+        if (format.test(f.username.value) || hasWhiteSpace(f.username.value)) {
             alert("Invalid Username, please enter again");
             f.username.focus();
             return false;
         }
         // Password validation
-        if (f.password.value == "" || f.confirm.value == "") {
-            alert("Password and Confirm Password can't be empty, please enter again");
-            f.password.focus();
-            return false;
-        }
-        if (f.password.value.length <= 5) {
-            alert("Password must be greater than 5 chars, please enter again");
-            f.password.focus();
-            return false;
-        }
         if (f.password.value != f.confirm.value) {
             alert("Password and Confirm Pass do not match, please enter again");
             f.confirm.focus();
             return false;
         }
         // Firstname and Lastname validation
-        if (f.firstname.value == "" || format.test(f.firstname.value) || validname.test(f.firstname.value) == false) {
-            alert("First name can't be empty, number, and special character. Please enter again");
-            f.txtFirstname.focus();
+        if (format.test(f.firstname.value) || validname.test(f.firstname.value) == false) {
+            alert("Invalid first name. Please enter again");
+            f.firstname.focus();
             return false;
         }
-        if (f.lastname.value == "" || format.test(f.lastname.value) || validname.test(f.lastname.value) == false) {
-            alert("Last name can't be empty, number, and special character. Please enter again");
+        if (format.test(f.lastname.value) || validname.test(f.lastname.value) == false) {
+            alert("Invalid last name. Please enter again");
             f.lastname.focus();
-            return false;
-        }
-        // Sex validation
-        if (f.gender.value == 0) {
-            alert("Please choose your sex");
-            return false;
-        }
-        //DoB validation
-        if (f.birthdate.value == 0) {
-            alert("Invalid Birthday, please enter again");
             return false;
         }
         // Telephone validation
         if (phone_pattern.test(f.telephone.value) == false) {
             alert("Invalid phone number, please enter again");
             f.txtTelephone.focus();
-            return false;
-        }
-        // Address validation
-        if (f.address.value == "") {
-            alert("Address can't be empty, please enter again");
-            f.address.focus();
             return false;
         }
         return true;
@@ -91,20 +60,20 @@
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtUsername">Username</label>
                     {{#if username }}
-                    <input type="text" id="txtUsername" class="form-control" name="username" value="{{ username }}">
+                    <input type="text" id="txtUsername" class="form-control" name="username" value="{{ username }}" required>
                     {{else}}
-                    <input type="text" id="txtUsername" class="form-control" name="username">
+                    <input type="text" id="txtUsername" class="form-control" name="username" required>
                     {{/if}}
                 </div>
 
                 <div class="form-group">
                     <label for="Password" class="font-weight-bold">Password</label>
-                    <input type="password" class="form-control" id="Password" name="password">
+                    <input type="password" class="form-control" id="Password" name="password" minlength="5" required>
                 </div>
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtConfirmPass">Confirm</label>
-                    <input type="password" id="txtConfirmPass" class="form-control" name="confirm">
+                    <input type="password" id="txtConfirmPass" class="form-control" name="confirm" minlength="5" required>
                 </div>
 
                 <div class="row">
@@ -113,9 +82,9 @@
                             <label class="font-weight-bold" for="txtFirstname">First Name</label>
                             {{#if firstname }}
                             <input type="text" id="txtFirstname" class="form-control" name="firstname"
-                                value="{{ firstname }}">
+                                value="{{ firstname }}" required>
                             {{else}}
-                            <input type="text" id="txtFirstname" class="form-control" name="firstname">
+                            <input type="text" id="txtFirstname" class="form-control" name="firstname" required>
                             {{/if}}
                         </div>
                     </div>
@@ -124,9 +93,9 @@
                             <label class="font-weight-bold" for="txtLastname">Last Name</label>
                             {{#if lastname }}
                             <input type="text" id="txtLastname" class="form-control" name="lastname"
-                                value="{{ lastname }}">
+                                value="{{ lastname }}" required>
                             {{else}}
-                            <input type="text" id="txtLastname" class="form-control" name="lastname">
+                            <input type="text" id="txtLastname" class="form-control" name="lastname" required>
                             {{/if}}
                         </div>
                     </div>
@@ -136,12 +105,12 @@
                     <h6 class="font-weight-bold mb-3 mb-lg-0 mr-5">Gender:</h6>
 
                     <div class="form-check form-check-inline mb-0 mr-5">
-                        <input class="form-check-input" type="radio" name="gender" id="MaleGender" value="true">
+                        <input class="form-check-input" type="radio" name="gender" id="MaleGender" value="true" required>
                         <label class="form-check-label" for="MaleGender">Male</label>
                     </div>
 
                     <div class="form-check form-check-inline mb-0 ml-5">
-                        <input class="form-check-input" type="radio" name="gender" id="FemaleGender" value="false">
+                        <input class="form-check-input" type="radio" name="gender" id="FemaleGender" value="false" required>
                         <label class="form-check-label" for="FemaleGender">Female</label>
                     </div>
                 </div>
@@ -149,18 +118,18 @@
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtBirthday">Birthdate</label>
                     {{#if birthdate }}
-                    <input type="date" id="txtBirthday" name="birthdate" class="form-control" value="{{ birthdate }}">
+                    <input type="date" id="txtBirthday" name="birthdate" class="form-control" value="{{ birthdate }}" required>
                     {{else}}
-                    <input type="date" id="txtBirthday" name="birthdate" class="form-control">
+                    <input type="date" id="txtBirthday" name="birthdate" class="form-control" required>
                     {{/if}}
                 </div>
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtTelephone">Telephone</label>
                     {{#if telephone }}
-                    <input type="text" id="txtTelephone" class="form-control" name="telephone" value="{{ telephone }}">
+                    <input type="text" id="txtTelephone" class="form-control" name="telephone" value="{{ telephone }}" required>
                     {{else}}
-                    <input type="text" id="txtTelephone" class="form-control" name="telephone">
+                    <input type="text" id="txtTelephone" class="form-control" name="telephone" required>
                     {{/if}}
                 </div>
 
@@ -168,18 +137,18 @@
                     <label for="Email" class="font-weight-bold">Email</label>
                     {{#if email }}
                     <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp"
-                        value="{{ email }}">
+                        value="{{ email }}" required>
                     {{else}}
-                    <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp" required>
                     {{/if}}
                 </div>
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtAddress">Address</label>
                     {{#if address }}
-                    <input type="text" id="txtAddress" class="form-control" name="address" value="{{ address }}">
+                    <input type="text" id="txtAddress" class="form-control" name="address" value="{{ address }}" required>
                     {{else}}
-                    <input type="text" id="txtAddress" class="form-control" name="address">
+                    <input type="text" id="txtAddress" class="form-control" name="address" required>
                     {{/if}}
                 </div>
 

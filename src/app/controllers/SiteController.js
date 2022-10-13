@@ -1,6 +1,8 @@
 const { Product } = require("../models/Product")
 const { Category } = require("../models/Category")
 const { Supplier } = require("../models/Supplier")
+const { Shop } = require("../models/Shop")
+const PAGE_SIZE = 8
 
 class SiteController {
     index(req, res) {
@@ -11,13 +13,62 @@ class SiteController {
 
     async shop(req, res) {
         try {
-            const products = await Product.showShop()
+            let products
             const categories = await Category.get()
             const suppliers = await Supplier.get()
+            const shops = await Shop.get()
 
-            res.status(200).render('site/shop', {
-                products: products.rows, categories: categories.rows, suppliers: suppliers.rows
+            if (req.query.cid) {
+                products = await Product.findByCategory(req.query.cid)
+            } else if (req.query.sid) {
+                products = await Product.findBySupplier(req.query.sid)
+            } else if (req.query.shid) {
+                products = await Product.findByShop(req.query.shid)
+            } else if (req.query.search) {
+                const searchValue = req.query.search
+
+                const keywords = searchValue.split(" ")
+                const searchTermKeywords = [];
+
+                keywords.forEach(word => {
+                    searchTermKeywords.push("p.name ILIKE '%" + word + "%'")
+                });
+
+                const value = searchTermKeywords.join(" AND ")
+                products = await Product.searchByValue(value)
+            } else {
+                products = await Product.showShop()
+            }
+
+            const page = parseInt(req.query.page)
+            const startIndex = (page - 1) * PAGE_SIZE
+            const endIndex = page * PAGE_SIZE
+
+            const resultProducts = {}
+
+            if (endIndex < products.rowCount) {
+                resultProducts.next = {
+                    page: page + 1
+                }
+            }
+
+            if (startIndex > 0) {
+                resultProducts.previous = {
+                    page: page - 1
+                }
+            }
+
+            resultProducts.page = page
+            resultProducts.total_page = Math.ceil(products.rowCount / PAGE_SIZE)
+            resultProducts.result = products.rows.slice(startIndex, endIndex)
+
+            res.render('site/shop', {
+                products: resultProducts,
+                categories: categories.rows,
+                suppliers: suppliers.rows,
+                shops: shops.rows
             })
+
         } catch (error) {
 
         }

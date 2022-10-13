@@ -44,15 +44,21 @@ class CheckoutController {
         //add order detail
         const addOrderDetail = await OrderDetail.add(addOrder.rows[0].id, product_id, quantity, total_price)
         //Update quantity
-        var product = await Product.show(product_id)
+        const product = await Product.viewDetail(product_id)
         if (product.rowCount == 1) {
             Product.updateQuantity(product_id, product.rows[0].quantity - quantity)
                 .then(async data => {
-                    product = await Product.viewDetail(product_id)
                     const success = "Payment successfully"
                     res.render('site/viewdetail', {
                         product: product.rows[0],
                         success: success
+                    })
+                })
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    return res.render('site/viewdetail', {
+                        product: product.rows[0],
+                        error: conflicError
                     })
                 })
         } else {

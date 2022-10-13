@@ -2,10 +2,6 @@
     function formValid() {
         var format = /[!@#$%^&*()_+\-=\[\]{ };':"\\|,.<>\/?]+/;
         f = document.formUpdatecategory
-        if (f.name.value == "" || f.description.value == "") {
-            alert("Enter fileds with marks(*), please");
-            return false;
-        }
         if (format.test(f.name.value)) {
             alert("Category name can't contain special character, please enter again");
             f.name.focus();
@@ -31,18 +27,18 @@
             onsubmit="return formValid()">
 
             <div class="form-group">
-                <label class="form-label font-weight-bold" for="txtCatName">Category Name (*)</label>
-                <input type="text" name="name" id="txtCatName" class="form-control" value="{{ category.name }}" />
+                <label class="form-label font-weight-bold" for="txtCatName">Category Name</label>
+                <input type="text" name="name" id="txtCatName" class="form-control" value="{{ category.name }}" required />
             </div>
 
             <div class="form-group">
-                <label class="form-label font-weight-bold" for="txtCatDesc">Category Description (*)</label>
+                <label class="form-label font-weight-bold" for="txtCatDesc">Category Description</label>
                 <input type="text" name="description" id="txtCatDesc" class="form-control"
-                    value="{{ category.description }}" />
+                    value="{{ category.description }}" required />
             </div>
 
             <div class="form-group">
-                <label for="catImage" class="form-label font-weight-bold">Category Image (*)</label>
+                <label for="catImage" class="form-label font-weight-bold">Category Image</label>
                 <input type="file" name="image" id="catImage" class="form-control-file" />
                 <img src='/categories/{{ category.image }}' class="mt-4" border='0' width="150" height="100" />
             </div>

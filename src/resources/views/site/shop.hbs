@@ -19,9 +19,9 @@
             <h5 class="ml-3 mt-4 font-weight-bold text-info">Category</h5>
             <div class="position-sticky">
                 <div class="list-group list-group-flush">
-                    <a href="/shop" class="list-group-item list-group-item-action py-2">All</a>
                     {{#each categories }}
-                    <a href="/shop?cid={{ this.id }}" class="list-group-item list-group-item-action py-2">{{ this.name
+                    <a href="/shop?cid={{ this.id }}&page=1" class="list-group-item list-group-item-action py-2">{{
+                        this.name
                         }}</a>
                     {{/each }}
                 </div>
@@ -29,10 +29,19 @@
             <h5 class="ml-3 mt-4 font-weight-bold text-info">Supplier</h5>
             <div class="position-sticky">
                 <div class="list-group list-group-flush">
-                    <a href="/shop" class="list-group-item list-group-item-action py-2">All</a>
                     {{#each suppliers }}
-                    <a href="/shop?sid={{ this.id }}" class="list-group-item list-group-item-action py-2">{{ this.name
+                    <a href="/shop?sid={{ this.id }}&page=1" class="list-group-item list-group-item-action py-2">{{
+                        this.name
                         }}</a>
+                    {{/each }}
+                </div>
+            </div>
+            <h5 class="ml-3 mt-4 font-weight-bold text-info">Shop</h5>
+            <div class="position-sticky">
+                <div class="list-group list-group-flush">
+                    {{#each shops }}
+                    <a href="/shop?shid={{ this.id }}&page=1" class="list-group-item list-group-item-action py-2">{{
+                        this.name }}</a>
                     {{/each }}
                 </div>
             </div>
@@ -54,24 +63,21 @@
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
                         <div class="view">
-                            <img class="d-block w-100" src="/img/toy-ads-1.jpg"
-                                alt="First slide">
+                            <img class="d-block w-100" src="/img/toy-ads-1.jpg" alt="First slide">
                             <div class="mask rgba-black-light"></div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <!--Mask color-->
                         <div class="view">
-                            <img class="d-block w-100" src="/img/toy-ads-2.png"
-                                alt="Second slide">
+                            <img class="d-block w-100" src="/img/toy-ads-2.png" alt="Second slide">
                             <div class="mask rgba-black-strong"></div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <!--Mask color-->
                         <div class="view">
-                            <img class="d-block w-100" src="/img/toy-ads-3.png"
-                                alt="Third slide">
+                            <img class="d-block w-100" src="/img/toy-ads-3.png" alt="Third slide">
                             <div class="mask rgba-black-slight"></div>
                         </div>
                     </div>
@@ -103,24 +109,21 @@
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
                         <div class="view">
-                            <img class="d-block w-100" src="/img/toy-ads-4.jpg"
-                                alt="First slide">
+                            <img class="d-block w-100" src="/img/toy-ads-4.jpg" alt="First slide">
                             <div class="mask rgba-black-light"></div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <!--Mask color-->
                         <div class="view">
-                            <img class="d-block w-100" src="/img/toy-ads-5.png"
-                                alt="Second slide">
+                            <img class="d-block w-100" src="/img/toy-ads-5.png" alt="Second slide">
                             <div class="mask rgba-black-strong"></div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <!--Mask color-->
                         <div class="view">
-                            <img class="d-block w-100" src="/img/toy-ads-6.jpg"
-                                alt="Third slide">
+                            <img class="d-block w-100" src="/img/toy-ads-6.jpg" alt="Third slide">
                             <div class="mask rgba-black-slight"></div>
                         </div>
                     </div>
@@ -140,10 +143,10 @@
             <!--/.Carousel Wrapper-->
         </div>
 
-        {{#if products }}
+        {{#if products.result }}
         <div class="row">
-            {{#each products }}
-            <div class="col-12 col-lg-4 col-xl-3 col-md-4 col-sm-6 mb-xl-4 mb-lg-4">
+            {{#each products.result }}
+            <div class="col-12 col-lg-4 col-xl-3 col-md-4 col-sm-6 mb-4">
                 <div class="card">
                     <a href="/view-detail/{{ this.id }}">
                         <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
@@ -152,12 +155,12 @@
                             <div class="mask">
                                 <div class="d-flex justify-content-start align-items-end h-100">
                                     <h5>
-                                        {{#ifCond this.newproduct '<' 2 }} 
-                                            <span class="badge bg-primary ml-2">New</span>
-                                        {{/ifCond}}
-                                        {{#ifCond this.price '<' this.old_price }}
-                                            <span class="badge bg-danger">Sale</span>
-                                        {{/ifCond}}
+                                        {{#ifCond this.newproduct '<' 7 }} <span class="badge bg-primary ml-2">
+                                            New</span>
+                                            {{/ifCond}}
+                                            {{#ifCond this.price '<' this.old_price }} <span
+                                                class="badge bg-danger ml-2">Sale</span>
+                                                {{/ifCond}}
                                     </h5>
                                 </div>
                             </div>
@@ -184,6 +187,36 @@
             </div>
             {{/each }}
         </div>
+        {{#ifCond products.total_page '>' 1}}
+        <div class="demo">
+            <nav class="pagination-outer" aria-label="Page navigation">
+                <ul class="pagination">
+                    {{#if products.previous }}
+                    <li class="page-item">
+                        <a href="/shop?page={{ products.previous.page }}" class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    {{/if}}
+
+                    {{#times 1 products.total_page}}
+                    {{#ifCond this '==' ../products.page }}
+                    <li class="page-item active"><a class="page-link" href="/shop?page={{ this }}">{{ this }}</a></li>
+                    {{else}}
+                    <li class="page-item"><a class="page-link" href="/shop?page={{ this }}">{{ this }}</a></li>
+                    {{/ifCond}}
+                    {{/times}}
+                    {{#if products.next}}
+                    <li class="page-item">
+                        <a href="/shop?page={{ products.next.page }}" class="page-link" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+        {{/ifCond}}
         {{else}}
         <h2 class="font-weight-bold text-center py-5">Product does not exist</h2>
         {{/if}}
