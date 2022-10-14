@@ -29,7 +29,9 @@ class ProductController {
             })
         } catch (error) {
             const conflicError = "Something is error"
-            res.status(400).render('product/list', { error: conflicError })
+            res.status(400).render('product/list', {
+                error: conflicError
+            })
         }
     }
 
@@ -47,7 +49,12 @@ class ProductController {
                     shops: shops.rows
                 })
             })
-            .catch(err => res.status(400).json({ err }));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('product/list', {
+                    error: conflicError
+                })
+            });
     }
 
     async interfaceadd(req, res, next) {
@@ -60,14 +67,22 @@ class ProductController {
                 categories: categories.rows, suppliers: suppliers.rows, shops: shops.rows
             })
         } catch (error) {
-
+            const conflicError = "Something is error"
+            res.status(400).render('product/list', {
+                error: conflicError
+            })
         }
     }
 
     add(req, res, next) {
         Product.create(req.body.name, req.body.price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
             .then(data => res.status(200).redirect('/manage/product'))
-            .catch(err => res.status(400).json(err));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('product/list', {
+                    error: conflicError
+                })
+            });
     }
 
     update(req, res, next) {
@@ -80,29 +95,59 @@ class ProductController {
                         if (req.body.price != product.rows[0].price) {
                             Product.updateHaveImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
                                 .then(data => res.status(200).redirect('/manage/product'))
-                                .catch(err => res.status(400).json(err));
+                                .catch(err => {
+                                    const conflicError = "Something is error"
+                                    res.status(400).render('product/list', {
+                                        error: conflicError
+                                    })
+                                });
                         } else {
                             Product.updateHaveImage(id, req.body.name, req.body.price, product.rows[0].old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
                                 .then(data => res.status(200).redirect('/manage/product'))
-                                .catch(err => res.status(400).json(err));
+                                .catch(err => {
+                                    const conflicError = "Something is error"
+                                    res.status(400).render('product/list', {
+                                        error: conflicError
+                                    })
+                                });
                         }
                     });
                 })
-                .catch(err => res.status(400).json({ err }));
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.status(400).render('product/list', {
+                        error: conflicError
+                    })
+                });
         } else {
             Product.show(id)
                 .then(product => {
                     if (req.body.price != product.rows[0].price) {
                         Product.updateWithoutImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.body.cat_id, req.body.sup_id, req.body.shop_id)
                             .then(data => res.status(200).redirect('/manage/product'))
-                            .catch(err => res.status(400).json(err));
+                            .catch(err => {
+                                const conflicError = "Something is error"
+                                res.status(400).render('product/list', {
+                                    error: conflicError
+                                })
+                            });
                     } else {
                         Product.updateWithoutImage(id, req.body.name, req.body.price, product.rows[0].old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.body.cat_id, req.body.sup_id, req.body.shop_id)
                             .then(data => res.status(200).redirect('/manage/product'))
-                            .catch(err => res.status(400).json(err));
+                            .catch(err => {
+                                const conflicError = "Something is error"
+                                res.status(400).render('product/list', {
+                                    error: conflicError
+                                })
+                            });
                     }
                 })
-                .catch(err => res.status(400).json({ err }));
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.status(400).render('product/list', {
+                        error: conflicError
+                    })
+                });
         }
     }
 
@@ -114,10 +159,20 @@ class ProductController {
                     if (err) throw err;
                     Product.delete(id)
                         .then(data => res.status(200).redirect('/manage/product'))
-                        .catch(err => res.status(400).json(err));
+                        .catch(err => {
+                            const conflicError = "Something is error"
+                            res.status(400).render('product/list', {
+                                error: conflicError
+                            })
+                        });
                 });
             })
-            .catch(err => res.status(400).json({ err }));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('product/list', {
+                    error: conflicError
+                })
+            });
     }
 }
 module.exports = new ProductController

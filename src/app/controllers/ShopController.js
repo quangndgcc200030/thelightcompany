@@ -33,7 +33,10 @@ class ShopController {
         let id = req.params.id
         Shop.show(id)
             .then(shop => res.status(200).render('shop/update', { shop: shop.rows[0] }))
-            .catch(err => res.status(400).json({ err }));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('shop/list', { error: conflicError })
+            });
     }
 
     interfaceadd(req, res, next) {
@@ -43,21 +46,30 @@ class ShopController {
     add(req, res, next) {
         Shop.create(req.body.name, req.body.telephone, req.body.address)
             .then(data => res.status(200).redirect('/manage/shop'))
-            .catch(err => res.status(400).json(err));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('shop/list', { error: conflicError })
+            });
     }
 
     update(req, res, next) {
         let id = req.params.id
         Shop.update(id, req.body.name, req.body.telephone, req.body.address)
             .then(data => res.status(200).redirect('/manage/shop'))
-            .catch(err => res.status(400).json(err));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('shop/list', { error: conflicError })
+            });
     }
 
     delete(req, res, next) {
         let id = req.params.id
         Shop.delete(id)
             .then(data => res.status(200).redirect('/manage/shop'))
-            .catch(err => res.status(400).json(err));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('shop/list', { error: conflicError })
+            });
     }
 }
 module.exports = new ShopController

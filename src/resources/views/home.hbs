@@ -115,7 +115,42 @@
             <div class="row">
                 {{#each categories }}
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 py-5 d-flex align-items-center justify-content-center">
-                    <a href=""><img class="img-fluid" src="/categories/{{ this.image }}" alt="{{ this.name }}" /></a>
+                    <a href="/shop?cid={{ this.id }}&page=1"><img class="img-fluid" src="/categories/{{ this.image }}"
+                            alt="{{ this.name }}" /></a>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="section-bg">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>Best Selling</h2>
+            </div>
+
+            <div class="row">
+                {{#each products }}
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <img class="mx-auto" src="/products/{{ this.image }}" style="border: none;" width="100%"
+                            height="100%" />
+                        <div class="card-body text-center mx-auto">
+                            <h5 class="card-title font-weight-bold">{{ this.name }}</h5>
+                            <div class="d-flex justify-content-center align-items-end mb-4">
+                                {{#ifCond this.price '<' this.old_price}}
+                                <del>${{ this.old_price }}</del>
+                                {{/ifCond}}
+                                <p class="card-text ml-2"><b>${{this.price}}</b></p>
+                            </div>
+                            <a href="/view-detail/{{ this.id }}" class="btn details px-auto text-dark">view details</a><br />
+                            <form action="/cart/add" method="POST" class="mb-2">
+                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="proid" value="{{ this.id }}" />
+                                <input type="submit" name="addcart" class="btn cart px-auto text-light" value="ADD TO CART" />
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 {{/each}}
             </div>
@@ -123,7 +158,7 @@
     </section>
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact contact-bg">
+    <section id="contact" class="contact">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">

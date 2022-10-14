@@ -26,7 +26,9 @@ class CategoryController {
             })
         } catch (error) {
             const conflicError = "Something is error"
-            res.status(400).render('category/list', { error: conflicError })
+            res.status(400).render('category/list', {
+                error: conflicError
+            })
         }
     }
 
@@ -39,7 +41,9 @@ class CategoryController {
                 }))
             .catch(err => {
                 const conflicError = "Something is error"
-                res.render('category/update', { error: conflicError })
+                res.render('category/update', {
+                    error: conflicError
+                })
             });
     }
 
@@ -52,7 +56,9 @@ class CategoryController {
             .then(data => res.status(200).redirect('/manage/category'))
             .catch(err => {
                 const conflicError = "Something is error"
-                res.render('category/add', { error: conflicError })
+                res.render('category/add', {
+                    error: conflicError
+                })
             });
     }
 
@@ -67,20 +73,26 @@ class CategoryController {
                             .then(data => res.status(200).redirect('/manage/category'))
                             .catch(err => {
                                 const conflicError = "Something is error"
-                                res.render('category/update', { error: conflicError })
+                                res.render('category/update', {
+                                    error: conflicError
+                                })
                             });
                     });
                 })
                 .catch(err => {
                     const conflicError = "Something is error"
-                    res.render('category/update', { error: conflicError })
+                    res.render('category/update', {
+                        error: conflicError
+                    })
                 });
         } else {
             Category.updateWithoutImage(id, req.body.name, req.body.description)
                 .then(data => res.status(200).redirect('/manage/category'))
                 .catch(err => {
                     const conflicError = "Something is error"
-                    res.render('category/update', { error: conflicError })
+                    res.render('category/update', {
+                        error: conflicError
+                    })
                 });
         }
     }
@@ -95,13 +107,17 @@ class CategoryController {
                         .then(data => res.status(200).redirect('/manage/category'))
                         .catch(err => {
                             const conflicError = "Something is error"
-                            res.render('category/list', { error: conflicError })
+                            res.render('category/list', {
+                                error: conflicError
+                            })
                         });
                 });
             })
             .catch(err => {
                 const conflicError = "Something is error"
-                res.render('category/list', { error: conflicError })
+                res.render('category/list', {
+                    error: conflicError
+                })
             });
     }
 }

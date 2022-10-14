@@ -16,6 +16,9 @@
     <div class="col-lg-10 col-md-9 col-12">
         <div class="pt-2 mb-2">
             <h1 class="text-center">Shop List</h1>
+            {{#if error }}
+            <div class="alert alert-danger text-center my-1">{{ error }}</div>
+            {{/if}}
             <div class="text-center mb-2 row">
                 <div class="col-6 d-flex justify-content-start align-items-center">
                     <a href="shop/add" class="btn btn-outline-info"><i class="bi bi-plus-circle"></i> Add</a>
@@ -24,8 +27,7 @@
                     <form action="/manage/shop" method="GET" class="d-flex input-group w-auto">
                         <input name="search" type="search" class="form-control" placeholder="Search by name"
                             aria-label="Search" aria-describedby="search-addon" />
-                        <button class="btn btn-secondary searching" type="submit"><i
-                                class="bi bi-search"></i></button>
+                        <button class="btn btn-secondary searching" type="submit"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -66,8 +68,7 @@
                         <td class="text-center align-middle">{{ this.telephone }}</td>
                         <td class="align-middle">{{ this.address }}</td>
                         <td class="text-center align-middle">
-                            <a href="shop/show/{{ this.id }}"><i class="bi bi-pen-fill"
-                                    style="color: black;"></i></a>
+                            <a href="shop/show/{{ this.id }}"><i class="bi bi-pen-fill" style="color: black;"></i></a>
                         </td>
                         <td class="text-center align-middle">
                             <form method="POST" action="shop/delete/{{ this.id }}?_method=DELETE"

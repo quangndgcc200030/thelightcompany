@@ -84,7 +84,7 @@ Product.searchByValue = (value) => {
 
 //Best Selling
 Product.showBestSelling = () => {
-    return db.query('SELECT p.id, p.name, p.price, p.old_price, p.image, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct, COUNT(p.id), SUM(od.quantity) FROM products as p FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY p.id ORDER BY p.updated_date DESC, SUM(od.quantity) DESC LIMIT 4');
+    return db.query('SELECT p.id, p.name, p.price, p.old_price, p.image, EXTRACT(DAY FROM (CURRENT_TIMESTAMP - p.updated_date)) as newproduct, COUNT(p.id), SUM(od.quantity) FROM products as p FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY p.id ORDER BY SUM(od.quantity) DESC NULLS LAST, p.updated_date DESC LIMIT 6');
 };
 
 //Search product in administration

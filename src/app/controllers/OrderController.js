@@ -9,7 +9,10 @@ class OrderController {
                 orders: orders.rows
             })
         } catch (error) {
-
+            const conflicError = "Something is error"
+            res.render('order/list', {
+                error: conflicError
+            })
         }
     }
 
@@ -21,7 +24,10 @@ class OrderController {
                 orderDetails: orderDetails.rows
             })
         } catch (error) {
-
+            const conflicError = "Something is error"
+            res.render('order/list', {
+                error: conflicError
+            })
         }
     }
 
@@ -34,14 +40,27 @@ class OrderController {
             if (status == 'false') {
                 Order.changeStatus(id, true)
                     .then(data => res.redirect('/manage/order'))
-                    .catch(err => res.json(err))
+                    .catch(err => {
+                        const conflicError = "Something is error"
+                        res.render('order/list', {
+                            error: conflicError
+                        })
+                    })
             } else {
                 Order.changeStatus(id, false)
                     .then(data => res.redirect('/manage/order'))
-                    .catch(err => res.json(err))
+                    .catch(err => {
+                        const conflicError = "Something is error"
+                        res.render('order/list', {
+                            error: conflicError
+                        })
+                    })
             }
         } catch (error) {
-            res.json(error)
+            const conflicError = "Something is error"
+            res.render('order/list', {
+                error: conflicError
+            })
         }
     }
 
@@ -53,10 +72,16 @@ class OrderController {
                     res.redirect('/manage/order')
                 })
                 .catch(err => {
-                    res.json(err)
+                    const conflicError = "Something is error"
+                    res.render('order/list', {
+                        error: conflicError
+                    })
                 })
         } catch (error) {
-            res.json(error)
+            const conflicError = "Something is error"
+            res.render('order/list', {
+                error: conflicError
+            })
         }
     }
 }

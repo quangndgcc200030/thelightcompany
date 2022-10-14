@@ -8,7 +8,6 @@ class CartController {
         const cart = await Cart.showCart(user.username)
         if (cart.rowCount == 1) {
             const cartDetails = await CartDetail.showCartDetail(cart.rows[0].id)
-
             res.render('site/cart', {
                 cart: cart.rows[0],
                 cartDetails: cartDetails.rows
@@ -24,7 +23,7 @@ class CartController {
         let id = req.body.proid
         let quantity = parseInt(req.body.quantity)
         const product = await Product.viewDetail(id)
-        const cart = await Cart.find(user.username)
+        const cart = await Cart.findByUsername(user.username)
 
         // console.log(cart)
         // Check whether or not the cart has exists
@@ -104,6 +103,55 @@ class CartController {
                         })
                     })
             }
+        }
+    }
+
+    async remove(req, res) {
+        try {
+            const user = req.session.user
+            let cart_id = req.query.cart
+            let product_id = req.query.product
+            const cart = await Cart.find(cart_id)
+            const cartDetail = await CartDetail.findOne(cart_id, product_id)
+
+            const removeProduct = await CartDetail.remove(cart_id, product_id)
+            Cart.update(cart_id, cart.rows[0].total_price - cartDetail.rows[0].total_price, user.username)
+                .then(data => {
+                    res.redirect('/cart')
+                })
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.render('site/cart', {
+                        error: conflicError
+                    })
+                })
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.render('site/cart', {
+                error: conflicError
+            })
+        }
+    }
+
+    async clear(req, res) {
+        try {
+            let cart_id = req.params.id
+            Cart.deleteCart(cart_id)
+                .then(data => {
+                    res.redirect('/cart')
+                })
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.render('site/cart', {
+                        error: conflicError
+                    })
+                })
+            // console.log(cart_id)
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.render('site/cart', {
+                error: conflicError
+            })
         }
     }
 }

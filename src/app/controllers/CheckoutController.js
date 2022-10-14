@@ -103,7 +103,7 @@ class CheckoutController {
             const address = req.body.address
             const fee_ship = parseFloat(req.body.shipping)
             //get cart
-            const cart = await Cart.find(user.username)
+            const cart = await Cart.findByUsername(user.username)
             //Get cart detail
             const cartDetailTemp = await CartDetail.find(cart.rows[0].id)
 

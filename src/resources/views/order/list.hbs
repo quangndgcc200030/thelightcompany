@@ -16,6 +16,9 @@
     <div class="col-lg-10 col-md-9 col-12">
         <div class="pt-2 mb-2">
             <h1 class="text-center mb-4">Order List</h1>
+            {{#if error }}
+            <div class="alert alert-danger text-center my-1">{{ error }}</div>
+            {{/if}}
             {{!-- <div class="text-center mb-2 d-flex row align-items-center">
                 <div class="col-6 d-flex justify-content-end align-items-center">
                     <form action="" name="formOrder" method="POST" class="input-group w-auto"
@@ -85,7 +88,8 @@
                     {{#each orders }}
                     <tr>
                         <td class="text-center">
-                            <a href="/manage/order/detail/{{ this.id }}" style="text-decoration: none;">{{ sum @index 1 }}</a>
+                            <a href="/manage/order/detail/{{ this.id }}" style="text-decoration: none;">{{ sum @index 1
+                                }}</a>
                         </td>
                         <td class="text-center">{{dateFormat this.ordered_date "YYYY-MM-DD, HH:mm:ss"}}</td>
                         <td class="text-center">{{dateFormat this.delivery_date "YYYY-MM-DD, HH:mm:ss"}}</td>
