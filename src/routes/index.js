@@ -12,6 +12,7 @@ const orderRouter = require('./order')
 const authMiddleware = require('../app/middlewares/AuthMiddleware')
 
 function route(app) {
+    app.use('/manage/order', authMiddleware.admin, orderRouter)
     app.use('/manage/shop', authMiddleware.admin, shopRouter)
     app.use('/manage/product', authMiddleware.admin, productRouter)
     app.use('/manage/supplier', authMiddleware.admin, supplierRouter)
