@@ -15,17 +15,12 @@
                     </div>
                 </div>
             </div>
-            {{#if success }}
-            <div class="alert alert-success text-center">{{ success }}</div>
-            {{/if}}
-            {{#if error }}
-            <div class="alert alert-danger text-center">{{ error }}</div>
-            {{/if}}
             {{#if cart}}
             <div class="row border-bottom">
                 {{#each cartDetails}}
                 <div class="row main align-items-center border-top">
-                    <div class="col-12 col-lg-3"><img class="img-fluid" src="/products/{{ this.image }}" height="80%" width="80%"></div>
+                    <div class="col-12 col-lg-3"><img class="img-fluid" src="/products/{{ this.image }}" height="80%"
+                            width="80%"></div>
                     <div class="col-12 col-lg-4">
                         <h4 class="row text-muted mb-2">{{ this.name }}</h4>
                         <div class="row">{{ this.small_desc }}</div>
@@ -62,7 +57,18 @@
                 <input type="hidden" id="before-shipping" value="{{ cart.total_price }}">
                 <div class="col text-right">${{ cart.total_price }}</div>
             </div>
-            <form action="/order/checkout" method="POST">
+            <script>
+                function formValid() {
+                    f = document.formCart
+                    // Choose delivery method
+                    if (f.shipping.value == 0.00) {
+                        alert("Please choose delivery method");
+                        return false;
+                    }
+                    return true
+                }
+            </script>
+            <form action="/checkout/cart" id="formCart" name="formCart" method="POST" onsubmit="return formValid()">
                 <div class="form-cart">
                     <p>SHIPPING</p>
                     <select name="shipping" id='shipping' onchange="Shipping(this)">
@@ -77,7 +83,7 @@
                     <div class="col">TOTAL PRICE</div>
                     <div class="col text-right" id="total"></div>
                 </div>
-                <button class="btn-cart">CHECKOUT</button>
+                <button type="submit" class="btn-cart">CHECKOUT</button>
             </form>
             {{else}}
             <div>

@@ -37,4 +37,10 @@ Supplier.findDuplicate = (telephone, email) => {
     return db.query(`SELECT * FROM suppliers WHERE telephone = $1 OR email = $2`, [telephone, email]);
 };
 
+// SEARCH SUPPLIER
+Supplier.searchSupplier = value => {
+    const query = 'SELECT * FROM suppliers as s WHERE ' + value
+    return db.query(query);
+};
+
 module.exports = { Supplier };

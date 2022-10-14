@@ -18,7 +18,7 @@ CartDetail.update = (cart_id, product_id, quantity, total_price) => {
 
 //Show cart
 CartDetail.showCartDetail = id => {
-    return db.query(`SELECT cd.cart_id, cd.quantity, cd.total_price, p.id as product_id, p.name, p.small_desc, p.image FROM cart_details as cd INNER JOIN carts as c ON c.id = cd.cart_id INNER JOIN products as p ON p.id = cd.product_id WHERE c.id = $1`, [id])
+    return db.query(`SELECT cd.cart_id, cd.quantity, cd.total_price, p.id as product_id, p.name, p.price as pro_price, p.small_desc, p.image FROM cart_details as cd INNER JOIN carts as c ON c.id = cd.cart_id INNER JOIN products as p ON p.id = cd.product_id WHERE c.id = $1`, [id])
 }
 
 module.exports = { CartDetail };

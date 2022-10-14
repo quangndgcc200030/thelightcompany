@@ -5,10 +5,14 @@ const { Shop } = require("../models/Shop")
 const PAGE_SIZE = 8
 
 class SiteController {
-    index(req, res) {
-        Category.showTop4()
-            .then(categories => res.status(200).render('home', { categories: categories.rows }))
-            .catch(err => res.status(400).json({ err }));
+    async index(req, res) {
+        const products = await Product.showBestSelling()
+        const categories = await Category.showTop4()
+        
+        res.status(200).render('home', {
+            products: products.rows, 
+            categories: categories.rows 
+        })
     }
 
     async shop(req, res) {

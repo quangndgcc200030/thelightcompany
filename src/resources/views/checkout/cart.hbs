@@ -1,4 +1,31 @@
 <link rel="stylesheet" href="/css/checkout.css">
+<script>
+    function formValid() {
+        f = document.formBuy
+        var validname = /^[A-Za-z]+|(\s)$/
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|.<>\/?]+/
+        var phone_pattern = /^(\(0\d{1,3}\)\d{7})|(0\d{9,10})$/
+
+        if (f.recip_name.value == '' || format.test(f.recip_name.value) || validname.test(f.recip_name.value) == false) {
+            alert("Recipient's name can't be empty, number, and special character. Please enter again")
+            f.recip_name.focus()
+            return false
+        }
+
+        // Telephone validation
+        if (phone_pattern.test(f.telephone.value) == false) {
+            alert('Invalid phone number, please enter again')
+            f.telephone.focus()
+            return false
+        }
+        // Choose delivery method
+        if (f.shipping.value == 0.00) {
+            alert("Please choose delivery method");
+            return false;
+        }
+        return true
+    }
+</script>
 <div class="justify-content-center">
     <div class="card">
         <div class="p-2 mt-3 justify-content-between">
@@ -25,115 +52,130 @@
                 </nav>
             </div>
         </div>
-        <div class="row justify-content-around">
-            <div class="col-lg-5">
-                <div class="card border-0">
-                    <div class="card-header pb-0">
-                        <h2 class="card-title space ">Checkout</h2>
-                        <p class="card-text text-muted mt-4  space">PAYMENT DETAILS</p>
-                        <hr class="my-0">
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="NAME" class="text-muted mb-1">Recipient's name</label>
-                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME">
+        <form action="/checkout/cart/store" id="formBuy" name="formBuy" method="POST" class="cardorder-body"
+            onsubmit="return formValid()">
+            <div class="row justify-content-around">
+                <div class="col-lg-5">
+                    <div class="card border-0">
+                        <div class="card-header pb-0">
+                            <h2 class="card-title space ">Checkout</h2>
+                            <p class="card-text text-muted mt-4  space">PAYMENT DETAILS</p>
+                            <hr class="my-0">
                         </div>
-                        <div class="form-group">
-                            <label for="NAME" class="text-muted mb-1">Telephone</label>
-                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME">
-                        </div>
-                        <div class="form-group">
-                            <label for="NAME" class="text-muted mb-1">Address</label>
-                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME">
-                        </div>
-                        <div class="row mb-md-5">
-                            <div class="col">
-                                <button type="button" name="" id=""
-                                    class="btn btn-checkout btn-block mt-3">PURCHASE</button>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="Recip_name" class="text-muted mb-1">Recipient's name</label>
+                                <input type="text" class="form-control form-control-sm" name="recip_name"
+                                    id="Recip_name" value="{{ user.firstname }} {{ user.lastname }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Telephone" class="text-muted mb-1">Telephone</label>
+                                <input type="text" class="form-control form-control-sm" name="telephone" id="Telephone"
+                                    value="{{ user.telephone }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Address" class="text-muted mb-1">Address</label>
+                                <input type="text" class="form-control form-control-sm" name="address" id="Address"
+                                    value="{{ user.address }}" required>
+                            </div>
+                            <div class="row mb-md-5">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-checkout btn-block mt-3">PURCHASE</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="card border-0">
-                    <div class="card-header card-2">
-                        <p class="card-text text-muted mt-md-4  mb-2 space">YOUR ORDER</p>
-                        <hr class="my-2">
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="row justify-content-between">
-                            <div class="col-12 col-lg-6">
-                                <div class="row media">
-                                    <img class="img-fluid col-3" src="https://i.imgur.com/6oHix28.jpg" width="70"
-                                        height="70">
-                                    <div class="media-body col-8">
-                                        <div class="row ">
-                                            <p class="col-12 mb-1">
-                                                <b>EC-GO Bag Standard</b>
-                                            </p>
-                                            <small class="text-muted col-12">
-                                                2 Week Subscription
-                                            </small>
+                <div class="col-lg-5">
+                    <div class="card border-0">
+                        <div class="card-header card-2">
+                            <p class="card-text text-muted mt-md-4  mb-2 space">YOUR ORDER</p>
+                            <hr class="my-2">
+                        </div>
+                        <div class="card-body pt-0">
+                            {{#each cartDetail }}
+                            <div class="row justify-content-between">
+                                <div class="col-12 col-lg-6">
+                                    <div class="row media">
+                                        <img class="img-fluid col-3" src="/products/{{ this.image }}" width="70"
+                                            height="70">
+                                        <div class="media-body col-8">
+                                            <div class="row ">
+                                                <p class="col-12 mb-1">
+                                                    <b>{{ this.name }}</b>
+                                                </p>
+                                                <small class="text-muted col-12">
+                                                    {{ this.small_desc }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-2 mt-3">
+                                    <p class="text-center text-lg-left"><b>${{ this.pro_price }}</b></p>
+                                </div>
+                                <div class="col-12 col-lg-1 mt-lg-3">
+                                    <div class="text-center">
+                                        <a class="border px-2">{{ this.quantity }}</a>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-2 mt-3">
+                                    <p class="text-center text-lg-right"><b>${{ this.total_price }}</b></p>
+                                </div>
+                            </div>
+                            <hr class="my-2">
+                            {{/each}}
+                            <div class="row ">
+                                <div class="col">
+                                    <div class="form-cart">
+                                        <p class="card-text text-muted space">SHIPPING</p>
+                                        <select name="shipping" id='shipping' onchange="Shipping(this)">
+                                            <option value="0.00" class="text-muted">Choose delivery method</option>
+                                            {{#ifCond fee_ship '==' 5}}
+                                            <option value="5.00" class="text-muted" selected>Standard-Delivery-$5.00</option>
+                                            {{else}}
+                                            <option value="5.00" class="text-muted">Standard-Delivery-$5.00</option>
+                                            {{/ifCond}}
+                                            {{#ifCond fee_ship '==' 10}}
+                                            <option value="10.00" class="text-muted" selected>Fast-Delivery-$10.00</option>
+                                            {{else}}
+                                            <option value="10.00" class="text-muted">Fast-Delivery-$10.00</option>
+                                            {{/ifCond}}
+                                        </select>
+                                    </div>
+                                    <hr class="mt-0">
+                                    <div class="row justify-content-between">
+                                        <div class="col-4">
+                                            <p class="mb-1"><b>Subtotal</b></p>
+                                            <input type="hidden" name="" id="before-shipping" value="{{ cart.total_price }}">
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b>${{ cart.total_price }}</b></p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col">
+                                            <p class="mb-1"><b>Shipping</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b id="fee_ship">{{ fee_ship }}</b></p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-4">
+                                            <p><b>Total</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b id="total">${{ total_price }}</b></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-2 mt-3">
-                                <p class="text-center text-lg-left"><b>179 SEK</b></p>
-                            </div>
-                            <div class="col-12 col-lg-1 mt-lg-3">
-                                <div class="text-center">
-                                    <a class="border px-2">2</a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-2 mt-3">
-                                <p class="text-center text-lg-right"><b>179 SEK</b></p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row ">
-                            <div class="col">
-                                <div class="form-cart">
-                                    <p class="card-text text-muted space">SHIPPING</p>
-                                    <select name="shipping" id='shipping' onchange="Shipping(this)">
-                                        <option value="0.00" class="text-muted">Choose delivery method</option>
-                                        <option value="5.00" class="text-muted">Standard-Delivery-$5.00</option>
-                                        <option value="10.00" class="text-muted">Fast-Delivery-$10.00</option>
-                                    </select>
-                                </div>
-                                <hr class="mt-0">
-                                <div class="row justify-content-between">
-                                    <div class="col-4">
-                                        <p class="mb-1"><b>Subtotal</b></p>
-                                        <input type="hidden" name="" id="before-shipping" value="20">
-                                    </div>
-                                    <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b>179 SEK</b></p>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-between">
-                                    <div class="col">
-                                        <p class="mb-1"><b>Shipping</b></p>
-                                    </div>
-                                    <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b id="fee_ship"></b></p>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-between">
-                                    <div class="col-4">
-                                        <p><b>Total</b></p>
-                                    </div>
-                                    <div class="flex-sm-col col-auto">
-                                        <p class="mb-1"><b id="total"></b></p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <script>

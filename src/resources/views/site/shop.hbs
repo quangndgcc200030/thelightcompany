@@ -155,12 +155,12 @@
                             <div class="mask">
                                 <div class="d-flex justify-content-start align-items-end h-100">
                                     <h5>
-                                        {{#ifCond this.newproduct '<' 7 }} <span class="badge bg-primary ml-2">
-                                            New</span>
-                                            {{/ifCond}}
-                                            {{#ifCond this.price '<' this.old_price }} <span
-                                                class="badge bg-danger ml-2">Sale</span>
-                                                {{/ifCond}}
+                                        {{#ifCond this.newproduct '<' 7 }} 
+                                            <span class="badge bg-primary ml-2">New</span>
+                                        {{/ifCond}}
+                                        {{#ifCond this.price '<' this.old_price }} <span
+                                            class="badge bg-danger ml-2">Sale</span>
+                                        {{/ifCond}}
                                     </h5>
                                 </div>
                             </div>

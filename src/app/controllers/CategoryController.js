@@ -2,13 +2,32 @@ const fs = require('fs');
 const { Category } = require("../models/Category")
 
 class CategoryController {
-    index(req, res) {
-        Category.showAllCategory()
-            .then(categories => res.status(200).render('category/list', { categories: categories.rows }))
-            .catch(err => {
-                const conflicError = "Something is error"
-                res.status(400).render('category/list', { error: conflicError })
-            });
+    async index(req, res) {
+        try {
+            let categories
+            if (req.query.search) {
+                const searchValue = req.query.search
+
+                const keywords = searchValue.split(" ")
+                const searchTermKeywords = [];
+
+                keywords.forEach(word => {
+                    searchTermKeywords.push("c.name ILIKE '%" + word + "%'")
+                });
+
+                const value = searchTermKeywords.join(" AND ")
+                categories = await Category.searchCategory(value)
+            } else {
+                categories = await Category.showAllCategory()
+            }
+
+            res.render('category/list', {
+                categories: categories.rows
+            })
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.status(400).render('category/list', { error: conflicError })
+        }
     }
 
     show(req, res) {

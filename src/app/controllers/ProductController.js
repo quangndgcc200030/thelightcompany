@@ -5,10 +5,32 @@ const { Shop } = require('../models/Shop');
 const { Supplier } = require('../models/Supplier');
 
 class ProductController {
-    index(req, res) {
-        Product.showAllProduct()
-            .then(products => res.status(200).render('product/list', { products: products.rows }))
-            .catch(err => res.status(400).json({ err }));
+    async index(req, res) {
+        try {
+            let products
+            if (req.query.search) {
+                const searchValue = req.query.search
+
+                const keywords = searchValue.split(" ")
+                const searchTermKeywords = [];
+
+                keywords.forEach(word => {
+                    searchTermKeywords.push("p.name ILIKE '%" + word + "%'")
+                });
+
+                const value = searchTermKeywords.join(" AND ")
+                products = await Product.searchProductAdmin(value)
+            } else {
+                products = await Product.showAllProduct()
+            }
+
+            res.render('product/list', {
+                products: products.rows
+            })
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.status(400).render('product/list', { error: conflicError })
+        }
     }
 
     show(req, res) {

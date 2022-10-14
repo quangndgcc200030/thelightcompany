@@ -1,10 +1,32 @@
 const { Shop } = require("../models/Shop");
 
 class ShopController {
-    index(req, res) {
-        Shop.get()
-            .then(shops => res.status(200).render('shop/list', { shops: shops.rows }))
-            .catch(err => res.status(400).json({ err }));
+    async index(req, res) {
+        try {
+            let shops
+            if (req.query.search) {
+                const searchValue = req.query.search
+
+                const keywords = searchValue.split(" ")
+                const searchTermKeywords = [];
+
+                keywords.forEach(word => {
+                    searchTermKeywords.push("sh.name ILIKE '%" + word + "%'")
+                });
+
+                const value = searchTermKeywords.join(" AND ")
+                shops = await Shop.searchShop(value)
+            } else {
+                shops = await Shop.get()
+            }
+
+            res.render('shop/list', {
+                shops: shops.rows
+            })
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.status(400).render('shop/list', { error: conflicError })
+        }
     }
 
     show(req, res) {

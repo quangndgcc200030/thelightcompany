@@ -32,4 +32,10 @@ Shop.show = id => {
     return db.query(`SELECT * FROM shops WHERE id = $1`, [id]);
 };
 
+// SEARCH SHOP
+Shop.searchShop = value => {
+    const query = 'SELECT * FROM shops as sh WHERE ' + value
+    return db.query(query);
+};
+
 module.exports = { Shop };

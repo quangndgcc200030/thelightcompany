@@ -1,10 +1,32 @@
 const { Supplier } = require("../models/Supplier");
 
 class SupplierController {
-    index(req, res) {
-        Supplier.get()
-            .then(suppliers => res.status(200).render('supplier/list', { suppliers: suppliers.rows }))
-            .catch(err => res.status(400).json({ err }));
+    async index(req, res) {
+        try {
+            let suppliers
+            if (req.query.search) {
+                const searchValue = req.query.search
+
+                const keywords = searchValue.split(" ")
+                const searchTermKeywords = [];
+
+                keywords.forEach(word => {
+                    searchTermKeywords.push("s.name ILIKE '%" + word + "%'")
+                });
+
+                const value = searchTermKeywords.join(" AND ")
+                suppliers = await Supplier.searchSupplier(value)
+            } else {
+                suppliers = await Supplier.get()
+            }
+
+            res.render('supplier/list', {
+                suppliers: suppliers.rows
+            })
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.status(400).render('supplier/list', { error: conflicError })
+        }
     }
 
     show(req, res) {
