@@ -24,7 +24,9 @@ Cart.update = (id, total_price, username) => {
 
 // Show
 Cart.showCart = username => {
-    return db.query(`SELECT c.id, c.total_price, COUNT(cd.product_id) FROM carts as c INNER JOIN cart_details as cd ON cd.cart_id = c.id WHERE c.username = $1 GROUP BY c.id`, [username])
+    return db.query(`SELECT c.id, c.total_price, COUNT(cd.product_id) 
+                    FROM carts as c INNER JOIN cart_details as cd ON cd.cart_id = c.id 
+                    WHERE c.username = $1 GROUP BY c.id`, [username])
 }
 
 // DELETE

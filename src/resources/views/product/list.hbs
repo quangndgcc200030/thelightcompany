@@ -1,3 +1,39 @@
+<style>
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .page-link {
+    position: relative;
+    display: block;
+    color: #17a2b8 !important;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #17a2b8 !important;
+  }
+
+
+  .page-link:hover {
+    z-index: 2;
+    color: #fff !important;
+    background-color: #17a2b8;
+    border-color: #024dbc;
+  }
+
+
+  .page-link:focus {
+    z-index: 3;
+    outline: 0;
+    box-shadow: none;
+  }
+
+  .active {
+    background-color: #17a2b8;
+    color: #fff !important;
+  }
+</style>
 <section class="row">
   <div class="col-lg-2 col-md-3 content-left pr-0">
     {{> navmanage }}
@@ -76,8 +112,8 @@
 
         <tbody
           class="justify-content-md-between justify-content-sm-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
-          {{#if products }}
-          {{#each products }}
+          {{#if products.result }}
+          {{#each products.result }}
           <tr>
             <td class="text-center align-middle">
               <a href="/view-detail/{{ this.id }}" style="text-decoration: none;">{{ sum @index 1 }}</a>
@@ -121,6 +157,27 @@
           {{/if}}
         </tbody>
       </table>
+      {{#ifCond products.total_page '>' 1}}
+      <div class="wrapper mt-4">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {{#if products.previous }}
+            <li class="page-item"><a class="page-link" href="/manage/product?page={{ products.previous.page }}">Previous</a></li>
+            {{/if}}
+            {{#times 1 products.total_page}}
+            {{#ifCond this '==' ../products.page }}
+            <li class="page-item"><a class="page-link active" href="/manage/product?page={{ this }}">{{ this }}</a></li>
+            {{else}}
+            <li class="page-item"><a class="page-link" href="/manage/product?page={{ this }}">{{ this }}</a></li>
+            {{/ifCond}}
+            {{/times}}
+            {{#if products.next}}
+            <li class="page-item"><a class="page-link" href="/manage/product?page={{ products.next.page }}">Next</a></li>
+            {{/if}}
+          </ul>
+        </nav>
+      </div>
+      {{/ifCond}}
     </div>
   </div>
 </section>

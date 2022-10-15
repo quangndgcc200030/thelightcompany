@@ -46,13 +46,16 @@ Category.showAllCategory = () => {
 
 //Search category
 Category.searchCategory = value => {
-    const query = 'SELECT * FROM categories as c WHERE ' + value + ' ORDER BY c.updated_date DESC'
-    return db.query(query);
+    return db.query(`SELECT * FROM categories as c WHERE ${value} ORDER BY c.updated_date DESC`);
 };
 
 //Show top 4 category
 Category.showTop4 = () => {
-    return db.query('SELECT c.id, c.image, c.name, COUNT(c.id), SUM(od.quantity) FROM categories as c FULL OUTER JOIN products as p ON p.cat_id = c.id FULL OUTER JOIN order_details as od ON od.product_id = p.id GROUP BY c.id ORDER BY SUM(od.quantity) DESC NULLS LAST, c.updated_date DESC LIMIT 4');
+    return db.query(`SELECT c.id, c.image, c.name, COUNT(c.id), SUM(od.quantity) 
+                    FROM categories as c FULL OUTER JOIN products as p ON p.cat_id = c.id 
+                                        FULL OUTER JOIN order_details as od ON od.product_id = p.id 
+                    GROUP BY c.id 
+                    ORDER BY SUM(od.quantity) DESC NULLS LAST, c.updated_date DESC LIMIT 4`);
 };
 
 module.exports = { Category };

@@ -3,6 +3,7 @@ const { Category } = require('../models/Category');
 const { Product } = require('../models/Product');
 const { Shop } = require('../models/Shop');
 const { Supplier } = require('../models/Supplier');
+const PAGE_SIZE = 10
 
 class ProductController {
     async index(req, res) {
@@ -24,8 +25,30 @@ class ProductController {
                 products = await Product.showAllProduct()
             }
 
+            const page = parseInt(req.query.page)
+            const startIndex = (page - 1) * PAGE_SIZE
+            const endIndex = page * PAGE_SIZE
+
+            const resultProducts = {}
+
+            if (endIndex < products.rowCount) {
+                resultProducts.next = {
+                    page: page + 1
+                }
+            }
+
+            if (startIndex > 0) {
+                resultProducts.previous = {
+                    page: page - 1
+                }
+            }
+
+            resultProducts.page = page
+            resultProducts.total_page = Math.ceil(products.rowCount / PAGE_SIZE)
+            resultProducts.result = products.rows.slice(startIndex, endIndex)
+
             res.render('product/list', {
-                products: products.rows
+                products: resultProducts
             })
         } catch (error) {
             const conflicError = "Something is error"

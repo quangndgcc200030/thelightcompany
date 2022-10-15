@@ -550,9 +550,6 @@ section {
 .card-body {
   width: fit-content; }
 
-.btn {
-  border-radius: 0; }
-
 .card {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
