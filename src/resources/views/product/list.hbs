@@ -61,8 +61,9 @@
         </div>
         <div class="col-6 d-flex justify-content-end align-items-center">
           <form action="/manage/product" method="GET" class="d-flex input-group w-auto">
-            <input name="search" type="search" class="form-control" placeholder="Search by name" aria-label="Search"
-              aria-describedby="search-addon" />
+            <input type="hidden" name="page" value="1">
+            <input name="search" type="search" class="form-control" placeholder="Search by name"
+              aria-label="Search" aria-describedby="search-addon" />
             <button class="btn btn-secondary searching" type="submit"><i class="bi bi-search"></i></button>
           </form>
         </div>
@@ -109,7 +110,6 @@
             </th>
           </tr>
         </thead>
-
         <tbody
           class="justify-content-md-between justify-content-sm-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
           {{#if products.result }}
@@ -162,7 +162,8 @@
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             {{#if products.previous }}
-            <li class="page-item"><a class="page-link" href="/manage/product?page={{ products.previous.page }}">Previous</a></li>
+            <li class="page-item"><a class="page-link"
+                href="/manage/product?page={{ products.previous.page }}">Previous</a></li>
             {{/if}}
             {{#times 1 products.total_page}}
             {{#ifCond this '==' ../products.page }}
@@ -172,7 +173,8 @@
             {{/ifCond}}
             {{/times}}
             {{#if products.next}}
-            <li class="page-item"><a class="page-link" href="/manage/product?page={{ products.next.page }}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="/manage/product?page={{ products.next.page }}">Next</a>
+            </li>
             {{/if}}
           </ul>
         </nav>

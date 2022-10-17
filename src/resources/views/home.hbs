@@ -115,8 +115,9 @@
             <div class="row">
                 {{#each categories }}
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 py-5 d-flex align-items-center justify-content-center">
-                    <a href="/shop?cid={{ this.id }}&page=1"><img class="img-fluid" src="/categories/{{ this.image }}"
-                            alt="{{ this.name }}" /></a>
+                    <a href="/shop?cid={{ this.id }}&page=1">
+                        <img class="img-fluid" src="/categories/{{ this.image }}" alt="{{ this.name }}" />
+                    </a>
                 </div>
                 {{/each}}
             </div>

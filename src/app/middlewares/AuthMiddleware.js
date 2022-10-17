@@ -11,7 +11,7 @@ class AuthMiddleware {
     isAuth(req, res, next) {
         if (req.session.loggedin) {
             res.locals.user = req.session.user
-            res.render('home')
+            res.redirect('/')
         } else {
             next()
         }
@@ -30,8 +30,11 @@ class AuthMiddleware {
         if (req.session.loggedin && req.session.user.role) {
             res.locals.user = req.session.user
             next()
+        } else if (req.session.loggedin && !req.session.user.role) {
+            res.locals.user = req.session.user
+            res.redirect('/')
         } else {
-            res.render('home')
+            res.redirect('/login')
         }
     }
 }

@@ -46,9 +46,18 @@ class ProductController {
             resultProducts.page = page
             resultProducts.total_page = Math.ceil(products.rowCount / PAGE_SIZE)
             resultProducts.result = products.rows.slice(startIndex, endIndex)
+            
+            var arr = []
+            products.rows.forEach(item => {
+                arr.push(item.name)
+            })
+
+            // console.log(arr)
+            // console.log(resultProducts.result)
 
             res.render('product/list', {
-                products: resultProducts
+                products: resultProducts,
+                arr: arr
             })
         } catch (error) {
             const conflicError = "Something is error"
@@ -117,7 +126,7 @@ class ProductController {
                         if (err) throw err;
                         if (req.body.price != product.rows[0].price) {
                             Product.updateHaveImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
-                                .then(data => res.status(200).redirect('/manage/product'))
+                                .then(data => res.status(200).redirect('/manage/product?page=1'))
                                 .catch(err => {
                                     const conflicError = "Something is error"
                                     res.status(400).render('product/list', {
@@ -126,7 +135,7 @@ class ProductController {
                                 });
                         } else {
                             Product.updateHaveImage(id, req.body.name, req.body.price, product.rows[0].old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
-                                .then(data => res.status(200).redirect('/manage/product'))
+                                .then(data => res.status(200).redirect('/manage/product?page=1'))
                                 .catch(err => {
                                     const conflicError = "Something is error"
                                     res.status(400).render('product/list', {
@@ -147,7 +156,7 @@ class ProductController {
                 .then(product => {
                     if (req.body.price != product.rows[0].price) {
                         Product.updateWithoutImage(id, req.body.name, req.body.price, req.body.old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.body.cat_id, req.body.sup_id, req.body.shop_id)
-                            .then(data => res.status(200).redirect('/manage/product'))
+                            .then(data => res.status(200).redirect('/manage/product?page=1'))
                             .catch(err => {
                                 const conflicError = "Something is error"
                                 res.status(400).render('product/list', {
@@ -156,7 +165,7 @@ class ProductController {
                             });
                     } else {
                         Product.updateWithoutImage(id, req.body.name, req.body.price, product.rows[0].old_price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.body.cat_id, req.body.sup_id, req.body.shop_id)
-                            .then(data => res.status(200).redirect('/manage/product'))
+                            .then(data => res.status(200).redirect('/manage/product?page=1'))
                             .catch(err => {
                                 const conflicError = "Something is error"
                                 res.status(400).render('product/list', {
@@ -181,7 +190,7 @@ class ProductController {
                 fs.unlink('src/public/products/' + product.rows[0].image, function (err) {
                     if (err) throw err;
                     Product.delete(id)
-                        .then(data => res.status(200).redirect('/manage/product'))
+                        .then(data => res.status(200).redirect('/manage/product?page=1'))
                         .catch(err => {
                             const conflicError = "Something is error"
                             res.status(400).render('product/list', {
