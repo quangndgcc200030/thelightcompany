@@ -9,6 +9,7 @@ const shopRouter = require('./shop')
 const cartRouter = require('./cart')
 const checkoutRouter = require('./checkout')
 const orderRouter = require('./order')
+const userRouter = require('./user')
 const authMiddleware = require('../app/middlewares/AuthMiddleware')
 
 function route(app) {
@@ -22,6 +23,7 @@ function route(app) {
     app.use('/register', authMiddleware.isAuth, registerRouter)
     app.use('/cart', authMiddleware.loggedin, cartRouter)
     app.use('/checkout', authMiddleware.loggedin, checkoutRouter)
+    app.use('/user', authMiddleware.loggedin, userRouter)
     app.use('/', siteRouter)
 }
 

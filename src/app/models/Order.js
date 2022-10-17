@@ -22,4 +22,8 @@ Order.delete = id => {
     return db.query(`DELETE FROM orders WHERE id = $1`, [id])
 }
 
+Order.showUserOrdered = username => {
+    return db.query(`SELECT * FROM orders as o WHERE o.username = $1 ORDER BY o.ordered_date DESC`, [username])
+}
+
 module.exports = { Order };

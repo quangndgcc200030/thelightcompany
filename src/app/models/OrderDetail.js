@@ -15,4 +15,10 @@ OrderDetail.showAllOrderDetail = id => {
                     WHERE od.order_id = $1`, [id])
 }
 
+OrderDetail.showUserOrderedDetail = id => {
+    return db.query(`SELECT od.order_id, od.product_id, od.quantity, od.total_price, p.name, p.price, p.image 
+                    FROM order_details as od INNER JOIN products as p ON p.id = od.product_id 
+                    WHERE od.order_id = $1`, [id])
+}
+
 module.exports = { OrderDetail };
