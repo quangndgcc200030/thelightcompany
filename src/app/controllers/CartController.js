@@ -13,7 +13,7 @@ class CartController {
                 cartDetails: cartDetails.rows
             })
         } else {
-            res.render('site/cart')
+            return res.render('site/cart')
         }
     }
 
@@ -86,6 +86,7 @@ class CartController {
             if (flag) {
                 // Add new cart detail
                 const addCartDetail = await CartDetail.add(cart.rows[0].id, product.rows[0].id, quantity, product.rows[0].price * quantity)
+                // Update total price of cart
                 Cart.update(cart.rows[0].id, cart.rows[0].total_price + addCartDetail.rows[0].total_price, user.username)
                     .then(data => {
                         //Update total price of cart
@@ -147,6 +148,98 @@ class CartController {
                     })
                 })
             // console.log(cart_id)
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.render('site/cart', {
+                error: conflicError
+            })
+        }
+    }
+
+    async plus(req, res) {
+        try {
+            //Get information from link
+            let cart_id = req.query.cart
+            let product_id = req.query.product
+            //Get user
+            const user = req.session.user
+            //Get order detail
+            const cartDetail = await CartDetail.findOne(cart_id, product_id)
+            //Get product
+            const product = await Product.show(product_id)
+
+            if (cartDetail.rows[0].quantity + 1 > product.rows[0].quantity) {
+                const cart = await Cart.showCart(user.username)
+                const showCartDetails = await CartDetail.showCartDetail(cart.rows[0].id)
+                const conflicError = "Not enough product quantity"
+                res.render('site/cart', {
+                    cart: cart.rows[0],
+                    cartDetails: showCartDetails.rows,
+                    error: conflicError
+                })
+            } else {
+                const cart = await Cart.findByUsername(user.username)
+                const showCartDetails = await CartDetail.showCartDetail(cart.rows[0].id)
+                const updateCartDetail = await CartDetail.update(cart_id, product_id, cartDetail.rows[0].quantity + 1, (cartDetail.rows[0].quantity + 1) * product.rows[0].price)
+                Cart.update(updateCartDetail.rows[0].cart_id, cart.rows[0].total_price + product.rows[0].price, user.username)
+                    .then(data => {
+                        res.redirect('/cart')
+                    })
+                    .catch(err => {
+                        const conflicError = "Something is error"
+                        res.render('site/cart', {
+                            cart: cart.rows[0],
+                            cartDetails: showCartDetails.rows,
+                            error: conflicError
+                        })
+                    })
+            }
+        } catch (error) {
+            const conflicError = "Something is error"
+            res.render('site/cart', {
+                error: conflicError
+            })
+        }
+    }
+
+    async minus(req, res) {
+        try {
+            //Get information from link
+            let cart_id = req.query.cart
+            let product_id = req.query.product
+            //Get user
+            const user = req.session.user
+            //Get order detail
+            const cartDetail = await CartDetail.findOne(cart_id, product_id)
+            //Get product
+            const product = await Product.show(product_id)
+
+            if (cartDetail.rows[0].quantity - 1 == 0) {
+                const cart = await Cart.showCart(user.username)
+                const showCartDetails = await CartDetail.showCartDetail(cart.rows[0].id)
+                const conflicError = "Can't reduce the number of products"
+                res.render('site/cart', {
+                    cart: cart.rows[0],
+                    cartDetails: showCartDetails.rows,
+                    error: conflicError
+                })
+            } else {
+                const cart = await Cart.findByUsername(user.username)
+                const showCartDetails = await CartDetail.showCartDetail(cart.rows[0].id)
+                const updateCartDetail = await CartDetail.update(cart_id, product_id, cartDetail.rows[0].quantity - 1, (cartDetail.rows[0].quantity - 1) * product.rows[0].price)
+                Cart.update(updateCartDetail.rows[0].cart_id, cart.rows[0].total_price - product.rows[0].price, user.username)
+                    .then(data => {
+                        res.redirect('/cart')
+                    })
+                    .catch(err => {
+                        const conflicError = "Something is error"
+                        res.render('site/cart', {
+                            cart: cart.rows[0],
+                            cartDetails: showCartDetails.rows,
+                            error: conflicError
+                        })
+                    })
+            }
         } catch (error) {
             const conflicError = "Something is error"
             res.render('site/cart', {

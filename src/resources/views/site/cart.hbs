@@ -1,9 +1,11 @@
 <link rel="stylesheet" href="/css/cart.css">
 {{#if success }}
 <div class="alert alert-success text-center my-1">{{ success }}</div>
+<meta http-equiv="refresh" content="2; url='/cart'" />
 {{/if}}
 {{#if error }}
 <div class="alert alert-danger text-center my-1">{{ error }}</div>
+<meta http-equiv="refresh" content="2; url='/cart'" />
 {{/if}}
 <div class="card">
     <div class="row">
@@ -27,7 +29,9 @@
                         <div class="row">{{ this.small_desc }}</div>
                     </div>
                     <div class="col-12 col-lg-2 my-4 my-lg-0 text-center">
-                        <a href="#">-</a><a class="border px-2 mx-2">{{ this.quantity }}</a><a href="#">+</a>
+                        <a href="/cart/minus?cart={{ this.cart_id }}&product={{ this.product_id }}">-</a>
+                        <a class="border px-2 mx-2">{{ this.quantity }}</a>
+                        <a href="/cart/plus?cart={{ this.cart_id }}&product={{ this.product_id }}">+</a>
                     </div>
                     <div class="col-12 col-lg-2 mb-4 mb-lg-0 text-center">${{ this.total_price }}</div>
                     <div class="col-12 col-lg-1 close text-center">
