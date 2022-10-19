@@ -61,7 +61,7 @@
           {{#each categories }}
           <tr>
             <td class="text-center align-middle" id="category{{ this.id }}">
-              <a href="/view-detail/{{ this.id }}" style="text-decoration: none;">{{ sum @index 1 }}</a>
+              <a href="/shop?cid={{ this.id }}&page=1" style="text-decoration: none;">{{ sum @index 1 }}</a>
             </td>
             <td class="text-center align-middle">{{ this.name }}</td>
             <td class="align-middle">{{ this.description }}</td>

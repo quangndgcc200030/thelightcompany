@@ -62,7 +62,7 @@
                     {{#each shops }}
                     <tr>
                         <td class="text-center align-middle">
-                            <a href="" style="text-decoration: none;">{{ sum @index 1 }}</a>
+                            <a href="/shop?shid={{ this.id }}&page=1" style="text-decoration: none;">{{ sum @index 1 }}</a>
                         </td>
                         <td class="text-center align-middle">{{ this.name }}</td>
                         <td class="text-center align-middle">{{ this.telephone }}</td>

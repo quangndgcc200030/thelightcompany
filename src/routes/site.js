@@ -3,6 +3,7 @@ const router = express.Router()
 const siteController = require('../app/controllers/SiteController')
 const authMiddleware = require('../app/middlewares/AuthMiddleware')
 
+router.post('/contact', authMiddleware.freedom, siteController.contact)
 router.get('/logout', authMiddleware.loggedin, siteController.logout)
 router.get('/manage', authMiddleware.admin, siteController.admin)
 router.get('/view-detail/:id', authMiddleware.freedom, siteController.viewdetail)

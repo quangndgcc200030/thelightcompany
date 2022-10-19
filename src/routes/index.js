@@ -10,9 +10,11 @@ const cartRouter = require('./cart')
 const checkoutRouter = require('./checkout')
 const orderRouter = require('./order')
 const userRouter = require('./user')
+const contactRouter = require('./contact')
 const authMiddleware = require('../app/middlewares/AuthMiddleware')
 
 function route(app) {
+    app.use('/manage/contact', authMiddleware.admin, contactRouter)
     app.use('/manage/order', authMiddleware.admin, orderRouter)
     app.use('/manage/shop', authMiddleware.admin, shopRouter)
     app.use('/manage/product', authMiddleware.admin, productRouter)

@@ -2,6 +2,7 @@ const { Product } = require("../models/Product")
 const { Category } = require("../models/Category")
 const { Supplier } = require("../models/Supplier")
 const { Shop } = require("../models/Shop")
+const { Contact } = require("../models/Contact")
 const PAGE_SIZE = 8
 
 class SiteController {
@@ -96,6 +97,29 @@ class SiteController {
         } catch (error) {
             const conflicError = "Something is error"
             res.status(400).render('site/viewdetail', { error: conflicError })
+        }
+    }
+
+    async contact(req, res) {
+        try {
+            let name = req.body.name
+            let email = req.body.email
+            let subject = req.body.subject
+            let message = req.body.message
+
+            Contact.create(name, email, subject, message)
+                .then(data => {
+                    res.render('home', {
+                        status: "successfully"
+                    })
+                })
+                .catch(err => {
+                    res.render('home', {
+                        status: "failure"
+                    })
+                })
+        } catch (error) {
+            res.redirect('/')
         }
     }
 
