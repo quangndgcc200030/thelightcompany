@@ -138,12 +138,14 @@
                             height="100%" />
                         <div class="card-body text-center mx-auto">
                             <h5 class="card-title font-weight-bold">{{ this.name }}</h5>
-                            <div class="d-flex justify-content-center align-items-end mb-4">
+                            <div class="d-flex justify-content-center align-items-end">
                                 {{#ifCond this.price '<' this.old_price}} <del>${{ this.old_price }}</del>
                                     {{/ifCond}}
                                     <p class="card-text ml-2"><b>${{this.price}}</b></p>
                             </div>
-                            <a href="/view-detail/{{ this.id }}" class="btn details px-auto text-dark">view
+                        </div>
+                        <div class="card-body text-center mx-auto">
+                            <a href="/view-detail/{{ this.id }}" class="btn details px-auto text-dark font-weight-bold">view
                                 details</a><br />
                             <form action="/cart/add" method="POST" class="mb-2">
                                 <input type="hidden" name="quantity" value="1">
