@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quangndgcc200030/thelightcompany.git"
+    "url": "git+https://github.com/quangndgcc200030/thelighttoy.git"
   },
   "keywords": [
     "thelight",
@@ -23,9 +23,9 @@
   "author": "quangndgcc200030",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/quangndgcc200030/thelightcompany/issues"
+    "url": "https://github.com/quangndgcc200030/thelighttoy/issues"
   },
-  "homepage": "https://github.com/quangndgcc200030/thelightcompany#readme",
+  "homepage": "https://github.com/quangndgcc200030/thelighttoy#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bluebird": "^3.7.2",
