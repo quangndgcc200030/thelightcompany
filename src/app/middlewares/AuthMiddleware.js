@@ -1,5 +1,14 @@
+const { Product } = require("../models/Product");
+
 class AuthMiddleware {
-    loggedin(req, res, next) {
+    async loggedin(req, res, next) {
+        const products = await Product.get()
+        var arr = []
+        products.rows.forEach(item => {
+            arr.push(item.name)
+        })
+        res.locals.searchProduct = arr
+
         if (req.session.loggedin) {
             res.locals.user = req.session.user
             next();
@@ -17,7 +26,14 @@ class AuthMiddleware {
         }
     }
 
-    freedom(req, res, next) {
+    async freedom(req, res, next) {
+        const products = await Product.get()
+        var arr = []
+        products.rows.forEach(item => {
+            arr.push(item.name)
+        })
+        res.locals.searchProduct = arr
+
         if (req.session.loggedin) {
             res.locals.user = req.session.user
             next()
@@ -26,7 +42,14 @@ class AuthMiddleware {
         }
     }
 
-    admin(req, res, next) {
+    async admin(req, res, next) {
+        const products = await Product.get()
+        var arr = []
+        products.rows.forEach(item => {
+            arr.push(item.name)
+        })
+        res.locals.searchProduct = arr
+
         if (req.session.loggedin && req.session.user.role) {
             res.locals.user = req.session.user
             next()

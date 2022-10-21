@@ -16,4 +16,8 @@ Contact.delete = id => {
     return db.query(`DELETE FROM contacts WHERE id = $1`, [id])
 }
 
+Contact.searchContact = value => {
+    return db.query(`SELECT * FROM contacts WHERE ${value}`)
+}
+
 module.exports = { Contact };

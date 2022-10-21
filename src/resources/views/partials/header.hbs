@@ -30,9 +30,7 @@
                     aria-label="Search" required>
                 <button class="btn btn-outline-info ml-2" type="submit">Search</button>
             </form>
-            {{#if arr }}
-            <input type="hidden" id="arr" value="{{join arr}}">
-            {{/if}}
+            <input type="hidden" id="arr" value="{{join searchProduct}}">
             <script>
                 var arr = document.getElementById("arr").value
                 const myArray = arr.split(",");

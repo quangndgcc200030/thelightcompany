@@ -67,17 +67,11 @@ class SiteController {
             resultProducts.total_page = Math.ceil(products.rowCount / PAGE_SIZE)
             resultProducts.result = products.rows.slice(startIndex, endIndex)
 
-            var arr = []
-            products.rows.forEach(item => {
-                arr.push(item.name)
-            })
-
             res.render('site/shop', {
                 products: resultProducts,
                 categories: categories.rows,
                 suppliers: suppliers.rows,
-                shops: shops.rows,
-                arr: arr
+                shops: shops.rows
             })
 
         } catch (error) {

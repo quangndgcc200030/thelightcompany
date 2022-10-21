@@ -4,7 +4,20 @@ const { OrderDetail } = require("../models/OrderDetail")
 class OrderController {
     async index(req, res) {
         try {
-            const orders = await Order.showAllOrders()
+            let orders
+
+            if (req.query.search) {
+                const searchValue = req.query.search
+                const date = new Date(searchValue)
+                const day = date.getDate()
+                const month = date.getMonth() + 1
+                const year = date.getFullYear()
+
+                orders = await Order.searchOrder(day, month, year)
+            } else {
+                orders = await Order.showAllOrders()
+            }
+
             res.render('order/list', {
                 orders: orders.rows
             })

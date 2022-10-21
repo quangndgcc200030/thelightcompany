@@ -19,35 +19,18 @@
             {{#if error }}
             <div class="alert alert-danger text-center my-1">{{ error }}</div>
             {{/if}}
-            {{!-- <div class="text-center mb-2 d-flex row align-items-center">
-                <div class="col-6 d-flex justify-content-end align-items-center">
-                    <form action="" name="formOrder" method="POST" class="input-group w-auto"
-                        onsubmit="return formValid()">
-                        <div class="input-group">
-                            <span class="col-md-3 pb-md-0 col-12 pb-2 p-0">
-                                <select name="slYear" id="slYear" class="form-control">
-                                    <option value="0">Year</option>
 
-                                </select>
-                            </span>
-                            <span class="col-md-3 py-md-0 col-12 py-2">
-                                <select name="slMonth" id="slMonth" class="form-control">
-                                    <option value="0">Month</option>
-
-                                </select>
-                            </span>
-                            <span class="col-md-3 pt-md-0 col-12 py-2">
-                                <select name="slDay" id="slDay" class="form-control">
-                                    <option value="0">Day</option>
-
-                                </select>
-                            </span>
-                            <span class="col-md-3 pt-md-0 col-12 pt-2"><button class="btn btn-secondary" type="submit"
-                                    name="btnSearchOrder"><i class="bi bi-search"></i></button></span>
+            <div class="text-center mb-2 d-flex justify-content-around">
+                <form action="/manage/order" name="formOrder" method="GET">
+                    <div class="row">
+                        <div class="form-group col-10 mb-0">
+                            <input type="date" name="search" class="form-control" value="{{ birthdate }}" required>
                         </div>
-                    </form>
-                </div>
-            </div> --}}
+                        <button class="btn btn-secondary col-2" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+
             <table id="tableorder" class="table table-striped table-bordered m-0" cellspacing="0" width="100%">
                 <thead
                     class="justify-content-md-between justify-content-sm-center align-content-center border-bottom border-2 my-2 bg-dark text-light p-3 rounded-3">

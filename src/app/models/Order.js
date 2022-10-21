@@ -26,4 +26,8 @@ Order.showUserOrdered = username => {
     return db.query(`SELECT * FROM orders as o WHERE o.username = $1 ORDER BY o.ordered_date DESC`, [username])
 }
 
+Order.searchOrder = (day, month, year) => {
+    return db.query(`SELECT * FROM orders as o WHERE EXTRACT(DAY FROM o.ordered_date) = $1 AND EXTRACT(MONTH FROM o.ordered_date) = $2 AND EXTRACT(YEAR FROM o.ordered_date) = $3 ORDER BY o.ordered_date DESC`, [day, month, year])
+}
+
 module.exports = { Order };

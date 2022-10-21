@@ -8,25 +8,35 @@ class RegisterController {
 
     async auth(req, res) {
         try {
-            const user = await User.register(req.body.username, req.body.telephone, req.body.email)
+            const username = req.body.username.trim()
+            const password = req.body.password.trim()
+            const firstname = req.body.firstname.trim()
+            const lastname = req.body.lastname.trim()
+            const gender = req.body.gender
+            const birthdate = req.body.birthdate
+            const telephone = req.body.telephone
+            const email = req.body.email
+            const address = req.body.address.trim()
+
+            const user = await User.register(username, telephone, email)
             if (user.rowCount == 1) {
                 const conflicError = "User already exists or duplicates telephone or email"
                 res.render('register/register', {
                     error: conflicError,
-                    username: req.body.username,
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
-                    gender: req.body.gender,
-                    birthdate: req.body.birthdate,
-                    telephone: req.body.telephone,
-                    email: req.body.email,
-                    address: req.body.address
+                    username: username,
+                    firstname: firstname,
+                    lastname: lastname,
+                    gender: gender,
+                    birthdate: birthdate,
+                    telephone: telephone,
+                    email: email,
+                    address: address
                 })
             } else {
                 const salt = await bcrypt.genSalt(10)
-                const hashed = await bcrypt.hash(req.body.password, salt)
+                const hashed = await bcrypt.hash(password, salt)
 
-                User.create(req.body.username, hashed, req.body.firstname, req.body.lastname, req.body.gender, req.body.birthdate, req.body.telephone, req.body.email, req.body.address, false)
+                User.create(username, hashed, firstname, lastname, gender, birthdate, telephone, email, address, false)
                     .then(data => res.redirect('/login'))
                     .catch(err => {
                         const conflicError = "Something is error"

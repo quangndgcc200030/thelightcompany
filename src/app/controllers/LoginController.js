@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { User } = require("../models/User");
 
 class LoginController {
@@ -13,11 +12,15 @@ class LoginController {
 
     async auth(req, res) {
         try {
-            var user = await User.findUser(req.body.username)
+            //Get infor from form
+            const username = req.body.username.trim()
+            const password = req.body.password.trim()
+
+            var user = await User.findUser(username)
 
             if (user.rowCount == 1) {
                 const validPass = await bcrypt.compare(
-                    req.body.password,
+                    password,
                     user.rows[0].password
                 )
                 if (validPass) {
@@ -27,15 +30,15 @@ class LoginController {
                     res.redirect('/')
                 } else {
                     const conflicError = "Password is not correct"
-                    res.render('login/login', { account: req.body.username, error: conflicError })
+                    res.render('login/login', { account: username, error: conflicError })
                 }
             } else {
                 const conflicError = "User is not exist"
-                res.render('login/login', { account: req.body.username, error: conflicError })
+                res.render('login/login', { account: username, error: conflicError })
             }
         } catch (err) {
             const conflicError = "Something is error"
-            res.render('login/login', { account: req.body.username, error: conflicError })
+            res.render('login/login', { account: username, error: conflicError })
         }
     }
 }

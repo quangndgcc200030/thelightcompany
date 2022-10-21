@@ -56,9 +56,11 @@
                 </div>
                 {{#if errorProfile }}
                 <div class="alert alert-danger text-center">{{ errorProfile }}</div>
+                <meta http-equiv="refresh" content="2; url='/profile'" />
                 {{/if}}
                 {{#if successProfile }}
                 <div class="alert alert-success text-center">{{ successProfile }}</div>
+                <meta http-equiv="refresh" content="2; url='/profile'" />
                 {{/if}}
                 <form id="formProfile" name="formProfile" method="POST" action="/profile/update/store?_method=PUT"
                     onsubmit="return formValidProfile()">
@@ -140,9 +142,11 @@
                 </div>
                 {{#if errorPassword }}
                 <div class="alert alert-danger text-center">{{ errorPassword }}</div>
+                <meta http-equiv="refresh" content="2; url='/profile'" />
                 {{/if}}
                 {{#if successPassword }}
                 <div class="alert alert-success text-center">{{ successPassword }}</div>
+                <meta http-equiv="refresh" content="2; url='/profile'" />
                 {{/if}}
                 <form id="formChangePass" name="formChangePass" method="POST"
                     action="/profile/changepassword/store?_method=PUT" onsubmit="return formValidPassword()">
