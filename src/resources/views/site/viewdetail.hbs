@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/viewdetail.css">
 {{#if success }}
 <div class="alert alert-success text-center">{{ success }}</div>
+<meta http-equiv="refresh" content="1; url='/view-detail/{{ product.id }}'" />
 {{/if}}
 {{#if error }}
 <div class="alert alert-danger text-center">{{ error }}</div>
