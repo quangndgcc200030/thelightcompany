@@ -54,13 +54,17 @@
                 <h3 class="mb-5 text-uppercase" align="center">
                     <strong>Customer registration</strong>
                 </h3>
+                {{#if success }}
+                <div class="alert alert-success text-center my-1">{{ success }}</div>
+                {{/if}}
                 {{#if error }}
                 <div class="alert alert-danger text-center">{{ error }}</div>
                 {{/if}}
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtUsername">Username</label>
                     {{#if username }}
-                    <input type="text" id="txtUsername" class="form-control" name="username" value="{{ username }}" required>
+                    <input type="text" id="txtUsername" class="form-control" name="username" value="{{ username }}"
+                        required>
                     {{else}}
                     <input type="text" id="txtUsername" class="form-control" name="username" required>
                     {{/if}}
@@ -73,7 +77,8 @@
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtConfirmPass">Confirm</label>
-                    <input type="password" id="txtConfirmPass" class="form-control" name="confirm" minlength="5" required>
+                    <input type="password" id="txtConfirmPass" class="form-control" name="confirm" minlength="5"
+                        required>
                 </div>
 
                 <div class="row">
@@ -105,12 +110,14 @@
                     <h6 class="font-weight-bold mb-3 mb-lg-0 mr-5">Gender:</h6>
 
                     <div class="form-check form-check-inline mb-0 mr-5">
-                        <input class="form-check-input" type="radio" name="gender" id="MaleGender" value="true" required>
+                        <input class="form-check-input" type="radio" name="gender" id="MaleGender" value="true"
+                            required>
                         <label class="form-check-label" for="MaleGender">Male</label>
                     </div>
 
                     <div class="form-check form-check-inline mb-0 ml-5">
-                        <input class="form-check-input" type="radio" name="gender" id="FemaleGender" value="false" required>
+                        <input class="form-check-input" type="radio" name="gender" id="FemaleGender" value="false"
+                            required>
                         <label class="form-check-label" for="FemaleGender">Female</label>
                     </div>
                 </div>
@@ -118,7 +125,8 @@
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtBirthday">Birthdate</label>
                     {{#if birthdate }}
-                    <input type="date" id="txtBirthday" name="birthdate" class="form-control" value="{{ birthdate }}" required>
+                    <input type="date" id="txtBirthday" name="birthdate" class="form-control" value="{{ birthdate }}"
+                        required>
                     {{else}}
                     <input type="date" id="txtBirthday" name="birthdate" class="form-control" required>
                     {{/if}}
@@ -127,7 +135,8 @@
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtTelephone">Telephone</label>
                     {{#if telephone }}
-                    <input type="text" id="txtTelephone" class="form-control" name="telephone" value="{{ telephone }}" required>
+                    <input type="text" id="txtTelephone" class="form-control" name="telephone" value="{{ telephone }}"
+                        required>
                     {{else}}
                     <input type="text" id="txtTelephone" class="form-control" name="telephone" required>
                     {{/if}}
@@ -139,14 +148,16 @@
                     <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp"
                         value="{{ email }}" required>
                     {{else}}
-                    <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp" required>
+                    <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp"
+                        required>
                     {{/if}}
                 </div>
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="txtAddress">Address</label>
                     {{#if address }}
-                    <input type="text" id="txtAddress" class="form-control" name="address" value="{{ address }}" required>
+                    <input type="text" id="txtAddress" class="form-control" name="address" value="{{ address }}"
+                        required>
                     {{else}}
                     <input type="text" id="txtAddress" class="form-control" name="address" required>
                     {{/if}}
@@ -160,4 +171,12 @@
             </form>
         </div>
     </div>
+    {{#if status}}
+    <input type="hidden" id="notice" value="{{ status }}">
+    {{/if}}
+    <script>
+        const status = document.getElementById("notice").value
+        alert("Register " + status + "!")
+        window.location = '/login'
+    </script>
 </section>

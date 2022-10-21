@@ -37,7 +37,11 @@ class RegisterController {
                 const hashed = await bcrypt.hash(password, salt)
 
                 User.create(username, hashed, firstname, lastname, gender, birthdate, telephone, email, address, false)
-                    .then(data => res.redirect('/login'))
+                    .then(data => {
+                        res.render('register/register', {
+                            status: "successfully"
+                        })
+                    })
                     .catch(err => {
                         const conflicError = "Something is error"
                         res.render('register/register', { error: conflicError })
