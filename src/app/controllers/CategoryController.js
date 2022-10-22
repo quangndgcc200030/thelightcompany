@@ -52,7 +52,7 @@ class CategoryController {
     }
 
     add(req, res, next) {
-        Category.create(req.body.name, req.body.description, req.file.filename)
+        Category.create(req.body.name.trim(), req.body.description.trim(), req.file.filename)
             .then(data => res.status(200).redirect('/manage/category'))
             .catch(err => {
                 const conflicError = "Something is error"

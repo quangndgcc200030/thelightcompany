@@ -26,7 +26,7 @@ class CheckoutController {
     }
 
     async buystore(req, res) {
-        let product = await Product.viewDetail(product_id)
+        let product = await Product.viewDetail(req.body.proid)
         try {
             //Get user information
             const user = req.session.user
