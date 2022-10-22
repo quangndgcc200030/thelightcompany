@@ -43,7 +43,7 @@ class SupplierController {
     async add(req, res, next) {
         const supTele = await Supplier.findDuplicate(req.body.telephone, req.body.email)
         if (supTele.rowCount == 1) {
-            const conflicError = "Duplicate telephone or address"
+            const conflicError = "Duplicate telephone or email"
             return res.render('supplier/add', {
                 name: req.body.name,
                 telephone: req.body.telephone,
