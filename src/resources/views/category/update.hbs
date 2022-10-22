@@ -1,6 +1,6 @@
 <script>
     function formValid() {
-        var format = /[!@#$%^&*()_+\-=\[\]{ };':"\\|,.<>\/?]+/;
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         f = document.formUpdatecategory
         if (format.test(f.name.value)) {
             alert("Category name can't contain special character, please enter again");
