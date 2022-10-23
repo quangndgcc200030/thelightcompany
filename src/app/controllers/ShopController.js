@@ -75,7 +75,7 @@ class ShopController {
             })
         } else {
             Shop.update(id, req.body.name, req.body.telephone, req.body.address)
-                .then(data => res.status(200).redirect('/manage/shop'))
+                .then(data => res.redirect('/manage/shop'))
                 .catch(err => {
                     const conflicError = "Something is error"
                     res.status(400).render('shop/list', { error: conflicError })
