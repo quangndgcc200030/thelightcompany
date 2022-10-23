@@ -4,7 +4,7 @@ class ContactController {
     async index(req, res) {
         try {
             let contacts
-            
+
             if (req.query.search) {
                 const searchValue = req.query.search
 
@@ -35,7 +35,10 @@ class ContactController {
             let id = req.params.id
             Contact.delete(id)
                 .then(data => res.status(200).redirect('/manage/contact'))
-                .catch(err => res.status(400).json(err));
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.render('contact/list', { error: conflicError })
+                });
         } catch (error) {
             const conflicError = "Something is error"
             res.render('contact/list', { error: conflicError })

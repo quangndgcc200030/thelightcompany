@@ -9,7 +9,7 @@ Contact.create = (name, email, subject, message) => {
 }
 
 Contact.showAllContact = () => {
-    return db.query(`SELECT * FROM contacts`)
+    return db.query(`SELECT * FROM contacts ORDER BY send_date DESC`)
 }
 
 Contact.delete = id => {
@@ -17,7 +17,7 @@ Contact.delete = id => {
 }
 
 Contact.searchContact = value => {
-    return db.query(`SELECT * FROM contacts WHERE ${value}`)
+    return db.query(`SELECT * FROM contacts WHERE ${value} ORDER BY send_date DESC`)
 }
 
 module.exports = { Contact };
