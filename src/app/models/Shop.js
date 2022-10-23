@@ -15,6 +15,11 @@ Shop.get = () => {
     return db.query('SELECT * FROM shops');
 };
 
+//FIND DUPLICATE TELEPHONE
+Shop.findDuplicate = telephone => {
+    return db.query(`SELECT * FROM shops WHERE telephone = $1`, [telephone]);
+};
+
 // UPDATE AN SHOP
 Shop.update = (id, name, telephone, address) => {
     return db.query(`UPDATE shops SET "name" = $2, telephone = $3, address = $4 WHERE id = $1`, [

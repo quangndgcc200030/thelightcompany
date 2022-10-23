@@ -25,7 +25,7 @@ class SupplierController {
             })
         } catch (error) {
             const conflicError = "Something is error"
-            res.status(400).render('supplier/list', { error: conflicError })
+            res.render('supplier/list', { error: conflicError })
         }
     }
 
@@ -54,7 +54,10 @@ class SupplierController {
         } else {
             Supplier.create(req.body.name, req.body.telephone, req.body.email, req.body.address)
                 .then(data => res.status(200).redirect('/manage/supplier'))
-                .catch(err => res.status(200).redirect('/manage/supplier'));
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.render('supplier/add', { error: conflicError })
+                });
         }
     }
 
@@ -62,14 +65,20 @@ class SupplierController {
         let id = req.params.id
         Supplier.update(id, req.body.name, req.body.telephone, req.body.email, req.body.address)
             .then(data => res.status(200).redirect('/manage/supplier'))
-            .catch(err => res.status(400).json(err));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.render('supplier/update', { error: conflicError })
+            });
     }
 
     delete(req, res, next) {
         let id = req.params.id
         Supplier.delete(id)
             .then(data => res.status(200).redirect('/manage/supplier'))
-            .catch(err => res.status(400).json(err));
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.render('supplier/list', { error: conflicError })
+            });
     }
 }
 module.exports = new SupplierController
