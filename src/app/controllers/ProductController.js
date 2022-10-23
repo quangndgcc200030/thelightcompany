@@ -96,7 +96,9 @@ class ProductController {
             const shops = await Shop.get()
 
             res.status(200).render('product/add', {
-                categories: categories.rows, suppliers: suppliers.rows, shops: shops.rows
+                categories: categories.rows, 
+                suppliers: suppliers.rows, 
+                shops: shops.rows
             })
         } catch (error) {
             const conflicError = "Something is error"
@@ -108,7 +110,7 @@ class ProductController {
 
     add(req, res, next) {
         Product.create(req.body.name, req.body.price, req.body.small_desc, req.body.detail_desc, req.body.for_gender, req.body.for_age, req.body.quantity, req.file.filename, req.body.cat_id, req.body.sup_id, req.body.shop_id)
-            .then(data => res.status(200).redirect('/manage/product'))
+            .then(data => res.status(200).redirect('/manage/product?page=1'))
             .catch(err => {
                 const conflicError = "Something is error"
                 res.status(400).render('product/list', {
