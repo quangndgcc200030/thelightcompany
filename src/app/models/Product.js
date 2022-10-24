@@ -145,4 +145,9 @@ Product.searchProductAdmin = value => {
                     ORDER BY p.updated_date DESC`);
 };
 
+//Notification
+Product.notification = () => {
+    return db.query(`SELECT * FROM products ORDER BY updated_date DESC LIMIT 10`)
+}
+
 module.exports = { Product };

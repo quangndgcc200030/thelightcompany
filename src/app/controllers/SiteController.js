@@ -121,6 +121,14 @@ class SiteController {
         res.render('site/about')
     }
 
+    async notification(req, res) {
+        const notification = await Product.notification()
+
+        res.render('site/notification', {
+            notifications: notification.rows
+        })
+    }
+
     admin(req, res) {
         res.render('site/administration')
     }
