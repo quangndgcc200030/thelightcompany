@@ -30,7 +30,7 @@ class ProfileController {
         const email = req.body.email
         const address = req.body.address.trim()
 
-        const user = await User.checkUpdateProfile(telephone)
+        const user = await User.checkUpdateProfile(username, telephone)
         if (user.rowCount == 1) {
             const conflicError = "Can not duplicates telephone"
             res.render('profile/profile', {

@@ -18,9 +18,9 @@ class RegisterController {
             const email = req.body.email
             const address = req.body.address.trim()
 
-            const user = await User.register(username, telephone, email)
+            const user = await User.checkRegister(username)
             if (user.rowCount == 1) {
-                const conflicError = "User already exists or duplicates telephone or email"
+                const conflicError = "User already exists!"
                 res.render('register/register', {
                     error: conflicError,
                     username: username,
@@ -43,12 +43,12 @@ class RegisterController {
                         })
                     })
                     .catch(err => {
-                        const conflicError = "Something is error"
+                        const conflicError = "Something is error 1"
                         res.render('register/register', { error: conflicError })
                     });
             }
         } catch (err) {
-            const conflicError = "Something is error"
+            const conflicError = "Something is error 2"
             res.render('register/register', { error: conflicError })
         }
     }

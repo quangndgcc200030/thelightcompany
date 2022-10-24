@@ -44,43 +44,22 @@ class ShopController {
     }
 
     async add(req, res, next) {
-        const findDuplicate = await Shop.findDuplicate(req.body.telephone)
-        if (findDuplicate.rowCount == 1) {
-            const conflicError = "Can not duplicate telephone"
-            return res.render('shop/add', {
-                name: req.body.name,
-                telephone: req.body.telephone,
-                address: req.body.address,
-                error: conflicError
-            })
-        } else {
-            Shop.create(req.body.name, req.body.telephone, req.body.address)
-                .then(data => res.redirect('/manage/shop'))
-                .catch(err => {
-                    const conflicError = "Something is error"
-                    res.status(400).render('shop/list', { error: conflicError })
-                });
-        }
+        Shop.create(req.body.name, req.body.telephone, req.body.address)
+            .then(data => res.redirect('/manage/shop'))
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('shop/list', { error: conflicError })
+            });
     }
 
     async update(req, res, next) {
         let id = req.params.id
-        const findDuplicate = await Shop.findDuplicate(req.body.telephone)
-        if (findDuplicate.rowCount == 1) {
-            const shop = await Shop.show(id)
-            const conflicError = "Can not duplicate telephone"
-            return res.render('shop/update', {
-                shop: shop.rows[0],
-                error: conflicError
-            })
-        } else {
-            Shop.update(id, req.body.name, req.body.telephone, req.body.address)
-                .then(data => res.redirect('/manage/shop'))
-                .catch(err => {
-                    const conflicError = "Something is error"
-                    res.status(400).render('shop/list', { error: conflicError })
-                });
-        }
+        Shop.update(id, req.body.name, req.body.telephone, req.body.address)
+            .then(data => res.redirect('/manage/shop'))
+            .catch(err => {
+                const conflicError = "Something is error"
+                res.status(400).render('shop/list', { error: conflicError })
+            });
     }
 
     delete(req, res, next) {

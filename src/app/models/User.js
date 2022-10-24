@@ -39,13 +39,13 @@ User.findUser = username => {
 };
 
 // REGISTER USER
-User.register = (username, telephone, email) => {
-    return db.query(`SELECT * FROM users WHERE username = $1 OR telephone = $2 OR email = $3`, [username, telephone, email]);
+User.checkRegister = (username) => {
+    return db.query(`SELECT * FROM users WHERE username = $1`, [username]);
 };
 
 //CHECK UPDATE PROFILE
-User.checkUpdateProfile = telephone => {
-    return db.query(`SELECT * FROM users WHERE telephone = $1`, [telephone]);
+User.checkUpdateProfile = (username, telephone) => {
+    return db.query(`SELECT * FROM users WHERE username != $1 AND telephone = $2`, [username, telephone]);
 };
 
 module.exports = { User };
