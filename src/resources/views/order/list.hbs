@@ -74,8 +74,10 @@
                             <a href="/manage/order/detail/{{ this.id }}" style="text-decoration: none;">{{ sum @index 1
                                 }}</a>
                         </td>
+                        
                         <td class="text-center">{{dateFormat this.ordered_date "YYYY-MM-DD, HH:mm:ss"}}</td>
                         <td class="text-center">{{dateFormat this.delivery_date "YYYY-MM-DD, HH:mm:ss"}}</td>
+
                         <td class="text-center">{{ this.cust_name }}</td>
                         <td class="text-center">{{ this.cust_phone }}</td>
                         <td>{{ this.delivery_local }}</td>

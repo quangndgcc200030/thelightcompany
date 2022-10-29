@@ -26,7 +26,6 @@ class LoginController {
                 if (validPass) {
                     req.session.loggedin = true
                     req.session.user = user.rows[0]
-                    // console.log(req.session.user)
                     res.redirect('/')
                 } else {
                     const conflicError = "Password is not correct"

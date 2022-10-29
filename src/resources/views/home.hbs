@@ -145,7 +145,8 @@
                             </div>
                         </div>
                         <div class="card-body text-center mx-auto">
-                            <a href="/view-detail/{{ this.id }}" class="btn details px-auto text-dark font-weight-bold">view
+                            <a href="/view-detail/{{ this.id }}"
+                                class="btn details px-auto text-dark font-weight-bold">view
                                 details</a><br />
                             <form action="/cart/add" method="POST" class="mb-2">
                                 <input type="hidden" name="quantity" value="1">
@@ -201,8 +202,42 @@
                     </div>
                 </div>
 
+                <script>
+                    function hasWhiteSpace(s) {
+                        return (/\s/).test(s);
+                    }
+
+                    function formValid() {
+                        f = document.formContact
+                        var validname = /^[A-Za-z]+|(\s)$/;
+                        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                        var phone_pattern = /^(\(0\d{1,3}\)\d{7})|(0\d{9})$/;
+                        var email_pattern = /^[a-zA-Z]\w*(\.\w+)*\@\w+(\.\w{2,3})+$/;
+
+                        // Name validation
+                        if (format.test(f.name.value) || validname.test(f.name.value) == false) {
+                            alert("Invalid name. Please enter again");
+                            f.name.focus();
+                            return false;
+                        }
+                        // Subject validation
+                        if (format.test(f.subject.value) || validname.test(f.subject.value) == false) {
+                            alert("Invalid subject. Please enter again");
+                            f.subject.focus();
+                            return false;
+                        }
+                        // Message validation
+                        if (format.test(f.message.value) || validname.test(f.message.value) == false) {
+                            alert("Invalid message. Please enter again");
+                            f.message.focus();
+                            return false;
+                        }
+                        return true;
+                    }
+                </script>
+
                 <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                    <form action="/contact" method="POST" role="form" class="php-email-form">
+                    <form id="formContact" name="formContact" action="/contact" method="POST" role="form" class="php-email-form" onsubmit="return formValid()">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name" class="font-weight-bold">Your Name</label>

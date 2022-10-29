@@ -11,6 +11,7 @@ require('dotenv').config()
 const session = require('express-session');
 
 hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
+
 hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
     switch (operator) {
         case '==':
@@ -37,6 +38,7 @@ hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
             return options.inverse(this);
     }
 });
+
 hbs.registerHelper('times', function (from, to, block) {
     var accum = '';
     for (var i = from; i <= to; i++) {
@@ -73,6 +75,7 @@ hbs.registerHelper('join', function(items, block) {
         return [].concat(items).slice(start, end).join(delimiter);
     }
 });
+
 //use session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
