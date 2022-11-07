@@ -1,4 +1,5 @@
 const express = require("express")
+const app = express()
 const router = express.Router()
 const siteController = require('../app/controllers/SiteController')
 const authMiddleware = require('../app/middlewares/AuthMiddleware')

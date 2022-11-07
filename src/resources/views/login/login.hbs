@@ -6,12 +6,14 @@
         </span>
         {{#if error }}
         <div class="alert alert-danger text-center">{{ error }}</div>
-        {{!-- <meta http-equiv="refresh" content="2; url='/login'" /> --}}
+        {{!--
+        <meta http-equiv="refresh" content="2; url='/login'" /> --}}
         {{/if}}
         <div class="form-group">
             <label for="exampleInputEmail1" class="font-weight-bold mb-2">Username or Email</label>
             {{#if account}}
-            <input type="text" class="form-control" id="exampleInputEmail1" name="username" value="{{ account }}" required>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="username" value="{{ account }}"
+                required>
             {{else}}
             <input type="text" class="form-control" id="exampleInputEmail1" name="username" required>
             {{/if}}
@@ -42,6 +44,22 @@
         </div>
         <div class="text-center mt-3">
             <p>Don’t have an account? <a href="/register"> Sign up </a> </p>
+        </div>
+
+        <div class="text-center my-4">
+            <p class="text-center font-weight-bold mx-3 mb-0 text-muted">OR</p>
+        </div>
+
+        <div class="container-login100-form-btn">
+            <a class="login100-form-btn" style="background-color: #EA4335; color: white;" href="login/auth/google" role="button">
+                <i class="fab fa-google mr-2"></i>Continue with Google
+            </a>
+        </div>
+
+        <div class="container-login100-form-btn mt-2">
+            <a class="login100-form-btn" style="background-color: #4267b2; color: white;" href="login/auth/facebook" role="button">
+                <i class="fab fa-facebook-f mr-2"></i>Continue with Facebook
+            </a>
         </div>
     </form>
     <div class="login100-more" style="background-image: url('/img/login.jpg');">

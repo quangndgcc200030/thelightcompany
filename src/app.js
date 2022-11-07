@@ -52,26 +52,26 @@ hbs.registerHelper('times', function (from, to, block) {
 //Handlebars "join" block helper that supports arrays of objects or strings.  
 //If "delimiter" is not speficified, then it defaults to ",".  You can use "start", 
 //and "end" to do a "slice" of the array.
-hbs.registerHelper('join', function(items, block) {
-    var delimiter = block.hash.delimiter || ",", 
-        start = start = block.hash.start || 0, 
+hbs.registerHelper('join', function (items, block) {
+    var delimiter = block.hash.delimiter || ",",
+        start = start = block.hash.start || 0,
         len = items ? items.length : 0,
         end = block.hash.end || len,
         out = "";
 
-        if(end > len) end = len;
+    if (end > len) end = len;
 
     if ('function' === typeof block) {
         for (i = start; i < end; i++) {
-            if (i > start) 
+            if (i > start)
                 out += delimiter;
-            if('string' === typeof items[i])
+            if ('string' === typeof items[i])
                 out += items[i];
             else
                 out += block(items[i]);
         }
         return out;
-    } else { 
+    } else {
         return [].concat(items).slice(start, end).join(delimiter);
     }
 });
@@ -89,6 +89,21 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24
     }
 }))
+
+//Auth Google
+const passport = require('passport');
+// var userProfile;
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function (user, cb) {
+    cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+    cb(null, obj);
+});
 
 app.use(express.static(path.join(__dirname, 'public')))
 
