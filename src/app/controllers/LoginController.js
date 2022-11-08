@@ -73,31 +73,78 @@ class LoginController {
         }
     }
 
-    googleCallback(req, res) {
+    async googleCallback(req, res) {
         const firstName = userProfile.name.givenName
         const lastName = userProfile.name.familyName
         const email = userProfile.emails[0].value
         const username = email.substr(0, email.indexOf('@'))
 
-        res.render('register/register', {
-            username: username,
-            firstname: firstName,
-            lastname: lastName,
-            email: email,
-        })
+        const user = await User.checkRegister(username)
+        if (user.rowCount == 1) {
+            req.session.loggedin = true
+            req.session.user = user.rows[0]
+            res.redirect('/')
+        } else {
+            const password = "123456"
+            const salt = await bcrypt.genSalt(10)
+            const hashed = await bcrypt.hash(password, salt)
+
+            const date = new Date();
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+            // This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${day}-${month}-${year}`;
+
+            User.create(username, hashed, firstName, lastName, true, currentDate, "", email, "", false)
+                .then(data => {
+                    req.session.loggedin = true
+                    req.session.user = data.rows[0]
+                    res.redirect('/')
+                })
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.render('login/login', { account: username, error: conflicError })
+                });
+        }
     }
 
-    facebookCallback(req, res) {
+    async facebookCallback(req, res) {
         const firstName = userFacebook.name.givenName
         const lastName = userFacebook.name.familyName
         const middleName = userFacebook.name.middleName
         const username = firstName.concat(lastName.charAt(0).concat(middleName.charAt(0))).toLowerCase()
 
-        res.render('register/register', {
-            username: username,
-            firstname: firstName,
-            lastname: lastName + " " + middleName,
-        })
+        const user = await User.checkRegister(username)
+        if (user.rowCount == 1) {
+            req.session.loggedin = true
+            req.session.user = user.rows[0]
+            res.redirect('/')
+        } else {
+            const password = "123456"
+            const salt = await bcrypt.genSalt(10)
+            const hashed = await bcrypt.hash(password, salt)
+
+            const date = new Date();
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+            // This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${day}-${month}-${year}`;
+
+            User.create(username, hashed, firstName, lastName, true, currentDate, "", "", "", false)
+                .then(data => {
+                    req.session.loggedin = true
+                    req.session.user = data.rows[0]
+                    res.redirect('/')
+                })
+                .catch(err => {
+                    const conflicError = "Something is error"
+                    res.render('login/login', { account: username, error: conflicError })
+                });
+        }
         // res.json({ user: userFacebook })
     }
 

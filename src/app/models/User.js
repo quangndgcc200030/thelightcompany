@@ -7,7 +7,7 @@ const User = {};
 // CREATE USER
 User.create = (username, password, firstname, lastname, gender, birthdate, telephone, email, address, role) => {
     return db.query(`INSERT INTO users (username, password, firstname, lastname, gender, birthdate, telephone, email, address, role) 
-                    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+                    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
     [username, password, firstname, lastname, gender, birthdate, telephone, email, address, role]);
 };
 
