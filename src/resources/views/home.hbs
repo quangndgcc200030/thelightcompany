@@ -207,7 +207,7 @@
                         return (/\s/).test(s);
                     }
 
-                    function formValid() {
+                    function formValidContact() {
                         f = document.formContact
                         var validname = /^[A-Za-z]+|(\s)$/;
                         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -237,7 +237,7 @@
                 </script>
 
                 <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                    <form id="formContact" name="formContact" action="/contact" method="POST" role="form" class="php-email-form" onsubmit="return formValid()">
+                    <form id="formContact" name="formContact" action="/contact" method="POST" role="form" class="php-email-form" onsubmit="return formValidContact()">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name" class="font-weight-bold">Your Name</label>
