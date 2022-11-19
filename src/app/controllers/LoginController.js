@@ -95,7 +95,7 @@ class LoginController {
             let year = date.getFullYear();
 
             // This arrangement can be altered based on how we want the date's format to appear.
-            let currentDate = `${day}-${month}-${year}`;
+            let currentDate = `${year}-${month}-${day}`;
 
             User.create(username, hashed, firstName, lastName, true, currentDate, "", email, "", false)
                 .then(data => {
@@ -105,6 +105,7 @@ class LoginController {
                 })
                 .catch(err => {
                     const conflicError = "Something is error"
+                    // console.log(err)
                     res.render('login/login', { account: username, error: conflicError })
                 });
         }
