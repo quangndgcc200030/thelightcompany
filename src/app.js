@@ -126,6 +126,14 @@ app.engine('hbs', exphbs.engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
+app.get('/404', (req, res) => {
+    res.render('404');
+})
+
+app.get('/500', (req, res) => {
+    res.render('500');
+})
+
 //Routes init
 route(app)
 

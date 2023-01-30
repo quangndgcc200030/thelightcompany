@@ -3,7 +3,7 @@ const passport = require('passport');
 const dotenv = require('dotenv')
 dotenv.config()
 const { User } = require("../models/User");
-var userProfile;
+var userGoogle;
 var userFacebook;
 
 /*  Google AUTH  */
@@ -14,8 +14,8 @@ passport.use(new GoogleStrategy({
     callbackURL: "/login/auth/google/callback"
 },
     function (accessToken, refreshToken, profile, done) {
-        userProfile = profile;
-        return done(null, userProfile);
+        userGoogle = profile;
+        return done(null, userGoogle);
     }
 ));
 
@@ -74,9 +74,9 @@ class LoginController {
     }
 
     async googleCallback(req, res) {
-        const firstName = userProfile.name.givenName
-        const lastName = userProfile.name.familyName
-        const email = userProfile.emails[0].value
+        const firstName = userGoogle.name.givenName
+        const lastName = userGoogle.name.familyName
+        const email = userGoogle.emails[0].value
         const username = email.substr(0, email.indexOf('@'))
 
         const user = await User.checkRegister(username)

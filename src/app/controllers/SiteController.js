@@ -10,7 +10,7 @@ class SiteController {
         const products = await Product.showBestSelling()
         const categories = await Category.showTop4()
 
-        res.status(200).render('home', {
+        res.render('home', {
             products: products.rows,
             categories: categories.rows
         })
@@ -76,7 +76,7 @@ class SiteController {
 
         } catch (error) {
             const conflicError = "Something is error"
-            res.status(400).render('site/shop', { error: conflicError })
+            res.render('site/shop', { error: conflicError })
         }
     }
 
@@ -90,7 +90,7 @@ class SiteController {
             // res.status(200).render('site/viewdetail')
         } catch (error) {
             const conflicError = "Something is error"
-            res.status(400).render('site/viewdetail', { error: conflicError })
+            res.render('site/viewdetail', { error: conflicError })
         }
     }
 
