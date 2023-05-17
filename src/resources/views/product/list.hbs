@@ -1,4 +1,8 @@
 <style>
+  body {
+    font-family: "Quicksand", sans-serif;
+  }
+
   .wrapper {
     display: flex;
     justify-content: center;
@@ -62,8 +66,8 @@
         <div class="col-6 d-flex justify-content-end align-items-center">
           <form action="/manage/product" autocomplete="off" method="GET" class="d-flex input-group w-auto">
             <input type="hidden" name="page" value="1">
-            <input type="search" class="form-control" id="searchAdmin" name="search" placeholder="Search by name" aria-label="Search"
-              aria-describedby="search-addon" required/>
+            <input type="search" class="form-control" id="searchAdmin" name="search" placeholder="Search by name"
+              aria-label="Search" aria-describedby="search-addon" required />
             <button class="btn btn-secondary searching" type="submit"><i class="bi bi-search"></i></button>
           </form>
           <script>

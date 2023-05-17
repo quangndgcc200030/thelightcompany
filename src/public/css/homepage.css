@@ -2,7 +2,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Quicksand", sans-serif;
   color: #444444; }
 
 a {
@@ -12,14 +12,6 @@ a {
 a:hover {
   color: #73c5eb;
   text-decoration: none; }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Jost", sans-serif; }
 
 /*--------------------------------------------------------------
   # Preloader
@@ -113,7 +105,6 @@ h6 {
   font-size: 15px; }
 
 #hero .btn-get-started {
-  font-family: "Jost", sans-serif;
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;
@@ -268,7 +259,6 @@ section {
   margin-bottom: 0; }
 
 .about .content .btn-learn-more {
-  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   letter-spacing: 1px;

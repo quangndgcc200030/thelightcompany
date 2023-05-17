@@ -94,7 +94,7 @@ class SiteController {
         }
     }
 
-    async contact(req, res) {
+    async savecontact(req, res) {
         try {
             let name = req.body.name
             let email = req.body.email
@@ -113,8 +113,12 @@ class SiteController {
                     })
                 })
         } catch (error) {
-            res.redirect('/')
+            res.redirect('/contact')
         }
+    }
+
+    contact(req, res) {
+        res.render('site/contact');
     }
 
     about(req, res) {
