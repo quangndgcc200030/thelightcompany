@@ -1,2 +1,26 @@
+# Directories
+node_modules/
+dist/
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+puppeteer/
+chromium/
+
+# Environment variables
 .env
-/node_modules
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
